@@ -1,0 +1,174 @@
+{
+  // RevOps Signal - Design Criteria
+  "meta": {
+    "style_name": "Dark Executive Signal",
+    "confidence_notes": [
+      "Set 1 is the master style authority.",
+      "Sets 2-4 contribute approved layout and analytics patterns only after normalization.",
+      "The product should feel premium, credible, and restrained rather than flashy.",
+    ],
+    "inferred_layout_type": "desktop-first analytics dashboard",
+  },
+  "visual_dna": {
+    "mood": ["strategic", "premium", "dark", "high-signal", "controlled"],
+    "density": "medium-high",
+    "contrast_strategy": "high text contrast on dark layered surfaces with restrained accent emphasis",
+    "visual_hierarchy": "KPI summary first, diagnostics second, supporting detail third",
+  },
+  "tokens": {
+    "color": {
+      "bg": "#090B10",
+      "surface": "#11141B",
+      "surface_alt": "#171B23",
+      "surface_elevated": "#1C212B",
+      "border": "rgba(255,255,255,0.08)",
+      "text_primary": "#F4F7FB",
+      "text_secondary": "#A7B0C0",
+      "text_muted": "#7B8597",
+      "accent_primary": "#6F6BFF",
+      "accent_secondary": "#4CD7FF",
+      "accent_tertiary": "#9B7CFF",
+      "success": "#31C48D",
+      "warning": "#F5B94C",
+      "danger": "#F05252",
+      "info": "#60A5FA",
+    },
+    "typography": {
+      "font_family_sans": "\"Manrope\", \"Segoe UI\", sans-serif",
+      "font_family_display": "\"Manrope\", \"Segoe UI\", sans-serif",
+      "scale": {
+        "xs": "12px",
+        "sm": "13px",
+        "base": "14px",
+        "md": "16px",
+        "lg": "18px",
+        "xl": "22px",
+        "2xl": "30px",
+        "3xl": "40px",
+      },
+      "weights": {
+        "regular": 400,
+        "medium": 500,
+        "semibold": 600,
+        "bold": 700,
+      },
+    },
+    "spacing": {
+      "base_unit": 4,
+      "scale": [4, 8, 12, 16, 20, 24, 32, 40],
+    },
+    "radius": {
+      "sm": "10px",
+      "md": "14px",
+      "lg": "18px",
+      "xl": "22px",
+      "pill": "999px",
+    },
+    "shadow": {
+      "subtle": "0 0 0 1px rgba(255,255,255,0.03), 0 8px 24px rgba(0,0,0,0.18)",
+      "medium": "0 0 0 1px rgba(255,255,255,0.04), 0 12px 32px rgba(0,0,0,0.24)",
+      "floating": "0 0 0 1px rgba(111,107,255,0.16), 0 16px 40px rgba(0,0,0,0.32)",
+    },
+    "motion": {
+      "durations": {
+        "fast": "120ms",
+        "normal": "180ms",
+        "slow": "240ms",
+      },
+      "easings": {
+        "standard": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+      },
+      "interaction_principles": [
+        "subtle hover lift",
+        "clear selected state",
+        "no flashy motion",
+        "focus visibility always preserved",
+      ],
+    },
+  },
+  "layout_system": {
+    "canvas": "full app shell with left nav + top controls + content grid",
+    "max_width": "1600px",
+    "grid_columns_desktop": 12,
+    "grid_columns_mobile": 1,
+    "gutters": {
+      "desktop": "24px",
+      "tablet": "16px",
+    },
+    "section_spacing": "24px",
+  },
+  "components": {
+    "kpi_card": {
+      "variants": ["default", "highlighted", "status"],
+      "states": ["default", "hover", "selected"],
+    },
+    "chart_card": {
+      "variants": ["default", "wide", "compact"],
+      "states": ["default", "hover", "empty"],
+    },
+    "filter_control": {
+      "variants": ["select", "pill_group", "segmented"],
+      "states": ["default", "hover", "active", "disabled"],
+    },
+    "table": {
+      "variants": ["summary", "detailed"],
+      "states": ["default", "row_hover", "empty"],
+    },
+    "progress_bar": {
+      "variants": ["attainment", "confidence", "risk"],
+      "states": ["default"],
+    },
+    "status_pill": {
+      "variants": ["success", "warning", "danger", "neutral"],
+      "states": ["default"],
+    },
+  },
+  "interaction_patterns": {
+    "hover": "slight border or brightness shift; avoid dramatic glow",
+    "focus": "clear ring or outline with accessible contrast",
+    "active": "accent-led selected treatment",
+    "disabled": "reduce contrast; preserve legibility",
+    "loading": "quiet skeletons or placeholder surfaces",
+    "empty": "preserve card structure with concise explanation",
+    "error": "inline calm error treatment, not alarming full-screen failure",
+  },
+  "responsive_rules": {
+    "desktop_first": true,
+    "collapse_behavior": [
+      "stack lower-priority cards below summary on smaller widths",
+      "allow tables to scroll horizontally when necessary",
+      "preserve top KPI readability",
+    ],
+  },
+  "dark_mode_rules": {
+    "mode": "native primary mode for MVP",
+    "principles": [
+      "multiple dark surface elevations",
+      "text contrast must remain high",
+      "accents should be restrained",
+    ],
+  },
+  "accessibility_guidance": {
+    "rules": [
+      "do not rely on color alone for meaning",
+      "maintain visible keyboard focus",
+      "use readable chart labels and section headings",
+      "keep contrast adequate for primary text and controls",
+    ],
+  },
+  "implementation_rules": [
+    "centralize tokens",
+    "avoid magic design values when shared tokens exist",
+    "reuse shared card and filter primitives",
+    "charts must answer specific business questions",
+    "all patterns normalize into Set 1 visual language",
+  ],
+  "anti_patterns": [
+    "rainbow overload",
+    "too many competing accent colors",
+    "marketing-style hero excess",
+    "page-local design drift",
+    "chart usage without narrative purpose",
+    "hardcoded inconsistent spacing values",
+  ],
+}

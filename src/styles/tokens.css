@@ -1,0 +1,30 @@
+:root {
+  --rs-font-sans: 'Manrope', 'Segoe UI', sans-serif;
+
+  --rs-bg: #090b10;
+  --rs-surface: #11141b;
+  --rs-surface-alt: #171b23;
+  --rs-surface-elevated: #1c212b;
+  --rs-border: rgba(255, 255, 255, 0.08);
+
+  --rs-text-primary: #f4f7fb;
+  --rs-text-secondary: #a7b0c0;
+  --rs-text-muted: #7b8597;
+
+  --rs-accent-primary: #6f6bff;
+  --rs-accent-secondary: #4cd7ff;
+  --rs-accent-tertiary: #9b7cff;
+
+  --rs-success: #31c48d;
+  --rs-warning: #f5b94c;
+  --rs-danger: #f05252;
+
+  --rs-radius-soft: 14px;
+  --rs-radius-panel: 18px;
+  --rs-radius-pill: 999px;
+
+  --rs-shadow-subtle:
+    0 0 0 1px rgba(255, 255, 255, 0.03), 0 8px 24px rgba(0, 0, 0, 0.18);
+  --rs-shadow-medium:
+    0 0 0 1px rgba(255, 255, 255, 0.04), 0 12px 32px rgba(0, 0, 0, 0.24);
+}

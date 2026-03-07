@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap');
+@import 'tailwindcss';
+@import './tokens.css';
+
+@theme inline {
+  --font-sans: var(--rs-font-sans);
+
+  --color-bg: var(--rs-bg);
+  --color-surface: var(--rs-surface);
+  --color-surface-alt: var(--rs-surface-alt);
+  --color-surface-elevated: var(--rs-surface-elevated);
+  --color-text-primary: var(--rs-text-primary);
+  --color-text-secondary: var(--rs-text-secondary);
+  --color-text-muted: var(--rs-text-muted);
+  --color-accent-primary: var(--rs-accent-primary);
+  --color-accent-secondary: var(--rs-accent-secondary);
+  --color-accent-tertiary: var(--rs-accent-tertiary);
+  --color-success: var(--rs-success);
+  --color-warning: var(--rs-warning);
+  --color-danger: var(--rs-danger);
+
+  --radius-soft: var(--rs-radius-soft);
+  --radius-panel: var(--rs-radius-panel);
+  --radius-pill: var(--rs-radius-pill);
+
+  --shadow-panel: var(--rs-shadow-subtle);
+  --shadow-panel-hover: var(--rs-shadow-medium);
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    min-height: 100vh;
+    background-color: var(--rs-bg);
+    color: var(--rs-text-primary);
+    font-family: var(--rs-font-sans);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  * {
+    border-color: var(--rs-border);
+  }
+
+  #root {
+    min-height: 100vh;
+  }
+
+  ::selection {
+    background: rgba(111, 107, 255, 0.38);
+    color: var(--rs-text-primary);
+  }
+}
+
+@layer components {
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-accent-primary/25 focus:ring-offset-0;
+  }
+}
