@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Step 2 in progress: scaffold complete, shared data/filter foundation complete, and the app is ready for page-focused implementation
+Step 2 in progress: scaffold complete, shared data/filter foundation complete, reviewer-facing README added, and the app is ready for page-focused implementation
 
 ## Active Role
 
@@ -14,7 +14,10 @@ Builder
 
 ## Current Branch
 
-`codex/scaffold-vite-app`
+`main`
+
+Start the next implementation pass from the latest `main`, then create a fresh task branch.
+Suggested next branch: `codex/overview-page`
 
 ## Current MVP Scope
 
@@ -47,7 +50,7 @@ Pages:
 
 ## Current Task
 
-Begin Task 7 by turning the selector-backed overview shell into the first fully composed page.
+Create a fresh branch from `main`, then begin Task 7 by turning the selector-backed overview shell into the first fully composed page.
 
 ## Recently Completed
 
@@ -59,6 +62,7 @@ Begin Task 7 by turning the selector-backed overview shell into the first fully 
 - built centralized selectors for overview, funnel, performance, and forecast logic
 - connected all four routes to shared selector-backed outputs and empty states
 - added selector tests and verified `npm run lint`, `npm run test`, `npm run build`, and local Vite boot
+- added a root README that frames the project for reviewers and explains the current MVP foundation
 
 ## Exact Next Task
 
