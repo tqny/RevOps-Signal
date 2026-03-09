@@ -192,7 +192,7 @@ Deliver the top-level business story.
 ### Task 8: Implement Pipeline & Funnel page
 
 **Status**
-Pending
+Completed
 
 **Purpose**
 Explain conversion and leakage.

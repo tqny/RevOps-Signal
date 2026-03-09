@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Step 3 in progress: Executive Overview is fully composed, shared data/filter foundations remain stable, and the remaining page implementations are next
+Step 4 complete: Executive Overview and Pipeline & Funnel are fully composed, shared data/filter foundations remain stable, and Sales Performance is next
 
 ## Active Role
 
@@ -14,10 +14,10 @@ Builder
 
 ## Current Branch
 
-`main`
+`codex/task-8-pipeline-funnel`
 
-Start the next implementation pass from the latest `main`, then create a fresh task branch.
-Suggested next branch: `codex/overview-page`
+Merge this branch into the latest `main`, then create a fresh task branch for the next page pass.
+Suggested next branch: `codex/task-9-sales-performance`
 
 ## Current MVP Scope
 
@@ -50,7 +50,7 @@ Pages:
 
 ## Current Task
 
-Task 7 is complete. Continue with the next page implementation task from the current branch state.
+Task 8 is complete. Continue with the next page implementation task after merging this branch.
 
 ## Recently Completed
 
@@ -65,15 +65,17 @@ Task 7 is complete. Continue with the next page implementation task from the cur
 - added a root README that frames the project for reviewers and explains the current MVP foundation
 - implemented the Executive Overview page with selector-backed KPI cards, a trend chart, a mix chart, an executive signals panel, and a rep coverage summary table
 - verified the overview implementation with lint, tests, build, local Vite boot, and browser screenshots of the rendered route
+- implemented the Pipeline & Funnel page with selector-backed funnel, conversion, leakage, and stalled-watchlist sections
+- verified the pipeline implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and a rendered Chromium screenshot of `/pipeline`
 
 ## Exact Next Task
 
-Task 8: Implement Pipeline & Funnel page
+Task 9: Implement Sales Performance page
 
 ## Open Issues / Blockers
 
 - none currently
-- remaining page-specific chart treatment and final visual composition are still pending for Tasks 8-10
+- remaining page-specific chart treatment and final visual composition are still pending for Tasks 9-10
 
 ## Active Assumptions
 
@@ -82,7 +84,7 @@ Task 8: Implement Pipeline & Funnel page
 - four pages are sufficient for MVP
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- Executive Overview is now fully composed from shared selectors; the remaining pages still use the lighter interim presentation
+- Executive Overview and Pipeline & Funnel are now fully composed from shared selectors; Sales Performance and Forecast & Risks still use the lighter interim presentation
 
 ## Required Read Order
 

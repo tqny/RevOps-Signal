@@ -1,9 +1,14 @@
 import { PageHeader } from '../components/layout/PageHeader';
 import { EmptyState } from '../components/ui/EmptyState';
 import { MetricTile } from '../components/ui/MetricTile';
-import { ProgressBar } from '../components/ui/ProgressBar';
+import { StatusBadge } from '../components/ui/StatusBadge';
 import { SurfaceCard } from '../components/ui/SurfaceCard';
 import { getPipelineSnapshot } from '../data/selectors';
+import {
+  PipelineConversionChart,
+  PipelineFunnelChart,
+  PipelineLeakageChart,
+} from '../features/pipeline/PipelineCharts';
 import { useFilters } from '../features/filters';
 import {
   formatCompactCurrency,
@@ -12,49 +17,138 @@ import {
   formatLabelFromToken,
   formatPercentage,
 } from '../lib/formatters';
+import type { StageConversionRow, StageLeakageRow } from '../types/revops';
+
+function getConversionBadge(rate: number) {
+  if (rate >= 0.65) {
+    return { label: 'Strong', variant: 'success' as const };
+  }
+
+  if (rate >= 0.4) {
+    return { label: 'Mixed', variant: 'accent' as const };
+  }
+
+  return { label: 'Tight', variant: 'warning' as const };
+}
+
+function getLeakageBadge(row: StageLeakageRow) {
+  if (row.totalExposedAmount === 0) {
+    return { label: 'Contained', variant: 'neutral' as const };
+  }
+
+  if (row.lostAmount >= row.stalledAmount) {
+    return { label: 'Leakage', variant: 'danger' as const };
+  }
+
+  return { label: 'Aging', variant: 'warning' as const };
+}
+
+function StageConversionCard({ row }: { row: StageConversionRow }) {
+  const badge = getConversionBadge(row.rate);
+
+  return (
+    <div className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-4">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-sm font-medium text-text-primary">{row.stage}</p>
+        <StatusBadge variant={badge.variant}>{badge.label}</StatusBadge>
+      </div>
+      <p className="mt-3 text-2xl font-semibold tracking-tight text-text-primary">
+        {formatPercentage(row.rate)}
+      </p>
+      <p className="mt-2 text-sm leading-6 text-text-secondary">
+        {formatCount(row.progressedCount)} of {formatCount(row.reachedCount)}{' '}
+        deals have already progressed forward. {formatCount(row.dropOffCount)}{' '}
+        remain at this stage.
+      </p>
+    </div>
+  );
+}
+
+function LeakageStageCard({ row }: { row: StageLeakageRow }) {
+  const badge = getLeakageBadge(row);
+
+  return (
+    <div className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-4">
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-sm font-medium text-text-primary">{row.stage}</p>
+        <StatusBadge variant={badge.variant}>{badge.label}</StatusBadge>
+      </div>
+      <p className="mt-3 text-xl font-semibold tracking-tight text-text-primary">
+        {formatCompactCurrency(row.totalExposedAmount)}
+      </p>
+      <p className="mt-2 text-sm leading-6 text-text-secondary">
+        Lost {formatCount(row.lostCount)} /{' '}
+        {formatCompactCurrency(row.lostAmount)}. Stalled {formatCount(
+          row.stalledCount,
+        )}{' '}
+        / {formatCompactCurrency(row.stalledAmount)}.
+      </p>
+    </div>
+  );
+}
 
 export function PipelineFunnelPage() {
   const { filters } = useFilters();
   const pipeline = getPipelineSnapshot(filters);
-  const maxStageAmount = Math.max(
-    ...pipeline.stageFunnel.map((row) => row.amount),
-    1,
-  );
+  const cycleBenchmarkValue =
+    pipeline.averageCycleDays > 0 ? formatDays(pipeline.averageCycleDays) : 'N/A';
 
   return (
     <div className="space-y-6">
       <PageHeader
-        eyebrow="Diagnostics"
+        eyebrow="Pipeline"
         title="Pipeline & Funnel"
-        description="This page now runs on real seeded opportunities and selector math. The current presentation stays intentionally utilitarian until the dedicated page implementation pass."
+        description="Trace where open pipeline is concentrated, how far deals are progressing, and where leakage or aging is slowing the path to close. All stage logic stays in the shared selector layer."
       />
 
       <section className="grid gap-4 xl:grid-cols-4">
         <MetricTile
           label="Open pipeline"
           value={formatCompactCurrency(pipeline.totalPipelineAmount)}
-          detail={`${formatCount(pipeline.openOpportunityCount)} open opportunities in scope.`}
+          detail={`${formatCount(pipeline.openOpportunityCount)} active opportunities are visible in the current filter scope.`}
           tone="accent"
         />
         <MetricTile
-          label="Average deal size"
-          value={formatCompactCurrency(pipeline.averageDealSize)}
-          detail={`Current won-cycle benchmark is ${formatDays(pipeline.averageCycleDays)}.`}
-          tone="neutral"
+          label="Late-stage pipeline"
+          value={formatCompactCurrency(pipeline.lateStagePipelineAmount)}
+          detail={`${formatCount(
+            pipeline.lateStageOpportunityCount,
+          )} deals are already in proposal or negotiation, ${formatPercentage(
+            pipeline.lateStageShare,
+          )} of open pipeline.`}
+          tone={pipeline.lateStageShare >= 0.4 ? 'success' : 'accent'}
         />
         <MetricTile
-          label="Stalled pipeline"
+          label="Stalled exposure"
           value={formatCompactCurrency(pipeline.stalledPipelineAmount)}
-          detail={`${formatCount(pipeline.stalledOpportunityCount)} opportunities are flagged as stalled or aging.`}
-          tone={pipeline.stalledOpportunityCount >= 3 ? 'warning' : 'success'}
+          detail={`${formatCount(
+            pipeline.stalledOpportunityCount,
+          )} aging deals account for ${formatPercentage(
+            pipeline.stalledShare,
+          )} of the open book.`}
+          tone={
+            pipeline.stalledOpportunityCount === 0
+              ? 'success'
+              : pipeline.stalledShare >= 0.2
+                ? 'warning'
+                : 'accent'
+          }
         />
         <MetricTile
-          label="Funnel stages"
-          value={formatCount(
-            pipeline.stageFunnel.filter((row) => row.count > 0).length,
-          )}
-          detail="Stage counts and leakage now come from one central selector path."
-          tone="success"
+          label="Won cycle benchmark"
+          value={cycleBenchmarkValue}
+          detail={`Current closed-won benchmark for the visible slice. Average open deal size is ${formatCompactCurrency(
+            pipeline.averageDealSize,
+          )}.`}
+          tone={
+            pipeline.averageCycleDays === 0
+              ? 'neutral'
+              : pipeline.averageCycleDays <= 60
+                ? 'success'
+                : pipeline.averageCycleDays <= 75
+                  ? 'accent'
+                  : 'warning'
+          }
         />
       </section>
 
@@ -62,112 +156,80 @@ export function PipelineFunnelPage() {
         <SurfaceCard title="Pipeline">
           <EmptyState
             title="No opportunities match the current filters"
-            description="Reset the filters to restore the visible funnel."
+            description="Reset one or more filters to restore the pipeline story."
           />
         </SurfaceCard>
       ) : (
         <>
-          <section className="grid gap-4 xl:grid-cols-[1.05fr,0.95fr]">
+          <section className="grid gap-4 2xl:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)]">
             <SurfaceCard
-              title="Stage funnel"
-              description="Open volume by stage. These values will feed a styled funnel chart later without changing the source selector."
+              title="Pipeline funnel"
+              description="Open pipeline is sequenced by stage so you can see where volume is sitting right now. The layout is intentionally funnel-like, but every value still comes from the central stage snapshot."
+              footer={`${formatCompactCurrency(
+                pipeline.lateStagePipelineAmount,
+              )} is already sitting in proposal or negotiation across ${formatCount(
+                pipeline.lateStageOpportunityCount,
+              )} active deals.`}
             >
-              <div className="space-y-4">
-                {pipeline.stageFunnel.map((row) => (
-                  <ProgressBar
-                    key={row.stage}
-                    label={row.stage}
-                    value={row.amount}
-                    total={maxStageAmount}
-                    valueLabel={formatCompactCurrency(row.amount)}
-                    detail={`${formatCount(row.count)} opportunities`}
-                    tone="accent"
-                  />
-                ))}
-              </div>
+              <PipelineFunnelChart data={pipeline.stageFunnel} />
             </SurfaceCard>
 
             <SurfaceCard
-              title="Stage conversion proxy"
-              description="This proxy uses current-stage progression to keep the MVP deterministic without adding historical stage-event modeling."
+              title="Stage conversion"
+              description="Progression uses the shared stage-reached proxy so conversion can be diagnosed without introducing historical stage-event modeling into the MVP."
             >
-              <div className="space-y-3">
-                {pipeline.stageConversion.map((row) => (
-                  <div
-                    key={row.stage}
-                    className="rounded-soft border border-white/8 bg-surface-alt/60 px-4 py-4"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-sm font-medium text-text-primary">
-                        {row.stage}
-                      </p>
-                      <p className="text-sm text-text-secondary">
-                        {formatPercentage(row.rate)}
-                      </p>
-                    </div>
-                    <p className="mt-2 text-sm text-text-secondary">
-                      {formatCount(row.progressedCount)} progressed from{' '}
-                      {formatCount(row.reachedCount)} that reached this stage.
-                    </p>
-                  </div>
-                ))}
+              <div className="space-y-5">
+                <PipelineConversionChart data={pipeline.stageConversion} />
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {pipeline.stageConversion.map((row) => (
+                    <StageConversionCard key={row.stage} row={row} />
+                  ))}
+                </div>
               </div>
             </SurfaceCard>
           </section>
 
-          <section className="grid gap-4 xl:grid-cols-[0.9fr,1.1fr]">
+          <section className="grid gap-4 2xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
             <SurfaceCard
               title="Leakage and aging"
-              description="Lost and stalled volume by stage using the same filtered subset as the funnel."
+              description="Lost deals and stalled open deals stay aligned with the same stage definitions as the funnel above, so exposure can be read without reconciliation work."
             >
-              <div className="space-y-3">
-                {pipeline.stageLeakage.map((row) => (
-                  <div
-                    key={row.stage}
-                    className="rounded-soft border border-white/8 bg-surface-alt/60 px-4 py-4"
-                  >
-                    <div className="flex items-center justify-between gap-3">
-                      <p className="text-sm font-medium text-text-primary">
-                        {row.stage}
-                      </p>
-                      <p className="text-sm text-text-secondary">
-                        Lost {formatCompactCurrency(row.lostAmount)}
-                      </p>
-                    </div>
-                    <p className="mt-2 text-sm leading-6 text-text-secondary">
-                      {formatCount(row.lostCount)} lost •{' '}
-                      {formatCount(row.stalledCount)} stalled •{' '}
-                      {formatCompactCurrency(row.stalledAmount)} still open but
-                      aging
-                    </p>
-                  </div>
-                ))}
+              <div className="space-y-5">
+                <PipelineLeakageChart data={pipeline.stageLeakage} />
+                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+                  {pipeline.stageLeakage.map((row) => (
+                    <LeakageStageCard key={row.stage} row={row} />
+                  ))}
+                </div>
               </div>
             </SurfaceCard>
 
             <SurfaceCard
-              title="Largest open opportunities"
-              description="Table rows are now filter-aware and sourced directly from the shared selector layer."
+              title="Stalled and aging watchlist"
+              description="These rows are the highest-age active opportunities currently tripping the shared stalled/aging rule."
             >
-              {pipeline.opportunities.length === 0 ? (
+              {pipeline.stalledOpportunities.length === 0 ? (
                 <EmptyState
-                  title="No open opportunities in the current scope"
-                  description="Change filters to inspect a broader slice of the funnel."
+                  title="No stalled opportunities in the current scope"
+                  description="The visible filter slice has no aging deals that breach the shared stalled rule."
                 />
               ) : (
                 <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/60">
                   <table className="min-w-full text-left text-sm">
                     <thead className="border-b border-white/8 text-text-muted">
                       <tr>
-                        <th className="px-4 py-3 font-medium">Opportunity</th>
+                        <th className="px-4 py-3 font-medium">Account</th>
                         <th className="px-4 py-3 font-medium">Owner</th>
                         <th className="px-4 py-3 font-medium">Stage</th>
-                        <th className="px-4 py-3 font-medium">Risk</th>
-                        <th className="px-4 py-3 font-medium">Amount</th>
+                        <th className="px-4 py-3 font-medium">Reason</th>
+                        <th className="px-4 py-3 font-medium">Age</th>
+                        <th className="px-4 py-3 font-medium text-right">
+                          Amount
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
-                      {pipeline.opportunities.slice(0, 8).map((row) => (
+                      {pipeline.stalledOpportunities.slice(0, 8).map((row) => (
                         <tr
                           key={row.id}
                           className="border-t border-white/6 text-text-secondary"
@@ -180,14 +242,20 @@ export function PipelineFunnelPage() {
                               {row.segmentName}
                             </p>
                           </td>
-                          <td className="px-4 py-3">{row.ownerName}</td>
+                          <td className="px-4 py-3">
+                            <p className="text-text-primary">{row.ownerName}</p>
+                            <p className="text-xs text-text-muted">
+                              {row.teamName}
+                            </p>
+                          </td>
                           <td className="px-4 py-3">{row.stage}</td>
                           <td className="px-4 py-3">
                             {row.riskReason
                               ? formatLabelFromToken(row.riskReason)
-                              : 'Healthy'}
+                              : 'Health score watch'}
                           </td>
-                          <td className="px-4 py-3">
+                          <td className="px-4 py-3">{formatDays(row.daysOpen)}</td>
+                          <td className="px-4 py-3 text-right text-text-primary">
                             {formatCompactCurrency(row.amount)}
                           </td>
                         </tr>

@@ -4,3 +4,4 @@ dist
 *.local
 coverage
 node_modules/.tmp
+output/playwright/

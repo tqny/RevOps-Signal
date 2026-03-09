@@ -170,12 +170,14 @@ export type StageFunnelRow = {
   stage: OpportunityStage;
   count: number;
   amount: number;
+  share: number;
 };
 
 export type StageConversionRow = {
   stage: OpportunityStage;
   reachedCount: number;
   progressedCount: number;
+  dropOffCount: number;
   rate: number;
 };
 
@@ -185,6 +187,8 @@ export type StageLeakageRow = {
   lostAmount: number;
   stalledCount: number;
   stalledAmount: number;
+  totalExposedCount: number;
+  totalExposedAmount: number;
 };
 
 export type OpportunityRow = {
