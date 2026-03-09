@@ -18,14 +18,14 @@ type SelectFieldProps = {
 
 function SelectField({ label, value, options, onChange }: SelectFieldProps) {
   return (
-    <label className="min-w-[150px] flex-1 space-y-2">
+    <label className="min-w-0 space-y-2">
       <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
         {label}
       </span>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="w-full rounded-soft border border-white/8 bg-surface-alt px-3 py-2.5 text-sm text-text-primary outline-none transition focus:border-accent-primary/45 focus:ring-2 focus:ring-accent-primary/20"
+        className="min-w-0 w-full rounded-soft border border-white/8 bg-surface-alt px-3 py-2.5 text-sm text-text-primary outline-none transition focus:border-accent-primary/45 focus:ring-2 focus:ring-accent-primary/20"
       >
         {options.map((option) => (
           <option key={option.id || 'all'} value={option.id}>
@@ -76,10 +76,10 @@ export function FilterBar() {
   } = useFilters();
 
   return (
-    <div className="rounded-soft border border-white/6 bg-surface-alt/70 p-3">
+    <div className="rounded-soft border border-white/6 bg-surface-alt/70 p-3 sm:p-4">
       <div className="flex flex-col gap-3">
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <div>
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+          <div className="max-w-2xl">
             <p className="text-sm font-medium text-text-primary">
               Shared filter model
             </p>
@@ -92,7 +92,7 @@ export function FilterBar() {
             type="button"
             onClick={resetFilters}
             className={cn(
-              'rounded-pill border px-3 py-2 text-sm font-medium transition',
+              'w-full rounded-pill border px-3 py-2 text-sm font-medium transition sm:w-auto',
               hasActiveFilters
                 ? 'border-accent-primary/35 bg-accent-primary/12 text-accent-secondary hover:bg-accent-primary/18'
                 : 'cursor-not-allowed border-white/8 bg-surface text-text-muted',
@@ -102,7 +102,7 @@ export function FilterBar() {
             Reset filters
           </button>
         </div>
-        <div className="grid gap-3 xl:grid-cols-5">
+        <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
           <SelectField
             label="Timeframe"
             value={filters.timeframeId}

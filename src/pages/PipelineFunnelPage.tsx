@@ -109,7 +109,7 @@ export function PipelineFunnelPage() {
         description="Trace where open pipeline is concentrated, how far deals are progressing, and where leakage or aging is slowing the path to close. All stage logic stays in the shared selector layer."
       />
 
-      <section className="grid gap-4 xl:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
         <MetricTile
           label="Open pipeline"
           value={
@@ -218,7 +218,7 @@ export function PipelineFunnelPage() {
         />
       </section>
 
-      <section className="grid gap-4 2xl:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)]">
+      <section className="grid gap-4 xl:grid-cols-[minmax(0,1.18fr)_minmax(320px,0.82fr)]">
         <SurfaceCard
           title="Pipeline funnel"
           description="Open pipeline is sequenced by stage so you can see where volume is sitting right now. The layout is intentionally funnel-like, but every value still comes from the central stage snapshot."
@@ -274,7 +274,7 @@ export function PipelineFunnelPage() {
         </SurfaceCard>
       </section>
 
-      <section className="grid gap-4 2xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <section className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <SurfaceCard
           title="Leakage and aging"
           description="Lost deals and stalled open deals stay aligned with the same stage definitions as the funnel above, so exposure can be read without reconciliation work."
@@ -282,7 +282,7 @@ export function PipelineFunnelPage() {
           {hasLeakageExposure ? (
             <div className="space-y-5">
               <PipelineLeakageChart data={pipeline.stageLeakage} />
-              <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
                 {pipeline.stageLeakage.map((row) => (
                   <LeakageStageCard key={row.stage} row={row} />
                 ))}
@@ -317,7 +317,7 @@ export function PipelineFunnelPage() {
             />
           ) : (
             <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/60">
-              <table className="min-w-full text-left text-sm">
+              <table className="min-w-[760px] text-left text-sm">
                 <thead className="border-b border-white/8 text-text-muted">
                   <tr>
                     <th className="px-4 py-3 font-medium">Account</th>

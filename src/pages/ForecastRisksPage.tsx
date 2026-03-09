@@ -153,7 +153,7 @@ export function ForecastRisksPage() {
         description="Read weighted forecast against target, open-book composition, and downside concentration for the current filter slice. Coverage, category mix, risk posture, and the stalled watchlist all stay tied to the shared selector layer."
       />
 
-      <section className="grid gap-4 xl:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
         <MetricTile
           label="Visible target"
           value={
@@ -239,7 +239,7 @@ export function ForecastRisksPage() {
         />
       </section>
 
-      <section className="grid gap-4 2xl:grid-cols-[minmax(0,1.14fr)_minmax(320px,0.86fr)]">
+      <section className="grid gap-4 xl:grid-cols-[minmax(0,1.14fr)_minmax(320px,0.86fr)]">
         <SurfaceCard
           title="Weighted forecast vs target"
           description="Closed-won revenue and weighted open pipeline stack into the visible forecast so coverage can be read against target without reconciliation work."
@@ -257,8 +257,8 @@ export function ForecastRisksPage() {
         >
           {hasForecastResults ? (
             <div className="space-y-4">
-              <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-                <div className="grid gap-3 sm:grid-cols-3 xl:flex-1">
+              <div className="flex flex-col gap-4 2xl:flex-row 2xl:items-start 2xl:justify-between">
+                <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3 xl:flex-1">
                   <SummaryStat
                     label="Booked now"
                     value={formatCompactCurrency(forecast.closedWonAmount)}
@@ -337,7 +337,7 @@ export function ForecastRisksPage() {
         </SurfaceCard>
       </section>
 
-      <section className="grid gap-4 2xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <section className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
         <SurfaceCard
           title="Risk distribution"
           description="Open pipeline is distributed across the shared low, medium, and high risk model so exposure totals reconcile cleanly to the current filtered book."
@@ -349,7 +349,7 @@ export function ForecastRisksPage() {
         >
           {hasForecastResults ? (
             <div className="space-y-5">
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
                 <SummaryStat
                   label="At-risk book"
                   value={formatCompactCurrency(forecast.atRiskAmount)}
@@ -391,7 +391,7 @@ export function ForecastRisksPage() {
               )}
 
               {forecast.riskRows.length > 0 ? (
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
                   {forecast.riskRows.slice(0, 3).map((row) => (
                     <RiskReasonCard key={row.id} row={row} />
                   ))}
@@ -428,7 +428,7 @@ export function ForecastRisksPage() {
             />
           ) : (
             <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/60">
-              <table className="min-w-full text-left text-sm">
+              <table className="min-w-[780px] text-left text-sm">
                 <thead className="border-b border-white/8 text-text-muted">
                   <tr>
                     <th className="px-4 py-3 font-medium">Account</th>

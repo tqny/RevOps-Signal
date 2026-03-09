@@ -212,7 +212,7 @@ export function AboutProjectPage() {
         </div>
       </SurfaceCard>
 
-      <section className="grid gap-4 2xl:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)]">
+      <section className="grid gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)]">
         <SurfaceCard
           title="Scope discipline"
           description="The point of the MVP is to show coherent product judgment, not to simulate a full BI platform."
