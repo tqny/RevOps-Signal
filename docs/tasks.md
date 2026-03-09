@@ -218,7 +218,7 @@ Explain conversion and leakage.
 ### Task 9: Implement Sales Performance page
 
 **Status**
-Pending
+Completed
 
 **Purpose**
 Show execution quality across team/rep.
