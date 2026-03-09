@@ -13,13 +13,13 @@ describe('revops selectors', () => {
     const filters = createDefaultFilters();
     const overview = getOverviewSnapshot(filters);
 
-    expect(overview.opportunityCount).toBe(18);
-    expect(overview.openOpportunityCount).toBe(12);
+    expect(overview.opportunityCount).toBe(36);
+    expect(overview.openOpportunityCount).toBe(24);
     expect(overview.targetAmount).toBe(1095000);
-    expect(overview.pipelineAmount).toBe(1292000);
-    expect(overview.weightedForecastAmount).toBe(1250810);
-    expect(overview.closedWonAmount).toBe(477000);
-    expect(overview.forecastGapAmount).toBe(-155810);
+    expect(overview.pipelineAmount).toBe(2480000);
+    expect(overview.weightedForecastAmount).toBe(2100791);
+    expect(overview.closedWonAmount).toBe(659570);
+    expect(overview.forecastGapAmount).toBe(-1005791);
     expect(
       overview.trend.reduce((total, point) => total + point.targetAmount, 0),
     ).toBe(overview.targetAmount);
@@ -32,7 +32,7 @@ describe('revops selectors', () => {
     });
 
     expect(overview.targetAmount).toBe(270750);
-    expect(overview.pipelineAmount).toBe(145000);
+    expect(overview.pipelineAmount).toBe(365679);
     expect(overview.segmentMix).toHaveLength(1);
     expect(overview.segmentMix[0]?.id).toBe('commercial');
   });
@@ -104,9 +104,9 @@ describe('revops selectors', () => {
   it('reconciles forecast coverage, composition, and risk rollups', () => {
     const forecast = getForecastSnapshot(createDefaultFilters());
 
-    expect(forecast.openPipelineAmount).toBe(1292000);
-    expect(forecast.closedWonAmount).toBe(477000);
-    expect(forecast.weightedOpenPipelineAmount).toBe(773810);
+    expect(forecast.openPipelineAmount).toBe(2480000);
+    expect(forecast.closedWonAmount).toBe(659570);
+    expect(forecast.weightedOpenPipelineAmount).toBe(1441221);
     expect(forecast.weightedForecastAmount).toBe(
       forecast.closedWonAmount + forecast.weightedOpenPipelineAmount,
     );

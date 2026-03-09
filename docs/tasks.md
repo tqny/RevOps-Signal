@@ -365,7 +365,7 @@ Define the pretend business, product/pricing semantics, and seeded deal-distribu
 ### Task 15B: Seeded deal expansion and business alignment
 
 **Status**
-Pending
+Completed
 
 **Purpose**
 Add more seeded deals only and align app/reviewer copy to the approved pretend business while preserving the current schema, filters, routes, and selector-backed metric logic.
