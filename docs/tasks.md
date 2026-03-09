@@ -244,7 +244,7 @@ Show execution quality across team/rep.
 ### Task 10: Implement Forecast & Risks page
 
 **Status**
-Pending
+Completed
 
 **Purpose**
 Show likely outcome and downside.

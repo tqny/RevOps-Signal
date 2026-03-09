@@ -745,11 +745,12 @@ export function getPerformanceSnapshot(filters: RevOpsFilters) {
 export function getForecastSnapshot(filters: RevOpsFilters) {
   const context = getFilteredRevOpsContext(filters);
   const targetAmount = sumQuota(context.quotaSnapshots);
+  const openPipelineAmount = sumAmount(context.openOpportunities);
+  const closedWonAmount = sumAmount(context.wonOpportunities);
   const weightedOpenPipelineAmount = sumWeightedAmount(
     context.openOpportunities,
   );
-  const weightedForecastAmount =
-    sumAmount(context.wonOpportunities) + weightedOpenPipelineAmount;
+  const weightedForecastAmount = closedWonAmount + weightedOpenPipelineAmount;
   const compositionRows: ForecastCompositionRow[] = (
     ['commit', 'best_case', 'pipeline'] as const
   )
@@ -763,7 +764,23 @@ export function getForecastSnapshot(filters: RevOpsFilters) {
         id: category,
         label: forecastCategoryLabels[category],
         amount,
-        share: safeRate(amount, sumAmount(context.openOpportunities)),
+        share: safeRate(amount, openPipelineAmount),
+      };
+    })
+    .filter((row) => row.amount > 0);
+  const riskLevelRows: RiskRow[] = (['low', 'medium', 'high'] as const)
+    .map((riskLevel) => {
+      const levelOpportunities = context.openOpportunities.filter(
+        (opportunity) => opportunity.riskLevel === riskLevel,
+      );
+      const amount = sumAmount(levelOpportunities);
+
+      return {
+        id: riskLevel,
+        label: riskLevel.replace(/\b\w/g, (letter) => letter.toUpperCase()),
+        amount,
+        count: levelOpportunities.length,
+        share: safeRate(amount, openPipelineAmount),
       };
     })
     .filter((row) => row.amount > 0);
@@ -793,25 +810,36 @@ export function getForecastSnapshot(filters: RevOpsFilters) {
         riskReason,
       amount: value.amount,
       count: value.count,
-      share: safeRate(value.amount, sumAmount(context.openOpportunities)),
+      share: safeRate(value.amount, openPipelineAmount),
     }))
     .sort((left, right) => right.amount - left.amount);
   const stalledOpportunities = context.openOpportunities
     .filter(isStalledOpportunity)
     .sort((left, right) => right.amount - left.amount);
+  const stalledPipelineAmount = sumAmount(stalledOpportunities);
+  const atRiskOpportunities = context.openOpportunities.filter(
+    (opportunity) =>
+      opportunity.riskLevel === 'high' || isStalledOpportunity(opportunity),
+  );
+  const atRiskAmount = sumAmount(atRiskOpportunities);
 
   return {
     targetAmount,
+    openPipelineAmount,
+    closedWonAmount,
     weightedForecastAmount,
     weightedOpenPipelineAmount,
     forecastGapAmount: targetAmount - weightedForecastAmount,
-    atRiskAmount: sumAmount(
-      context.openOpportunities.filter(
-        (opportunity) =>
-          opportunity.riskLevel === 'high' || isStalledOpportunity(opportunity),
-      ),
-    ),
+    forecastAttainmentRate: safeRate(weightedForecastAmount, targetAmount),
+    bookedAttainmentRate: safeRate(closedWonAmount, targetAmount),
+    atRiskAmount,
+    atRiskOpportunityCount: atRiskOpportunities.length,
+    atRiskShare: safeRate(atRiskAmount, openPipelineAmount),
+    stalledOpportunityCount: stalledOpportunities.length,
+    stalledPipelineAmount,
+    stalledShare: safeRate(stalledPipelineAmount, openPipelineAmount),
     compositionRows,
+    riskLevelRows,
     riskRows,
     stalledOpportunities: getOpportunityRows(stalledOpportunities),
     hasResults: context.opportunities.length > 0,
