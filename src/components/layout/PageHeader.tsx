@@ -31,9 +31,9 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
           <StatusBadge variant={hasActiveFilters ? 'accent' : 'neutral'}>
             {hasActiveFilters
               ? 'Shared filters active'
-              : 'Default scaffold state'}
+              : 'Default filter scope'}
           </StatusBadge>
-          <StatusBadge variant="success">Desktop-first shell</StatusBadge>
+          <StatusBadge variant="success">Selector-backed view</StatusBadge>
         </div>
       </div>
       <div className="rounded-soft border border-white/6 bg-surface-alt/80 px-4 py-3 text-sm text-text-secondary">

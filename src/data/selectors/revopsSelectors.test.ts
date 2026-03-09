@@ -19,6 +19,10 @@ describe('revops selectors', () => {
     expect(overview.pipelineAmount).toBe(1292000);
     expect(overview.weightedForecastAmount).toBe(1250810);
     expect(overview.closedWonAmount).toBe(477000);
+    expect(overview.forecastGapAmount).toBe(-155810);
+    expect(
+      overview.trend.reduce((total, point) => total + point.targetAmount, 0),
+    ).toBe(overview.targetAmount);
   });
 
   it('keeps quota math segment-safe when segment filters are applied', () => {

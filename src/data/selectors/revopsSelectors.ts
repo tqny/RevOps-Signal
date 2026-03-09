@@ -495,10 +495,14 @@ export function getOverviewSnapshot(filters: RevOpsFilters) {
     const periodWonOpportunities = periodOpportunities.filter(
       (opportunity) => opportunity.isClosed && opportunity.outcome === 'won',
     );
+    const periodQuotaSnapshots = context.quotaSnapshots.filter(
+      (snapshot) => snapshot.periodId === period.id,
+    );
 
     return {
       periodId: period.id,
       label: period.label.split(' ')[0] ?? period.label,
+      targetAmount: sumQuota(periodQuotaSnapshots),
       pipelineAmount: sumAmount(periodOpenOpportunities),
       weightedForecastAmount:
         sumAmount(periodWonOpportunities) +
@@ -525,6 +529,7 @@ export function getOverviewSnapshot(filters: RevOpsFilters) {
     pipelineAmount,
     closedWonAmount,
     weightedForecastAmount,
+    forecastGapAmount: targetAmount - weightedForecastAmount,
     coverageRatio,
     winRate,
     averageDealSize,

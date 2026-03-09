@@ -142,6 +142,7 @@ export type NavItem = {
 export type TrendPoint = {
   periodId: string;
   label: string;
+  targetAmount: number;
   pipelineAmount: number;
   weightedForecastAmount: number;
   closedWonAmount: number;
