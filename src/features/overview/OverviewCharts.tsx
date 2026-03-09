@@ -266,7 +266,7 @@ export function OverviewMixChart({ items }: OverviewMixChartProps) {
   const totalCount = items.reduce((total, item) => total + item.count, 0);
 
   return (
-    <div className="grid gap-6 xl:grid-cols-[minmax(240px,0.85fr)_minmax(0,1.15fr)] xl:items-center">
+    <div className="grid gap-6 2xl:grid-cols-[minmax(240px,0.85fr)_minmax(0,1.15fr)] 2xl:items-center">
       <ResponsiveChartContainer
         className="relative h-[260px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
         minHeight={260}

@@ -329,7 +329,7 @@ export function ForecastCompositionChart({
   totalAmount,
 }: ForecastCompositionChartProps) {
   return (
-    <div className="grid min-w-0 gap-6 xl:grid-cols-[minmax(220px,0.82fr)_minmax(0,1.18fr)] xl:items-center">
+    <div className="grid min-w-0 gap-6 2xl:grid-cols-[minmax(220px,0.82fr)_minmax(0,1.18fr)] 2xl:items-center">
       <ResponsiveChartContainer
         className="relative min-w-0 h-[250px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
         minHeight={226}

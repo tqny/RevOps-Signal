@@ -159,7 +159,7 @@ export function ExecutiveOverviewPage() {
         description="A top-line scan of pipeline health, forecast pacing, and mix concentration for the currently visible quarter. Every number on this page comes from the shared filter and selector layer."
       />
 
-      <section className="grid gap-4 xl:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
         <MetricTile
           label="Open pipeline"
           value={
@@ -236,15 +236,15 @@ export function ExecutiveOverviewPage() {
         />
       </section>
 
-      <section className="grid gap-4 2xl:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.9fr)]">
+      <section className="grid gap-4 xl:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.9fr)]">
         <SurfaceCard
           title="Quarter pacing"
           description="Open pipeline bars show remaining volume by month. Forecast, target pace, and booked revenue stay tied to the same selector-backed timeframe."
         >
           {hasOverviewResults ? (
             <div className="space-y-5">
-              <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-                <div className="grid gap-3 sm:grid-cols-3 xl:flex-1">
+              <div className="flex flex-col gap-4 2xl:flex-row 2xl:items-start 2xl:justify-between">
+                <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3 xl:flex-1">
                   <SummaryStat
                     label="Visible target"
                     value={formatCompactCurrency(overview.targetAmount)}
@@ -388,7 +388,7 @@ export function ExecutiveOverviewPage() {
             />
           ) : (
             <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/45">
-              <table className="min-w-full text-left text-sm">
+              <table className="min-w-[860px] text-left text-sm">
                 <thead className="border-b border-white/8 text-text-muted">
                   <tr>
                     <th className="px-4 py-3 font-medium">Rep</th>

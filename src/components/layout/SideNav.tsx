@@ -4,7 +4,7 @@ import { cn } from '../../lib/utils';
 
 export function SideNav() {
   return (
-    <aside className="w-full shrink-0 rounded-panel border border-white/8 bg-surface/85 p-4 shadow-panel backdrop-blur-sm lg:sticky lg:top-4 lg:w-[280px] lg:self-start">
+    <aside className="w-full shrink-0 rounded-panel border border-white/8 bg-surface/85 p-4 shadow-panel backdrop-blur-sm lg:sticky lg:top-4 lg:w-[252px] lg:self-start xl:w-[280px]">
       <div className="space-y-6">
         <div className="rounded-soft border border-white/6 bg-surface-alt/80 p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-secondary">
@@ -32,7 +32,7 @@ export function SideNav() {
               end={item.path === '/'}
               className={({ isActive }) =>
                 cn(
-                  'group flex min-w-[220px] flex-1 items-center gap-3 rounded-soft border px-3 py-3 transition duration-150 ease-out lg:min-w-0',
+                  'group flex min-w-[200px] flex-1 items-center gap-3 rounded-soft border px-3 py-3 transition duration-150 ease-out sm:min-w-[220px] lg:min-w-0',
                   isActive
                     ? 'border-accent-primary/40 bg-accent-primary/14 text-text-primary shadow-[0_0_0_1px_rgba(111,107,255,0.16)]'
                     : 'border-white/6 bg-surface-alt/70 text-text-secondary hover:border-white/12 hover:bg-surface-elevated/80 hover:text-text-primary',

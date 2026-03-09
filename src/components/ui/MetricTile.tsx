@@ -30,7 +30,7 @@ export function MetricTile({
 }: MetricTileProps) {
   return (
     <SurfaceCard className="h-full">
-      <div className="flex items-start justify-between gap-4">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div className="space-y-4">
           <div className="space-y-2">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-text-muted">

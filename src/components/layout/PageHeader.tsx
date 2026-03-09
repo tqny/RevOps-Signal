@@ -12,14 +12,14 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
   const { filters, hasActiveFilters } = useFilters();
 
   return (
-    <header className="flex flex-col gap-4 rounded-panel border border-white/8 bg-surface/85 p-6 shadow-panel backdrop-blur-sm">
-      <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+    <header className="flex flex-col gap-4 rounded-panel border border-white/8 bg-surface/85 p-5 shadow-panel backdrop-blur-sm sm:p-6">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-3xl space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent-secondary">
             {eyebrow}
           </p>
           <div className="space-y-2">
-            <h1 className="text-3xl font-semibold tracking-tight text-text-primary xl:text-[2.4rem]">
+            <h1 className="text-[1.9rem] font-semibold tracking-tight text-text-primary sm:text-3xl xl:text-[2.4rem]">
               {title}
             </h1>
             <p className="max-w-2xl text-sm leading-6 text-text-secondary">
@@ -27,7 +27,7 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
             </p>
           </div>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 lg:max-w-[18rem] lg:justify-end">
           <StatusBadge variant={hasActiveFilters ? 'accent' : 'neutral'}>
             {hasActiveFilters
               ? 'Shared filters active'

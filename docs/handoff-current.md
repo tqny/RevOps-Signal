@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Step 8 complete: empty/loading/error polish is in place, and responsive tightening is next
+Step 9 complete: responsive tightening is in place, and visual refinement is next
 
 ## Active Role
 
@@ -14,12 +14,10 @@ Builder
 
 ## Current Branch
 
-`codex/task-12-empty-state-polish`
+`codex/task-13-responsive-tightening`
 
-Task 10 is merged into `main`.
-Task 11 is merged into `main`.
-Task 12 is implemented on the current branch.
-Suggested next branch: `codex/task-13-responsive-tightening`
+Task 13 is implemented on the current branch and committed locally.
+Suggested next branch after merge: `codex/task-14-visual-refinement`
 
 ## Current MVP Scope
 
@@ -55,7 +53,7 @@ Pages:
 
 ## Current Task
 
-Task 13 is next: responsive tightening.
+Task 14 is next: visual refinement.
 
 ## Recently Completed
 
@@ -83,10 +81,12 @@ Task 13 is next: responsive tightening.
 - replaced raw Recharts container usage with a measured shared chart wrapper and confirmed the prior `width(-1)` / `height(-1)` console warnings no longer reproduce in local rendered checks
 - added a shell-contained route error boundary so rendering failures fall back to an in-product error card instead of taking down the full shell
 - verified Task 12 with `npm run test`, `npm run lint`, `npm run build`, and rendered Firefox checks across `/`, `/pipeline`, `/performance`, `/forecast`, and `/about`, including a forced no-results filter state across the analytics pages
+- tightened laptop-width and narrower desktop behavior across the shared shell, filter bar, KPI grids, split-card sections, charts, and table wrappers without changing routes or selector logic
+- verified Task 13 with `npm run test`, `npm run lint`, `npm run build`, and rendered Playwright checks across `/`, `/pipeline`, `/performance`, `/forecast`, and `/about` at `1280x820` and `1100x820`, confirming no page-level horizontal overflow, no chart container overflow, stable route-active navigation, and intentional internal table scrolling where widths tightened
 
 ## Exact Next Task
 
-Task 13: Responsive tightening
+Task 14: Visual refinement
 
 ## Open Issues / Blockers
 
@@ -101,7 +101,7 @@ Task 13: Responsive tightening
 - the About route is reviewer orientation, not a fifth analytics page
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- all four analytics pages are now fully composed from shared selectors, now with stable sparse-state treatment and render-safe chart containers; remaining work is responsive tightening, visual refinement, and final docs refresh
+- all four analytics pages are now fully composed from shared selectors, now with stable sparse-state treatment, render-safe chart containers, and tighter laptop-width behavior; remaining work is visual refinement, final docs refresh, and deployment prep
 
 ## Required Read Order
 

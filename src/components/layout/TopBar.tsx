@@ -8,10 +8,10 @@ export function TopBar() {
   const isAboutRoute = location.pathname === '/about';
 
   return (
-    <div className="rounded-panel border border-white/8 bg-surface/85 p-4 shadow-panel backdrop-blur-sm">
+    <div className="rounded-panel border border-white/8 bg-surface/85 p-4 shadow-panel backdrop-blur-sm sm:p-5">
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-3 xl:flex-row xl:items-center xl:justify-between">
-          <div>
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+          <div className="max-w-3xl">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-secondary">
               {isAboutRoute ? 'Project Context' : 'RevOps Signal'}
             </p>
@@ -28,7 +28,7 @@ export function TopBar() {
               </p>
             ) : null}
           </div>
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 lg:max-w-[22rem] lg:justify-end">
             {isAboutRoute ? (
               <>
                 <StatusBadge variant="accent">Reviewer guide</StatusBadge>

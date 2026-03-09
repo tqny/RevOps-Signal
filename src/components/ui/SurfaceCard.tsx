@@ -18,7 +18,7 @@ export function SurfaceCard({
   return (
     <section
       className={cn(
-        'rounded-panel border border-white/8 bg-surface/85 p-5 shadow-panel backdrop-blur-sm',
+        'min-w-0 rounded-panel border border-white/8 bg-surface/85 p-4 shadow-panel backdrop-blur-sm sm:p-5',
         className,
       )}
     >

@@ -107,7 +107,7 @@ export function SalesPerformancePage() {
         description="Assess rep and team execution against the current visible target. Attainment, forecast coverage, win rate, and progress bars all stay tied to the shared selector layer."
       />
 
-      <section className="grid gap-4 xl:grid-cols-4">
+      <section className="grid gap-4 md:grid-cols-2 2xl:grid-cols-4">
         <MetricTile
           label="Visible target"
           value={
@@ -190,7 +190,7 @@ export function SalesPerformancePage() {
         />
       </section>
 
-      <section className="grid gap-4 2xl:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)]">
+      <section className="grid gap-4 xl:grid-cols-[minmax(0,1.08fr)_minmax(320px,0.92fr)]">
         <SurfaceCard
           title="Rep attainment ladder"
           description="Closed-won attainment ranks the current rep slice from strongest execution to widest gap. Each bar uses the same visible quota base as the KPI strip."
@@ -206,7 +206,7 @@ export function SalesPerformancePage() {
         >
           {hasRepRows ? (
             <div className="space-y-5">
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2 2xl:grid-cols-3">
                 <SummaryStat
                   label="At target"
                   value={formatCount(performance.repsAtOrAboveTargetCount)}
@@ -316,7 +316,7 @@ export function SalesPerformancePage() {
         </SurfaceCard>
       </section>
 
-      <section className="grid gap-4 2xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
+      <section className="grid gap-4 xl:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)]">
         <SurfaceCard
           title="Rep and team comparison"
           description="Rep bars rank actual attainment. Team bars rank weighted forecast coverage so current execution and in-flight pacing stay on one screen."
@@ -396,7 +396,7 @@ export function SalesPerformancePage() {
         >
           {hasRepRows ? (
             <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/60">
-              <table className="min-w-full text-left text-sm">
+              <table className="min-w-[940px] text-left text-sm">
                 <thead className="border-b border-white/8 text-text-muted">
                   <tr>
                     <th className="px-4 py-3 font-medium">Rep</th>
