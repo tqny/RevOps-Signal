@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Step 7 complete: the reviewer-facing About surface is now in-product, and QA/polish is next
+Step 8 complete: empty/loading/error polish is in place, and responsive tightening is next
 
 ## Active Role
 
@@ -14,11 +14,12 @@ Builder
 
 ## Current Branch
 
-`codex/task-11-about-project-surface`
+`codex/task-12-empty-state-polish`
 
 Task 10 is merged into `main`.
-Task 11 is implemented on the current branch.
-Suggested next branch: `codex/task-12-empty-state-polish`
+Task 11 is merged into `main`.
+Task 12 is implemented on the current branch.
+Suggested next branch: `codex/task-13-responsive-tightening`
 
 ## Current MVP Scope
 
@@ -54,7 +55,7 @@ Pages:
 
 ## Current Task
 
-Task 12 is next: empty/loading/error state polish.
+Task 13 is next: responsive tightening.
 
 ## Recently Completed
 
@@ -78,16 +79,19 @@ Task 12 is next: empty/loading/error state polish.
 - added a dedicated About This Project route in the shared shell so reviewers can understand project framing, scope, system design, and technical judgment without leaving the product
 - updated spec, architecture, design, task, QA, handoff, and README docs so the reviewer-facing route is tracked as the new Task 11 before QA/polish
 - verified the About route with `npm run test`, `npm run lint`, `npm run build`, and a rendered Firefox check of `/about`, including nav active-state confirmation and a follow-up route transition back to `/`
+- standardized calm empty/loading/error treatment across the analytics routes so no-results filters preserve card structure instead of collapsing whole pages into a single card
+- replaced raw Recharts container usage with a measured shared chart wrapper and confirmed the prior `width(-1)` / `height(-1)` console warnings no longer reproduce in local rendered checks
+- added a shell-contained route error boundary so rendering failures fall back to an in-product error card instead of taking down the full shell
+- verified Task 12 with `npm run test`, `npm run lint`, `npm run build`, and rendered Firefox checks across `/`, `/pipeline`, `/performance`, `/forecast`, and `/about`, including a forced no-results filter state across the analytics pages
 
 ## Exact Next Task
 
-Task 12: Empty/loading/error state polish
+Task 13: Responsive tightening
 
 ## Open Issues / Blockers
 
-- none currently
-- `/forecast` rendered correctly in local browser checks and built preview, with no failing network requests observed during the captured pass
-- initial Recharts sizing warnings (`width(-1)` / `height(-1)`) still reproduce on `/forecast` in both local dev and built preview even though the page renders correctly; treat this as a real QA polish item rather than dev-only noise
+- no functional blockers currently
+- `npm run build` still emits the existing Vite chunk-size warning for the main client bundle; this is non-blocking and was not in Task 12 scope
 
 ## Active Assumptions
 
@@ -97,7 +101,7 @@ Task 12: Empty/loading/error state polish
 - the About route is reviewer orientation, not a fifth analytics page
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- all four analytics pages are now fully composed from shared selectors; remaining work is QA/polish, responsive tightening, and final docs refresh
+- all four analytics pages are now fully composed from shared selectors, now with stable sparse-state treatment and render-safe chart containers; remaining work is responsive tightening, visual refinement, and final docs refresh
 
 ## Required Read Order
 

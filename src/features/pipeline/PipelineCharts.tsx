@@ -4,12 +4,12 @@ import {
   CartesianGrid,
   Cell,
   LabelList,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
 import type { TooltipContentProps } from 'recharts';
+import { ResponsiveChartContainer } from '../../components/charts/ResponsiveChartContainer';
 import type {
   StageConversionRow,
   StageFunnelRow,
@@ -212,65 +212,66 @@ export function PipelineConversionChart({
 }: PipelineConversionChartProps) {
   return (
     <div className="space-y-4">
-      <div className="h-[280px] rounded-soft border border-white/8 bg-surface-alt/40 p-3">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={data}
-            layout="vertical"
-            margin={{ top: 8, right: 28, left: 0, bottom: 0 }}
+      <ResponsiveChartContainer
+        className="h-[280px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        minHeight={280}
+      >
+        <BarChart
+          data={data}
+          layout="vertical"
+          margin={{ top: 8, right: 28, left: 0, bottom: 0 }}
+        >
+          <CartesianGrid
+            horizontal={false}
+            stroke="rgba(255,255,255,0.08)"
+            strokeDasharray="4 4"
+          />
+          <XAxis
+            type="number"
+            domain={[0, 1]}
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+            tickFormatter={formatRateAxis}
+          />
+          <YAxis
+            dataKey="stage"
+            type="category"
+            axisLine={false}
+            tickLine={false}
+            width={96}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+          />
+          <Tooltip
+            cursor={{ fill: 'rgba(255,255,255,0.03)' }}
+            content={ConversionTooltip}
+          />
+          <Bar
+            dataKey="rate"
+            name="Progression rate"
+            radius={[999, 999, 999, 999]}
+            barSize={18}
           >
-            <CartesianGrid
-              horizontal={false}
-              stroke="rgba(255,255,255,0.08)"
-              strokeDasharray="4 4"
-            />
-            <XAxis
-              type="number"
-              domain={[0, 1]}
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-              tickFormatter={formatRateAxis}
-            />
-            <YAxis
-              dataKey="stage"
-              type="category"
-              axisLine={false}
-              tickLine={false}
-              width={96}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-            />
-            <Tooltip
-              cursor={{ fill: 'rgba(255,255,255,0.03)' }}
-              content={ConversionTooltip}
-            />
-            <Bar
-              dataKey="rate"
-              name="Progression rate"
-              radius={[999, 999, 999, 999]}
-              barSize={18}
-            >
-              {data.map((row, index) => (
-                <Cell
-                  key={row.stage}
-                  fill={
-                    stagePalette[index % stagePalette.length]?.fill ??
-                    stagePalette[0].fill
-                  }
-                />
-              ))}
-              <LabelList
-                dataKey="rate"
-                position="right"
-                offset={10}
-                fill="var(--rs-text-primary)"
-                fontSize={12}
-                formatter={(value) => formatPercentage(Number(value ?? 0))}
+            {data.map((row, index) => (
+              <Cell
+                key={row.stage}
+                fill={
+                  stagePalette[index % stagePalette.length]?.fill ??
+                  stagePalette[0].fill
+                }
               />
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+            ))}
+            <LabelList
+              dataKey="rate"
+              position="right"
+              offset={10}
+              fill="var(--rs-text-primary)"
+              fontSize={12}
+              formatter={(value) => formatPercentage(Number(value ?? 0))}
+            />
+          </Bar>
+        </BarChart>
+      </ResponsiveChartContainer>
 
       <div className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-3 text-sm text-text-secondary">
         Progression is a selector-backed stage proxy: each row shows how many
@@ -287,53 +288,54 @@ type PipelineLeakageChartProps = {
 export function PipelineLeakageChart({ data }: PipelineLeakageChartProps) {
   return (
     <div className="space-y-4">
-      <div className="h-[280px] rounded-soft border border-white/8 bg-surface-alt/40 p-3">
-        <ResponsiveContainer width="100%" height="100%">
-          <BarChart
-            data={data}
-            margin={{ top: 12, right: 8, left: -8, bottom: 0 }}
-          >
-            <CartesianGrid
-              vertical={false}
-              stroke="rgba(255,255,255,0.08)"
-              strokeDasharray="4 4"
-            />
-            <XAxis
-              dataKey="stage"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-            />
-            <YAxis
-              axisLine={false}
-              tickLine={false}
-              width={72}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-              tickFormatter={formatAxisCurrency}
-            />
-            <Tooltip
-              cursor={{ fill: 'rgba(255,255,255,0.03)' }}
-              content={LeakageTooltip}
-            />
-            <Bar
-              dataKey="lostAmount"
-              name="Lost"
-              stackId="exposure"
-              fill="rgba(240,82,82,0.82)"
-              radius={[10, 10, 0, 0]}
-              barSize={28}
-            />
-            <Bar
-              dataKey="stalledAmount"
-              name="Stalled / aging"
-              stackId="exposure"
-              fill="rgba(245,185,76,0.82)"
-              radius={[10, 10, 0, 0]}
-              barSize={28}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
+      <ResponsiveChartContainer
+        className="h-[280px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        minHeight={280}
+      >
+        <BarChart
+          data={data}
+          margin={{ top: 12, right: 8, left: -8, bottom: 0 }}
+        >
+          <CartesianGrid
+            vertical={false}
+            stroke="rgba(255,255,255,0.08)"
+            strokeDasharray="4 4"
+          />
+          <XAxis
+            dataKey="stage"
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+          />
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            width={72}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+            tickFormatter={formatAxisCurrency}
+          />
+          <Tooltip
+            cursor={{ fill: 'rgba(255,255,255,0.03)' }}
+            content={LeakageTooltip}
+          />
+          <Bar
+            dataKey="lostAmount"
+            name="Lost"
+            stackId="exposure"
+            fill="rgba(240,82,82,0.82)"
+            radius={[10, 10, 0, 0]}
+            barSize={28}
+          />
+          <Bar
+            dataKey="stalledAmount"
+            name="Stalled / aging"
+            stackId="exposure"
+            fill="rgba(245,185,76,0.82)"
+            radius={[10, 10, 0, 0]}
+            barSize={28}
+          />
+        </BarChart>
+      </ResponsiveChartContainer>
 
       <div className="flex flex-wrap gap-3">
         <div className="flex items-center gap-2 rounded-pill border border-white/8 bg-surface-alt/55 px-3 py-1.5 text-xs text-text-secondary">

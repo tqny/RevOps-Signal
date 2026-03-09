@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-import type { ReactNode } from 'react';
 import {
   Bar,
   BarChart,
@@ -9,12 +7,12 @@ import {
   Pie,
   PieChart,
   ReferenceLine,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
 import type { TooltipContentProps } from 'recharts';
+import { ResponsiveChartContainer } from '../../components/charts/ResponsiveChartContainer';
 import type { ForecastCompositionRow, RiskRow } from '../../types/revops';
 import {
   formatCompactCurrency,
@@ -72,34 +70,6 @@ function getAxisMax(values: number[]) {
   const maxValue = Math.max(...values, 1);
 
   return Math.ceil(maxValue * 1.15);
-}
-
-function RenderSafeChart({
-  className,
-  minHeight,
-  children,
-}: {
-  className: string;
-  minHeight: number;
-  children: ReactNode;
-}) {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(() => {
-      setIsReady(true);
-    });
-
-    return () => {
-      window.cancelAnimationFrame(frame);
-    };
-  }, []);
-
-  return (
-    <div className={className}>
-      {isReady ? children : <div style={{ minHeight }} />}
-    </div>
-  );
 }
 
 function ForecastCoverageTooltip({
@@ -248,95 +218,88 @@ export function ForecastCoverageChart({
 
   return (
     <div className="min-w-0 space-y-4">
-      <RenderSafeChart
+      <ResponsiveChartContainer
         className="min-w-0 h-[220px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
         minHeight={196}
       >
-        <ResponsiveContainer
-          width="100%"
-          height="100%"
-          minWidth={0}
-          minHeight={196}
+        <BarChart
+          data={data}
+          layout="vertical"
+          margin={{ top: 8, right: 28, left: 8, bottom: 0 }}
         >
-          <BarChart
-            data={data}
-            layout="vertical"
-            margin={{ top: 8, right: 28, left: 8, bottom: 0 }}
+          <CartesianGrid
+            horizontal={false}
+            stroke="rgba(255,255,255,0.08)"
+            strokeDasharray="4 4"
+          />
+          <XAxis
+            type="number"
+            domain={[
+              0,
+              getAxisMax([targetAmount, weightedForecastAmount, closedWonAmount]),
+            ]}
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+            tickFormatter={formatAxisCurrency}
+          />
+          <YAxis
+            dataKey="label"
+            type="category"
+            width={118}
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+          />
+          <ReferenceLine
+            x={targetAmount}
+            stroke="rgba(245,185,76,0.72)"
+            strokeDasharray="6 6"
+          />
+          <Tooltip
+            cursor={{ fill: 'rgba(255,255,255,0.03)' }}
+            content={ForecastCoverageTooltip}
+          />
+          <Bar
+            dataKey="closedWonAmount"
+            name="Closed won"
+            stackId="forecast"
+            radius={[999, 0, 0, 999]}
+            barSize={24}
           >
-            <CartesianGrid
-              horizontal={false}
-              stroke="rgba(255,255,255,0.08)"
-              strokeDasharray="4 4"
-            />
-            <XAxis
-              type="number"
-              domain={[
-                0,
-                getAxisMax([targetAmount, weightedForecastAmount, closedWonAmount]),
-              ]}
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-              tickFormatter={formatAxisCurrency}
-            />
-            <YAxis
-              dataKey="label"
-              type="category"
-              width={118}
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-            />
-            <ReferenceLine
-              x={targetAmount}
-              stroke="rgba(245,185,76,0.72)"
-              strokeDasharray="6 6"
-            />
-            <Tooltip
-              cursor={{ fill: 'rgba(255,255,255,0.03)' }}
-              content={ForecastCoverageTooltip}
-            />
-            <Bar
-              dataKey="closedWonAmount"
-              name="Closed won"
-              stackId="forecast"
-              radius={[999, 0, 0, 999]}
-              barSize={24}
-            >
-              {data.map((row) => (
-                <Cell
-                  key={`${row.label}-closed`}
-                  fill={forecastPalette.closedWon.fill}
-                  stroke={forecastPalette.closedWon.stroke}
-                />
-              ))}
-            </Bar>
-            <Bar
-              dataKey="weightedOpenPipelineAmount"
-              name="Weighted open"
-              stackId="forecast"
-              radius={[0, 999, 999, 0]}
-              barSize={24}
-            >
-              {data.map((row) => (
-                <Cell
-                  key={`${row.label}-open`}
-                  fill={forecastPalette.weightedOpen.fill}
-                  stroke={forecastPalette.weightedOpen.stroke}
-                />
-              ))}
-              <LabelList
-                dataKey="weightedForecastAmount"
-                position="right"
-                offset={10}
-                fill="var(--rs-text-primary)"
-                fontSize={12}
-                formatter={(value) => formatCompactCurrency(Number(value ?? 0))}
+            {data.map((row) => (
+              <Cell
+                key={`${row.label}-closed`}
+                fill={forecastPalette.closedWon.fill}
+                stroke={forecastPalette.closedWon.stroke}
               />
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </RenderSafeChart>
+            ))}
+          </Bar>
+          <Bar
+            dataKey="weightedOpenPipelineAmount"
+            name="Weighted open"
+            stackId="forecast"
+            radius={[0, 999, 999, 0]}
+            barSize={24}
+          >
+            {data.map((row) => (
+              <Cell
+                key={`${row.label}-open`}
+                fill={forecastPalette.weightedOpen.fill}
+                stroke={forecastPalette.weightedOpen.stroke}
+              />
+            ))}
+            <LabelList
+              dataKey="weightedForecastAmount"
+              position="right"
+              offset={10}
+              fill="var(--rs-text-primary)"
+              fontSize={12}
+              formatter={(value) => formatCompactCurrency(Number(value ?? 0))}
+            />
+          </Bar>
+        </BarChart>
+      </ResponsiveChartContainer>
 
       <div className="flex flex-wrap gap-3">
         <div className="flex items-center gap-2 rounded-pill border border-white/8 bg-surface-alt/55 px-3 py-1.5 text-xs text-text-secondary">
@@ -367,39 +330,31 @@ export function ForecastCompositionChart({
 }: ForecastCompositionChartProps) {
   return (
     <div className="grid min-w-0 gap-6 xl:grid-cols-[minmax(220px,0.82fr)_minmax(0,1.18fr)] xl:items-center">
-      <RenderSafeChart
+      <ResponsiveChartContainer
         className="relative min-w-0 h-[250px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
         minHeight={226}
       >
-        <ResponsiveContainer
-          width="100%"
-          height="100%"
-          minWidth={0}
-          minHeight={226}
-        >
-          <PieChart>
-            <Tooltip content={ForecastCompositionTooltip} />
-            <Pie
-              data={items}
-              dataKey="amount"
-              nameKey="label"
-              innerRadius={66}
-              outerRadius={96}
-              paddingAngle={items.length > 1 ? 3 : 0}
-              stroke="rgba(17,20,27,0.96)"
-              strokeWidth={4}
-            >
-              {items.map((item) => (
-                <Cell
-                  key={item.id}
-                  fill={compositionPalette[item.id]}
-                  stroke="rgba(17,20,27,0.96)"
-                />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-
+        <PieChart>
+          <Tooltip content={ForecastCompositionTooltip} />
+          <Pie
+            data={items}
+            dataKey="amount"
+            nameKey="label"
+            innerRadius={66}
+            outerRadius={96}
+            paddingAngle={items.length > 1 ? 3 : 0}
+            stroke="rgba(17,20,27,0.96)"
+            strokeWidth={4}
+          >
+            {items.map((item) => (
+              <Cell
+                key={item.id}
+                fill={compositionPalette[item.id]}
+                stroke="rgba(17,20,27,0.96)"
+              />
+            ))}
+          </Pie>
+        </PieChart>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-text-muted">
             Open pipeline
@@ -411,7 +366,7 @@ export function ForecastCompositionChart({
             {items.length} active buckets
           </p>
         </div>
-      </RenderSafeChart>
+      </ResponsiveChartContainer>
 
       <div className="space-y-3">
         {items.map((item) => (
@@ -465,73 +420,62 @@ export function RiskDistributionChart({ data }: RiskDistributionChartProps) {
 
   return (
     <div className="min-w-0 space-y-4">
-      <RenderSafeChart
+      <ResponsiveChartContainer
         className="min-w-0 h-[280px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
         minHeight={256}
       >
-        <ResponsiveContainer
-          width="100%"
-          height="100%"
-          minWidth={0}
-          minHeight={256}
+        <BarChart
+          data={data}
+          margin={{ top: 16, right: 8, left: -12, bottom: 0 }}
         >
-          <BarChart
-            data={data}
-            margin={{ top: 16, right: 8, left: -12, bottom: 0 }}
+          <CartesianGrid
+            vertical={false}
+            stroke="rgba(255,255,255,0.08)"
+            strokeDasharray="4 4"
+          />
+          <XAxis
+            dataKey="label"
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+          />
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            width={72}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+            tickFormatter={formatAxisCurrency}
+          />
+          <Tooltip
+            cursor={{ fill: 'rgba(255,255,255,0.03)' }}
+            content={RiskDistributionTooltip}
+          />
+          <Bar
+            dataKey="amount"
+            name="Open amount"
+            radius={[10, 10, 0, 0]}
+            barSize={42}
           >
-            <CartesianGrid
-              vertical={false}
-              stroke="rgba(255,255,255,0.08)"
-              strokeDasharray="4 4"
-            />
-            <XAxis
-              dataKey="label"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-            />
-            <YAxis
-              axisLine={false}
-              tickLine={false}
-              width={72}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-              tickFormatter={formatAxisCurrency}
-            />
-            <Tooltip
-              cursor={{ fill: 'rgba(255,255,255,0.03)' }}
-              content={RiskDistributionTooltip}
-            />
-            <Bar
-              dataKey="amount"
-              name="Open amount"
-              radius={[10, 10, 0, 0]}
-              barSize={42}
-            >
-              {data.map((row) => {
-                const palette =
-                  riskLevelPalette[row.id as keyof typeof riskLevelPalette] ??
-                  riskLevelPalette.medium;
+            {data.map((row) => {
+              const palette =
+                riskLevelPalette[row.id as keyof typeof riskLevelPalette] ??
+                riskLevelPalette.medium;
 
-                return (
-                  <Cell
-                    key={row.id}
-                    fill={palette.fill}
-                    stroke={palette.stroke}
-                  />
-                );
-              })}
-              <LabelList
-                dataKey="amount"
-                position="top"
-                offset={10}
-                fill="var(--rs-text-primary)"
-                fontSize={12}
-                formatter={(value) => formatCompactCurrency(Number(value ?? 0))}
-              />
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </RenderSafeChart>
+              return (
+                <Cell key={row.id} fill={palette.fill} stroke={palette.stroke} />
+              );
+            })}
+            <LabelList
+              dataKey="amount"
+              position="top"
+              offset={10}
+              fill="var(--rs-text-primary)"
+              fontSize={12}
+              formatter={(value) => formatCompactCurrency(Number(value ?? 0))}
+            />
+          </Bar>
+        </BarChart>
+      </ResponsiveChartContainer>
 
       <div className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-3 text-sm text-text-secondary">
         Low, medium, and high bands cover the full open book for the current

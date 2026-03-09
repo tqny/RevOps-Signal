@@ -6,12 +6,12 @@ import {
   Line,
   Pie,
   PieChart,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
 import type { TooltipContentProps } from 'recharts';
+import { ResponsiveChartContainer } from '../../components/charts/ResponsiveChartContainer';
 import type { MixItem, TrendPoint } from '../../types/revops';
 import {
   formatCompactCurrency,
@@ -155,91 +155,92 @@ type OverviewTrendChartProps = {
 export function OverviewTrendChart({ data }: OverviewTrendChartProps) {
   return (
     <div className="space-y-4">
-      <div className="h-[320px] rounded-soft border border-white/8 bg-surface-alt/40 p-3">
-        <ResponsiveContainer width="100%" height="100%">
-          <ComposedChart
-            data={data}
-            margin={{ top: 16, right: 8, left: -12, bottom: 0 }}
-          >
-            <CartesianGrid
-              vertical={false}
-              stroke="rgba(255,255,255,0.08)"
-              strokeDasharray="4 4"
-            />
-            <XAxis
-              dataKey="label"
-              axisLine={false}
-              tickLine={false}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-            />
-            <YAxis
-              axisLine={false}
-              tickLine={false}
-              width={72}
-              tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-              tickFormatter={formatAxisCurrency}
-            />
-            <Tooltip
-              cursor={{ stroke: 'rgba(255,255,255,0.16)', strokeWidth: 1 }}
-              content={TrendTooltip}
-            />
-            <Bar
-              dataKey="pipelineAmount"
-              name="Open pipeline"
-              fill="rgba(76,215,255,0.18)"
-              radius={[12, 12, 0, 0]}
-              barSize={28}
-            />
-            <Line
-              type="monotone"
-              dataKey="weightedForecastAmount"
-              name="Weighted forecast"
-              stroke="var(--rs-accent-primary)"
-              strokeWidth={3}
-              dot={{
-                r: 4,
-                fill: 'var(--rs-accent-primary)',
-                stroke: 'var(--rs-surface-alt)',
-                strokeWidth: 2,
-              }}
-              activeDot={{
-                r: 6,
-                fill: 'var(--rs-accent-primary)',
-                stroke: 'var(--rs-surface-alt)',
-                strokeWidth: 2,
-              }}
-            />
-            <Line
-              type="monotone"
-              dataKey="targetAmount"
-              name="Target pace"
-              stroke="var(--rs-warning)"
-              strokeWidth={2}
-              strokeDasharray="6 6"
-              dot={false}
-            />
-            <Line
-              type="monotone"
-              dataKey="closedWonAmount"
-              name="Closed won"
-              stroke="var(--rs-success)"
-              strokeWidth={2}
-              dot={{
-                r: 3,
-                fill: 'var(--rs-success)',
-                stroke: 'var(--rs-surface-alt)',
-                strokeWidth: 2,
-              }}
-              activeDot={{
-                r: 5,
-                fill: 'var(--rs-success)',
-                stroke: 'var(--rs-surface-alt)',
-                strokeWidth: 2,
-              }}
-            />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </div>
+      <ResponsiveChartContainer
+        className="h-[320px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        minHeight={320}
+      >
+        <ComposedChart
+          data={data}
+          margin={{ top: 16, right: 8, left: -12, bottom: 0 }}
+        >
+          <CartesianGrid
+            vertical={false}
+            stroke="rgba(255,255,255,0.08)"
+            strokeDasharray="4 4"
+          />
+          <XAxis
+            dataKey="label"
+            axisLine={false}
+            tickLine={false}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+          />
+          <YAxis
+            axisLine={false}
+            tickLine={false}
+            width={72}
+            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+            tickFormatter={formatAxisCurrency}
+          />
+          <Tooltip
+            cursor={{ stroke: 'rgba(255,255,255,0.16)', strokeWidth: 1 }}
+            content={TrendTooltip}
+          />
+          <Bar
+            dataKey="pipelineAmount"
+            name="Open pipeline"
+            fill="rgba(76,215,255,0.18)"
+            radius={[12, 12, 0, 0]}
+            barSize={28}
+          />
+          <Line
+            type="monotone"
+            dataKey="weightedForecastAmount"
+            name="Weighted forecast"
+            stroke="var(--rs-accent-primary)"
+            strokeWidth={3}
+            dot={{
+              r: 4,
+              fill: 'var(--rs-accent-primary)',
+              stroke: 'var(--rs-surface-alt)',
+              strokeWidth: 2,
+            }}
+            activeDot={{
+              r: 6,
+              fill: 'var(--rs-accent-primary)',
+              stroke: 'var(--rs-surface-alt)',
+              strokeWidth: 2,
+            }}
+          />
+          <Line
+            type="monotone"
+            dataKey="targetAmount"
+            name="Target pace"
+            stroke="var(--rs-warning)"
+            strokeWidth={2}
+            strokeDasharray="6 6"
+            dot={false}
+          />
+          <Line
+            type="monotone"
+            dataKey="closedWonAmount"
+            name="Closed won"
+            stroke="var(--rs-success)"
+            strokeWidth={2}
+            dot={{
+              r: 3,
+              fill: 'var(--rs-success)',
+              stroke: 'var(--rs-surface-alt)',
+              strokeWidth: 2,
+            }}
+            activeDot={{
+              r: 5,
+              fill: 'var(--rs-success)',
+              stroke: 'var(--rs-surface-alt)',
+              strokeWidth: 2,
+            }}
+          />
+        </ComposedChart>
+      </ResponsiveChartContainer>
 
       <div className="flex flex-wrap gap-3">
         {trendLegend.map((item) => (
@@ -266,30 +267,27 @@ export function OverviewMixChart({ items }: OverviewMixChartProps) {
 
   return (
     <div className="grid gap-6 xl:grid-cols-[minmax(240px,0.85fr)_minmax(0,1.15fr)] xl:items-center">
-      <div className="relative h-[260px] rounded-soft border border-white/8 bg-surface-alt/40 p-3">
-        <ResponsiveContainer width="100%" height="100%">
-          <PieChart>
-            <Tooltip content={MixTooltip} />
-            <Pie
-              data={items}
-              dataKey="amount"
-              nameKey="label"
-              innerRadius={72}
-              outerRadius={104}
-              paddingAngle={items.length > 1 ? 3 : 0}
-              stroke="rgba(17,20,27,0.96)"
-              strokeWidth={4}
-            >
-              {items.map((item, index) => (
-                <Cell
-                  key={item.id}
-                  fill={mixPalette[index % mixPalette.length]}
-                />
-              ))}
-            </Pie>
-          </PieChart>
-        </ResponsiveContainer>
-
+      <ResponsiveChartContainer
+        className="relative h-[260px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        minHeight={260}
+      >
+        <PieChart>
+          <Tooltip content={MixTooltip} />
+          <Pie
+            data={items}
+            dataKey="amount"
+            nameKey="label"
+            innerRadius={72}
+            outerRadius={104}
+            paddingAngle={items.length > 1 ? 3 : 0}
+            stroke="rgba(17,20,27,0.96)"
+            strokeWidth={4}
+          >
+            {items.map((item, index) => (
+              <Cell key={item.id} fill={mixPalette[index % mixPalette.length]} />
+            ))}
+          </Pie>
+        </PieChart>
         <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center">
           <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-text-muted">
             Visible book
@@ -301,7 +299,7 @@ export function OverviewMixChart({ items }: OverviewMixChartProps) {
             {formatCount(totalCount)} opportunities
           </p>
         </div>
-      </div>
+      </ResponsiveChartContainer>
 
       <div className="space-y-3">
         {items.map((item, index) => (

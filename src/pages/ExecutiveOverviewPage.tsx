@@ -146,6 +146,7 @@ function CoverageCell({ row }: { row: PerformanceRow }) {
 export function ExecutiveOverviewPage() {
   const { filters } = useFilters();
   const overview = getOverviewSnapshot(filters);
+  const hasOverviewResults = overview.hasResults;
   const topSegment = overview.segmentMix[0];
   const topRegion = overview.regionMix[0];
   const isForecastAboveTarget = overview.forecastGapAmount <= 0;
@@ -161,89 +162,140 @@ export function ExecutiveOverviewPage() {
       <section className="grid gap-4 xl:grid-cols-4">
         <MetricTile
           label="Open pipeline"
-          value={formatCompactCurrency(overview.pipelineAmount)}
-          detail={`${formatCount(overview.openOpportunityCount)} active opportunities in the current visible scope.`}
-          tone="accent"
+          value={
+            hasOverviewResults
+              ? formatCompactCurrency(overview.pipelineAmount)
+              : 'No data'
+          }
+          detail={
+            hasOverviewResults
+              ? `${formatCount(overview.openOpportunityCount)} active opportunities in the current visible scope.`
+              : 'No opportunities are visible in the current filter scope.'
+          }
+          tone={hasOverviewResults ? 'accent' : 'neutral'}
+          statusLabel={hasOverviewResults ? undefined : 'No data'}
+          isPlaceholder={!hasOverviewResults}
         />
         <MetricTile
           label="Weighted forecast"
-          value={formatCompactCurrency(overview.weightedForecastAmount)}
-          detail={`Includes ${formatCompactCurrency(overview.closedWonAmount)} already booked in ${overview.timeframe.label.toLowerCase()}.`}
-          tone={isForecastAboveTarget ? 'success' : 'warning'}
+          value={
+            hasOverviewResults
+              ? formatCompactCurrency(overview.weightedForecastAmount)
+              : 'No data'
+          }
+          detail={
+            hasOverviewResults
+              ? `Includes ${formatCompactCurrency(overview.closedWonAmount)} already booked in ${overview.timeframe.label.toLowerCase()}.`
+              : 'Forecast pacing appears once the current slice contains visible revenue data.'
+          }
+          tone={
+            hasOverviewResults
+              ? isForecastAboveTarget
+                ? 'success'
+                : 'warning'
+              : 'neutral'
+          }
+          statusLabel={hasOverviewResults ? undefined : 'No data'}
+          isPlaceholder={!hasOverviewResults}
         />
         <MetricTile
           label="Coverage vs target"
-          value={formatPercentage(overview.coverageRatio)}
-          detail={`Visible target is ${formatCompactCurrency(overview.targetAmount)} for the active filter scope.`}
-          tone={overview.coverageRatio >= 1.1 ? 'success' : 'warning'}
+          value={hasOverviewResults ? formatPercentage(overview.coverageRatio) : 'No data'}
+          detail={
+            hasOverviewResults
+              ? `Visible target is ${formatCompactCurrency(overview.targetAmount)} for the active filter scope.`
+              : 'Coverage needs visible target and opportunity data in the current filter scope.'
+          }
+          tone={
+            hasOverviewResults
+              ? overview.coverageRatio >= 1.1
+                ? 'success'
+                : 'warning'
+              : 'neutral'
+          }
+          statusLabel={hasOverviewResults ? undefined : 'No data'}
+          isPlaceholder={!hasOverviewResults}
         />
         <MetricTile
           label="Win rate"
-          value={formatPercentage(overview.winRate)}
-          detail={`Average deal size ${formatCompactCurrency(overview.averageDealSize)} with a ${formatDays(overview.averageCycleDays)} won cycle.`}
-          tone={overview.winRate >= 0.5 ? 'success' : 'warning'}
+          value={hasOverviewResults ? formatPercentage(overview.winRate) : 'No data'}
+          detail={
+            hasOverviewResults
+              ? `Average deal size ${formatCompactCurrency(overview.averageDealSize)} with a ${formatDays(overview.averageCycleDays)} won cycle.`
+              : 'Win-rate and cycle benchmarks appear once the current slice contains opportunity history.'
+          }
+          tone={
+            hasOverviewResults
+              ? overview.winRate >= 0.5
+                ? 'success'
+                : 'warning'
+              : 'neutral'
+          }
+          statusLabel={hasOverviewResults ? undefined : 'No data'}
+          isPlaceholder={!hasOverviewResults}
         />
       </section>
 
-      {!overview.hasResults ? (
-        <SurfaceCard title="Overview">
-          <EmptyState
-            title="No opportunities match the current filters"
-            description="Reset one or more filters to restore the executive overview."
-          />
-        </SurfaceCard>
-      ) : (
-        <>
-          <section className="grid gap-4 2xl:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.9fr)]">
-            <SurfaceCard
-              title="Quarter pacing"
-              description="Open pipeline bars show remaining volume by month. Forecast, target pace, and booked revenue stay tied to the same selector-backed timeframe."
-            >
-              <div className="space-y-5">
-                <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
-                  <div className="grid gap-3 sm:grid-cols-3 xl:flex-1">
-                    <SummaryStat
-                      label="Visible target"
-                      value={formatCompactCurrency(overview.targetAmount)}
-                      detail={`${overview.timeframe.label} quota in the current filtered scope.`}
-                    />
-                    <SummaryStat
-                      label="Forecast delta"
-                      value={formatSignedCompactCurrency(
-                        -overview.forecastGapAmount,
-                      )}
-                      detail="Weighted forecast against visible target."
-                      tone={isForecastAboveTarget ? 'success' : 'warning'}
-                    />
-                    <SummaryStat
-                      label="Booked now"
-                      value={formatCompactCurrency(overview.closedWonAmount)}
-                      detail={`${formatPercentage(
-                        overview.targetAmount > 0
-                          ? overview.closedWonAmount / overview.targetAmount
-                          : 0,
-                      )} of target already closed won.`}
-                      tone="accent"
-                    />
-                  </div>
-                  <StatusBadge
-                    variant={isForecastAboveTarget ? 'success' : 'warning'}
-                  >
-                    {isForecastAboveTarget
-                      ? 'Forecast running above visible target'
-                      : 'Forecast still below visible target'}
-                  </StatusBadge>
+      <section className="grid gap-4 2xl:grid-cols-[minmax(0,1.4fr)_minmax(320px,0.9fr)]">
+        <SurfaceCard
+          title="Quarter pacing"
+          description="Open pipeline bars show remaining volume by month. Forecast, target pace, and booked revenue stay tied to the same selector-backed timeframe."
+        >
+          {hasOverviewResults ? (
+            <div className="space-y-5">
+              <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+                <div className="grid gap-3 sm:grid-cols-3 xl:flex-1">
+                  <SummaryStat
+                    label="Visible target"
+                    value={formatCompactCurrency(overview.targetAmount)}
+                    detail={`${overview.timeframe.label} quota in the current filtered scope.`}
+                  />
+                  <SummaryStat
+                    label="Forecast delta"
+                    value={formatSignedCompactCurrency(
+                      -overview.forecastGapAmount,
+                    )}
+                    detail="Weighted forecast against visible target."
+                    tone={isForecastAboveTarget ? 'success' : 'warning'}
+                  />
+                  <SummaryStat
+                    label="Booked now"
+                    value={formatCompactCurrency(overview.closedWonAmount)}
+                    detail={`${formatPercentage(
+                      overview.targetAmount > 0
+                        ? overview.closedWonAmount / overview.targetAmount
+                        : 0,
+                    )} of target already closed won.`}
+                    tone="accent"
+                  />
                 </div>
-
-                <OverviewTrendChart data={overview.trend} />
+                <StatusBadge
+                  variant={isForecastAboveTarget ? 'success' : 'warning'}
+                >
+                  {isForecastAboveTarget
+                    ? 'Forecast running above visible target'
+                    : 'Forecast still below visible target'}
+                </StatusBadge>
               </div>
-            </SurfaceCard>
 
-            <SurfaceCard
-              title="Executive signals"
-              description="Short callouts for the current filter slice so the page reads like a business narrative, not just a metric dump."
-            >
-              <div className="space-y-3">
+              <OverviewTrendChart data={overview.trend} />
+            </div>
+          ) : (
+            <EmptyState
+              title="No opportunities match the current filters"
+              description="Broaden the current slice to restore pacing, forecast, and booked-revenue context."
+              minHeight={320}
+            />
+          )}
+        </SurfaceCard>
+
+        <SurfaceCard
+          title="Executive signals"
+          description="Short callouts for the current filter slice so the page reads like a business narrative, not just a metric dump."
+        >
+          {hasOverviewResults ? (
+            <>
+              <div className="space-y-5">
                 {overview.signals.map((signal) => (
                   <SignalCard key={signal.id} signal={signal} />
                 ))}
@@ -276,99 +328,114 @@ export function ExecutiveOverviewPage() {
                   tone="success"
                 />
               </div>
-            </SurfaceCard>
-          </section>
+            </>
+          ) : (
+            <EmptyState
+              title="Signals return when the visible slice has data"
+              description="This panel stays in place so the page layout is stable, but there is no current revenue story to summarize."
+              minHeight={320}
+            />
+          )}
+        </SurfaceCard>
+      </section>
 
-          <section className="grid gap-4 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
-            <SurfaceCard
-              title="Visible book mix"
-              description="Segment mix shows how the current revenue picture is distributed. Regional concentration sits alongside it so exposure is visible at a glance."
-            >
-              <div className="space-y-5">
-                <OverviewMixChart items={overview.segmentMix} />
+      <section className="grid gap-4 xl:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)]">
+        <SurfaceCard
+          title="Visible book mix"
+          description="Segment mix shows how the current revenue picture is distributed. Regional concentration sits alongside it so exposure is visible at a glance."
+        >
+          {hasOverviewResults ? (
+            <div className="space-y-5">
+              <OverviewMixChart items={overview.segmentMix} />
 
-                <div className="grid gap-3 md:grid-cols-3">
-                  {overview.regionMix.map((region) => (
-                    <div
-                      key={region.id}
-                      className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-4"
-                    >
-                      <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
-                        {region.label}
-                      </p>
-                      <p className="mt-2 text-xl font-semibold text-text-primary">
-                        {formatCompactCurrency(region.amount)}
-                      </p>
-                      <p className="mt-2 text-sm text-text-secondary">
-                        {formatPercentage(region.share)} of visible book
-                      </p>
-                    </div>
-                  ))}
-                </div>
+              <div className="grid gap-3 md:grid-cols-3">
+                {overview.regionMix.map((region) => (
+                  <div
+                    key={region.id}
+                    className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-4"
+                  >
+                    <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+                      {region.label}
+                    </p>
+                    <p className="mt-2 text-xl font-semibold text-text-primary">
+                      {formatCompactCurrency(region.amount)}
+                    </p>
+                    <p className="mt-2 text-sm text-text-secondary">
+                      {formatPercentage(region.share)} of visible book
+                    </p>
+                  </div>
+                ))}
               </div>
-            </SurfaceCard>
+            </div>
+          ) : (
+            <EmptyState
+              title="No visible book to segment"
+              description="Segment and region concentration reappear as soon as the active filters expose revenue data again."
+              minHeight={320}
+            />
+          )}
+        </SurfaceCard>
 
-            <SurfaceCard
-              title="Top rep forecast coverage"
-              description="Top reps are ranked from the shared performance rollup. The table keeps the overview credible by showing who is carrying the current forecast."
-            >
-              {overview.topRepRows.length === 0 ? (
-                <EmptyState
-                  title="No rep coverage in the current scope"
-                  description="Change the filters or move to a broader slice to restore rep-level detail."
-                />
-              ) : (
-                <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/45">
-                  <table className="min-w-full text-left text-sm">
-                    <thead className="border-b border-white/8 text-text-muted">
-                      <tr>
-                        <th className="px-4 py-3 font-medium">Rep</th>
-                        <th className="px-4 py-3 font-medium">Open deals</th>
-                        <th className="px-4 py-3 font-medium">Pipeline</th>
-                        <th className="px-4 py-3 font-medium">Forecast</th>
-                        <th className="px-4 py-3 font-medium">Coverage</th>
-                        <th className="px-4 py-3 font-medium">Win rate</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {overview.topRepRows.map((row) => (
-                        <tr
-                          key={row.ownerId}
-                          className="border-t border-white/6 text-text-secondary"
-                        >
-                          <td className="px-4 py-3">
-                            <p className="font-medium text-text-primary">
-                              {row.ownerName}
-                            </p>
-                            <p className="text-xs text-text-muted">
-                              {row.regionName}
-                            </p>
-                          </td>
-                          <td className="px-4 py-3">
-                            {formatCount(row.openDealCount)}
-                          </td>
-                          <td className="px-4 py-3">
-                            {formatCompactCurrency(row.pipelineAmount)}
-                          </td>
-                          <td className="px-4 py-3">
-                            {formatCompactCurrency(row.weightedForecastAmount)}
-                          </td>
-                          <td className="px-4 py-3">
-                            <CoverageCell row={row} />
-                          </td>
-                          <td className="px-4 py-3">
-                            {formatPercentage(row.winRate)}
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </SurfaceCard>
-          </section>
-        </>
-      )}
+        <SurfaceCard
+          title="Top rep forecast coverage"
+          description="Top reps are ranked from the shared performance rollup. The table keeps the overview credible by showing who is carrying the current forecast."
+        >
+          {overview.topRepRows.length === 0 ? (
+            <EmptyState
+              title="No rep coverage in the current scope"
+              description="Change the filters or move to a broader slice to restore rep-level detail."
+              minHeight={320}
+            />
+          ) : (
+            <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/45">
+              <table className="min-w-full text-left text-sm">
+                <thead className="border-b border-white/8 text-text-muted">
+                  <tr>
+                    <th className="px-4 py-3 font-medium">Rep</th>
+                    <th className="px-4 py-3 font-medium">Open deals</th>
+                    <th className="px-4 py-3 font-medium">Pipeline</th>
+                    <th className="px-4 py-3 font-medium">Forecast</th>
+                    <th className="px-4 py-3 font-medium">Coverage</th>
+                    <th className="px-4 py-3 font-medium">Win rate</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {overview.topRepRows.map((row) => (
+                    <tr
+                      key={row.ownerId}
+                      className="border-t border-white/6 text-text-secondary"
+                    >
+                      <td className="px-4 py-3">
+                        <p className="font-medium text-text-primary">
+                          {row.ownerName}
+                        </p>
+                        <p className="text-xs text-text-muted">
+                          {row.regionName}
+                        </p>
+                      </td>
+                      <td className="px-4 py-3">
+                        {formatCount(row.openDealCount)}
+                      </td>
+                      <td className="px-4 py-3">
+                        {formatCompactCurrency(row.pipelineAmount)}
+                      </td>
+                      <td className="px-4 py-3">
+                        {formatCompactCurrency(row.weightedForecastAmount)}
+                      </td>
+                      <td className="px-4 py-3">
+                        <CoverageCell row={row} />
+                      </td>
+                      <td className="px-4 py-3">
+                        {formatPercentage(row.winRate)}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </SurfaceCard>
+      </section>
     </div>
   );
 }
