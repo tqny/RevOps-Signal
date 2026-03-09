@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Task 15 documentation refresh is complete. Deployment prep is the next planned task.
+Task 15A business framing and seed distribution spec is complete. Task 15B seeded deal expansion and business alignment is the next planned Builder step before deployment prep.
 
 ## Active Role
 
@@ -14,10 +14,10 @@ Builder
 
 ## Current Branch
 
-`codex/task-15-documentation-refresh`
+`codex/task-15a-business-framing-seed-spec`
 
-Task 15 is implemented on the current branch and committed locally.
-Suggested next branch after merge: `codex/task-16-deployment-prep`
+Task 15A is implemented on the current branch and committed locally.
+Suggested next branch after merge: `codex/task-15b-seeded-deal-expansion`
 
 ## Current MVP Scope
 
@@ -56,13 +56,19 @@ Pages:
 
 ## Current Task
 
-Task 16 is next: deployment prep.
+Task 15B is next: seeded deal expansion and business alignment.
 
 ## Recently Completed
 
 - Task 14 visual refinement
 - Task 15 documentation refresh across README, task, architecture, QA, decision, and handoff docs
+- Task 15A added durable Eagle-AI business framing and mock-data generation rules under `docs/architecture/`
 - Task 17 browser QA automation remains in place with screenshot and report output under `output/playwright/responsive-smoke/`
+
+## Planned Next Steps
+
+- Task 15B: expand seeded deals only and align minimal product/reviewer copy to the approved business framing
+- Task 16: deployment prep
 
 ## Verification Baseline
 
@@ -85,7 +91,9 @@ Task 16 is next: deployment prep.
 - the About route is reviewer orientation, not a fifth analytics page
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- deployment prep is the next planned scope
+- Task 15A/15B should not add new reps, teams, segments, regions, or timeframe presets
+- Eagle-AI is the approved mock business and `amount` means first-year contract value including onboarding / implementation
+- deployment prep follows the 15A/15B data/business-framing work
 
 ## Required Read Order
 

@@ -337,6 +337,58 @@ Refresh the durable docs and repo README so they match the current implemented M
 - `npm run build`
 - `npm run qa:responsive`
 
+### Task 15A: Business framing and seed distribution spec
+
+**Status**
+Completed
+
+**Purpose**
+Define the pretend business, product/pricing semantics, and seeded deal-distribution rules for a richer opportunity set without changing the current filter/entity architecture.
+
+**Dependencies**
+
+- Task 15
+- current seeded opportunity model
+
+**Definition of Done**
+
+- durable docs define the pretend business category, product framing, and what opportunity `amount` represents
+- durable docs define what stays fixed for the next build step: no new reps, teams, segments, regions, or timeframe presets
+- durable docs define target distribution rules for additional deals across existing reps, teams, regions, segments, and periods
+- durable docs make clear that Task 15B should preserve the current shared selector model and avoid page-architecture changes
+
+**Verification**
+
+- spec, architecture, task, decision, and handoff docs are internally consistent
+- Task 15B has a clear enough brief to implement without inventing business framing ad hoc
+
+### Task 15B: Seeded deal expansion and business alignment
+
+**Status**
+Pending
+
+**Purpose**
+Add more seeded deals only and align app/reviewer copy to the approved pretend business while preserving the current schema, filters, routes, and selector-backed metric logic.
+
+**Dependencies**
+
+- Task 15A
+
+**Definition of Done**
+
+- opportunity count increases materially using the approved distribution rules
+- no new reps, teams, segments, regions, or timeframe presets are introduced
+- shared selectors remain the single source of truth for cross-page metrics
+- copy updates are limited to the minimum needed to make the dashboard represent the approved pretend business coherently
+- implementation follows `docs/architecture/revops-business-framing.md` and `docs/architecture/revops-mock-data-rules.md`
+
+**Verification**
+
+- `npm run test`
+- `npm run lint`
+- `npm run build`
+- `npm run qa:responsive`
+
 ### Task 16: Deployment prep
 
 **Status**

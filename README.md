@@ -85,6 +85,8 @@ That keeps the project lean while still supporting a believable business narrati
 
 The MVP uses a seeded local dataset rather than a real backend.
 
+The current seed simulates Eagle-AI, a growth-stage B2B SaaS company selling an AI compliance and governance platform. Opportunity `amount` is treated as first-year contract value, including subscription plus onboarding / implementation. The durable business framing and seed rules live in [`docs/architecture/revops-business-framing.md`](docs/architecture/revops-business-framing.md) and [`docs/architecture/revops-mock-data-rules.md`](docs/architecture/revops-mock-data-rules.md).
+
 The source model is centered around:
 
 - time periods

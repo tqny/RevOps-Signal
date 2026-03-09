@@ -81,3 +81,18 @@ The project needs a portfolio-grade explanation layer, but that content is too s
 
 Reason:
 Fresh threads should not have to rediscover browser installation, preview boot, or screenshot/report capture steps. A scripted Playwright workflow keeps responsive QA repeatable inside the repo and aligned with the current MVP routes.
+
+## D-016: Mock business is Eagle-AI, an AI compliance and governance SaaS company
+
+Reason:
+The dashboard needed a believable operating context that fits the existing enterprise-weighted segment ladder, regulated-buyer motion, and reviewer-facing product framing better than a generic SaaS placeholder.
+
+## D-017: Opportunity amount represents first-year contract value
+
+Reason:
+The current model only needs one comparable deal-value field. Treating `amount` as first-year contract value, including onboarding and implementation, keeps the dataset credible without introducing a deeper pricing or services schema.
+
+## D-018: Preserve the current opportunity lifecycle model for seed expansion
+
+Reason:
+The existing selectors and pages already rely on a clean separation between active stage, forecast category, and closed outcome. Future seed expansion should add realism through better distributions, not through stage-model changes.
