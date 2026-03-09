@@ -84,7 +84,7 @@ const reviewPath = [
 
 function AboutHeader() {
   return (
-    <header className="rounded-panel border border-white/8 bg-surface/85 p-6 shadow-panel backdrop-blur-sm">
+    <header className="rs-panel rounded-panel p-6">
       <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
         <div className="max-w-4xl space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent-secondary">
@@ -120,7 +120,7 @@ function SummaryCard({
   body: string;
 }) {
   return (
-    <div className="rounded-soft border border-white/8 bg-surface-alt/65 p-5">
+    <div className="rs-inset-panel rounded-soft p-5">
       <h3 className="text-base font-semibold text-text-primary">{title}</h3>
       <p className="mt-3 text-sm leading-6 text-text-secondary">{body}</p>
     </div>
@@ -137,7 +137,7 @@ function SystemStepCard({
   body: string;
 }) {
   return (
-    <div className="rounded-soft border border-white/8 bg-surface-alt/65 p-5">
+    <div className="rs-inset-panel rounded-soft p-5">
       <div className="flex items-center gap-3">
         <span className="inline-flex h-10 w-10 items-center justify-center rounded-soft border border-accent-primary/30 bg-accent-primary/12 text-xs font-semibold tracking-[0.18em] text-accent-secondary">
           {step}
@@ -162,8 +162,8 @@ function ScopeList({
     <div
       className={
         tone === 'accent'
-          ? 'rounded-soft border border-accent-primary/18 bg-accent-primary/8 p-5'
-          : 'rounded-soft border border-warning/18 bg-warning/8 p-5'
+          ? 'rs-inset-panel rounded-soft border-accent-primary/18 bg-accent-primary/8 p-5'
+          : 'rs-inset-panel rounded-soft border-warning/18 bg-warning/8 p-5'
       }
     >
       <h3 className="text-base font-semibold text-text-primary">{title}</h3>

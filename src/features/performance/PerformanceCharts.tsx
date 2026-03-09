@@ -71,7 +71,7 @@ function RepAttainmentTooltip({ active, payload }: TooltipContentProps) {
   }
 
   return (
-    <div className="min-w-[240px] rounded-soft border border-white/10 bg-surface-elevated/96 p-4 shadow-panel">
+    <div className="rs-floating-panel min-w-[240px] rounded-soft p-4">
       <p className="text-sm font-medium text-text-primary">{row.ownerName}</p>
       <div className="mt-3 space-y-2 text-sm text-text-secondary">
         <div className="flex items-center justify-between gap-4">
@@ -111,7 +111,7 @@ function TeamCoverageTooltip({ active, payload }: TooltipContentProps) {
   }
 
   return (
-    <div className="min-w-[240px] rounded-soft border border-white/10 bg-surface-elevated/96 p-4 shadow-panel">
+    <div className="rs-floating-panel min-w-[240px] rounded-soft p-4">
       <p className="text-sm font-medium text-text-primary">{row.ownerName}</p>
       <div className="mt-3 space-y-2 text-sm text-text-secondary">
         <div className="flex items-center justify-between gap-4">
@@ -156,7 +156,7 @@ export function RepAttainmentChart({ data }: RepAttainmentChartProps) {
 
   return (
     <ResponsiveChartContainer
-      className="min-w-0 rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+      className="rs-chart-surface min-w-0 rounded-soft p-3"
       style={{ height }}
       minHeight={height}
     >
@@ -242,7 +242,7 @@ export function TeamForecastCoverageChart({
 
   return (
     <ResponsiveChartContainer
-      className="min-w-0 rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+      className="rs-chart-surface min-w-0 rounded-soft p-3"
       style={{ height }}
       minHeight={height}
     >

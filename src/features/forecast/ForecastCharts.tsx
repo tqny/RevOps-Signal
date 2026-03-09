@@ -83,7 +83,7 @@ function ForecastCoverageTooltip({
   }
 
   return (
-    <div className="min-w-[240px] rounded-soft border border-white/10 bg-surface-elevated/96 p-4 shadow-panel">
+    <div className="rs-floating-panel min-w-[240px] rounded-soft p-4">
       <p className="text-sm font-medium text-text-primary">{row.label}</p>
       <div className="mt-3 space-y-2 text-sm text-text-secondary">
         <div className="flex items-center justify-between gap-4">
@@ -133,7 +133,7 @@ function ForecastCompositionTooltip({
   }
 
   return (
-    <div className="min-w-[220px] rounded-soft border border-white/10 bg-surface-elevated/96 p-4 shadow-panel">
+    <div className="rs-floating-panel min-w-[220px] rounded-soft p-4">
       <p className="text-sm font-medium text-text-primary">{row.label}</p>
       <div className="mt-3 space-y-2 text-sm text-text-secondary">
         <div className="flex items-center justify-between gap-4">
@@ -164,7 +164,7 @@ function RiskDistributionTooltip({
   }
 
   return (
-    <div className="min-w-[220px] rounded-soft border border-white/10 bg-surface-elevated/96 p-4 shadow-panel">
+    <div className="rs-floating-panel min-w-[220px] rounded-soft p-4">
       <p className="text-sm font-medium text-text-primary">{row.label}</p>
       <div className="mt-3 space-y-2 text-sm text-text-secondary">
         <div className="flex items-center justify-between gap-4">
@@ -219,7 +219,7 @@ export function ForecastCoverageChart({
   return (
     <div className="min-w-0 space-y-4">
       <ResponsiveChartContainer
-        className="min-w-0 h-[220px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        className="rs-chart-surface min-w-0 h-[220px] rounded-soft p-3"
         minHeight={196}
       >
         <BarChart
@@ -302,15 +302,15 @@ export function ForecastCoverageChart({
       </ResponsiveChartContainer>
 
       <div className="flex flex-wrap gap-3">
-        <div className="flex items-center gap-2 rounded-pill border border-white/8 bg-surface-alt/55 px-3 py-1.5 text-xs text-text-secondary">
+        <div className="rs-note-panel flex items-center gap-2 rounded-pill px-3 py-1.5 text-xs text-text-secondary">
           <span className="h-2.5 w-2.5 rounded-full bg-success" />
           <span>Closed won</span>
         </div>
-        <div className="flex items-center gap-2 rounded-pill border border-white/8 bg-surface-alt/55 px-3 py-1.5 text-xs text-text-secondary">
+        <div className="rs-note-panel flex items-center gap-2 rounded-pill px-3 py-1.5 text-xs text-text-secondary">
           <span className="h-2.5 w-2.5 rounded-full bg-accent-primary" />
           <span>Weighted open pipeline</span>
         </div>
-        <div className="flex items-center gap-2 rounded-pill border border-white/8 bg-surface-alt/55 px-3 py-1.5 text-xs text-text-secondary">
+        <div className="rs-note-panel flex items-center gap-2 rounded-pill px-3 py-1.5 text-xs text-text-secondary">
           <span className="w-4 border-t border-dashed border-warning" />
           <span>Visible target</span>
         </div>
@@ -331,7 +331,7 @@ export function ForecastCompositionChart({
   return (
     <div className="grid min-w-0 gap-6 2xl:grid-cols-[minmax(220px,0.82fr)_minmax(0,1.18fr)] 2xl:items-center">
       <ResponsiveChartContainer
-        className="relative min-w-0 h-[250px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        className="rs-chart-surface relative min-w-0 h-[250px] rounded-soft p-3"
         minHeight={226}
       >
         <PieChart>
@@ -372,7 +372,7 @@ export function ForecastCompositionChart({
         {items.map((item) => (
           <div
             key={item.id}
-            className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-3"
+            className="rs-inset-panel rounded-soft px-4 py-3"
           >
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
@@ -421,7 +421,7 @@ export function RiskDistributionChart({ data }: RiskDistributionChartProps) {
   return (
     <div className="min-w-0 space-y-4">
       <ResponsiveChartContainer
-        className="min-w-0 h-[280px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        className="rs-chart-surface min-w-0 h-[280px] rounded-soft p-3"
         minHeight={256}
       >
         <BarChart
@@ -477,7 +477,7 @@ export function RiskDistributionChart({ data }: RiskDistributionChartProps) {
         </BarChart>
       </ResponsiveChartContainer>
 
-      <div className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-3 text-sm text-text-secondary">
+      <div className="rs-note-panel rounded-soft px-4 py-3 text-sm text-text-secondary">
         Low, medium, and high bands cover the full open book for the current
         filter slice, so the chart reconciles cleanly to visible open pipeline.
       </div>

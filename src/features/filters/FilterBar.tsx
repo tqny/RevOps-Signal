@@ -1,4 +1,5 @@
 import {
+  DEFAULT_TIMEFRAME_ID,
   regionOptions,
   repOptions,
   segmentOptions,
@@ -18,14 +19,14 @@ type SelectFieldProps = {
 
 function SelectField({ label, value, options, onChange }: SelectFieldProps) {
   return (
-    <label className="min-w-0 space-y-2">
+    <label className="rs-inset-panel min-w-0 rounded-soft p-3">
       <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
         {label}
       </span>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="min-w-0 w-full rounded-soft border border-white/8 bg-surface-alt px-3 py-2.5 text-sm text-text-primary outline-none transition focus:border-accent-primary/45 focus:ring-2 focus:ring-accent-primary/20"
+        className="focus-ring mt-2 min-w-0 w-full rounded-soft border border-white/8 bg-surface px-3 py-2.5 text-sm text-text-primary outline-none transition hover:border-white/12 focus:border-accent-primary/45"
       >
         {options.map((option) => (
           <option key={option.id || 'all'} value={option.id}>
@@ -74,33 +75,49 @@ export function FilterBar() {
     updateTimeframe,
     updateSingleSelection,
   } = useFilters();
+  const activeSelectionCount =
+    (filters.timeframeId !== DEFAULT_TIMEFRAME_ID ? 1 : 0) +
+    (filters.segmentIds.length > 0 ? 1 : 0) +
+    (filters.regionIds.length > 0 ? 1 : 0) +
+    (filters.teamIds.length > 0 ? 1 : 0) +
+    (filters.repIds.length > 0 ? 1 : 0);
 
   return (
-    <div className="rounded-soft border border-white/6 bg-surface-alt/70 p-3 sm:p-4">
+    <div className="rs-note-panel rounded-soft p-3 sm:p-4">
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-2xl">
-            <p className="text-sm font-medium text-text-primary">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
+              Filters
+            </p>
+            <p className="mt-2 text-sm font-medium text-text-primary">
               Shared filter model
             </p>
-            <p className="text-sm text-text-secondary">
+            <p className="mt-1 text-sm text-text-secondary">
               Filters now drive the seeded local dataset and shared selectors
               across every route.
             </p>
           </div>
-          <button
-            type="button"
-            onClick={resetFilters}
-            className={cn(
-              'w-full rounded-pill border px-3 py-2 text-sm font-medium transition sm:w-auto',
-              hasActiveFilters
-                ? 'border-accent-primary/35 bg-accent-primary/12 text-accent-secondary hover:bg-accent-primary/18'
-                : 'cursor-not-allowed border-white/8 bg-surface text-text-muted',
-            )}
-            disabled={!hasActiveFilters}
-          >
-            Reset filters
-          </button>
+          <div className="flex w-full flex-col gap-2 sm:w-auto sm:items-end">
+            <p className="text-xs text-text-muted">
+              {hasActiveFilters
+                ? `${activeSelectionCount} controls narrowed`
+                : 'Default scope applied'}
+            </p>
+            <button
+              type="button"
+              onClick={resetFilters}
+              className={cn(
+                'w-full rounded-pill border px-3 py-2 text-sm font-medium transition sm:w-auto',
+                hasActiveFilters
+                  ? 'border-accent-primary/35 bg-[linear-gradient(180deg,rgba(111,107,255,0.2),rgba(111,107,255,0.08))] text-accent-secondary hover:border-accent-primary/45 hover:bg-accent-primary/18'
+                  : 'cursor-not-allowed border-white/8 bg-surface text-text-muted',
+              )}
+              disabled={!hasActiveFilters}
+            >
+              Reset filters
+            </button>
+          </div>
         </div>
         <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-5">
           <SelectField

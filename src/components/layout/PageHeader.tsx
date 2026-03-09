@@ -12,7 +12,7 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
   const { filters, hasActiveFilters } = useFilters();
 
   return (
-    <header className="flex flex-col gap-4 rounded-panel border border-white/8 bg-surface/85 p-5 shadow-panel backdrop-blur-sm sm:p-6">
+    <header className="rs-panel flex flex-col gap-4 rounded-panel p-5 sm:p-6">
       <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
         <div className="max-w-3xl space-y-3">
           <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent-secondary">
@@ -36,8 +36,11 @@ export function PageHeader({ eyebrow, title, description }: PageHeaderProps) {
           <StatusBadge variant="success">Selector-backed view</StatusBadge>
         </div>
       </div>
-      <div className="rounded-soft border border-white/6 bg-surface-alt/80 px-4 py-3 text-sm text-text-secondary">
-        Current filter context: {formatFilterSummary(filters)}
+      <div className="rs-note-panel rounded-soft px-4 py-3 text-sm text-text-secondary">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-text-muted">
+          Current scope
+        </p>
+        <p className="mt-1 leading-6">{formatFilterSummary(filters)}</p>
       </div>
     </header>
   );

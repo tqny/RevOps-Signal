@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Step 9 is complete, repo-native browser QA automation is in place, and visual refinement remains the next product task
+Task 14 visual refinement is complete, repo-native browser QA automation remains in place, and documentation refresh is the next product task
 
 ## Active Role
 
@@ -14,10 +14,10 @@ Builder
 
 ## Current Branch
 
-`codex/task-17-browser-qa-automation`
+`codex/task-14-visual-refinement`
 
-Task 17 is implemented on the current branch and committed locally.
-Suggested next branch after merge: `codex/task-14-visual-refinement`
+Task 14 is implemented on the current branch and committed locally.
+Suggested next branch after merge: `codex/task-15-documentation-refresh`
 
 ## Current MVP Scope
 
@@ -53,7 +53,7 @@ Pages:
 
 ## Current Task
 
-Task 14 is next: visual refinement.
+Task 15 is next: documentation refresh.
 
 ## Recently Completed
 
@@ -85,10 +85,12 @@ Task 14 is next: visual refinement.
 - verified Task 13 with `npm run test`, `npm run lint`, `npm run build`, and rendered Playwright checks across `/`, `/pipeline`, `/performance`, `/forecast`, and `/about` at `1280x820` and `1100x820`, confirming no page-level horizontal overflow, no chart container overflow, stable route-active navigation, and intentional internal table scrolling where widths tightened
 - added a repo-native responsive browser QA workflow using managed Playwright Chromium, a scripted local preview flow, and captured screenshot/report output under `output/playwright/responsive-smoke/`
 - verified Task 17 with `npm run qa:responsive:install`, `npm run qa:responsive`, `npm run test`, `npm run lint`, and `npm run build`
+- refined the shared shell, cards, badges, filter controls, chart wrappers, table shells, and About-route supporting panels to improve hierarchy and polish without changing routes or selector-backed metric logic
+- verified Task 14 with `npm run test`, `npm run lint`, `npm run build`, and `npm run qa:responsive`, including refreshed responsive screenshots and report output under `output/playwright/responsive-smoke/`
 
 ## Exact Next Task
 
-Task 14: Visual refinement
+Task 15: Documentation refresh
 
 ## Open Issues / Blockers
 
@@ -103,7 +105,7 @@ Task 14: Visual refinement
 - the About route is reviewer orientation, not a fifth analytics page
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- all four analytics pages are now fully composed from shared selectors, now with stable sparse-state treatment, render-safe chart containers, tighter laptop-width behavior, and a reusable repo-native browser QA path; remaining work is visual refinement, final docs refresh, and deployment prep
+- all four analytics pages remain composed from shared selectors, now with stable sparse-state treatment, render-safe chart containers, tighter laptop-width behavior, a more cohesive surface hierarchy, and a reusable repo-native browser QA path; remaining work is documentation refresh and deployment prep
 
 ## Required Read Order
 

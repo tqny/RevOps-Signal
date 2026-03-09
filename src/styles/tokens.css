@@ -6,6 +6,7 @@
   --rs-surface-alt: #171b23;
   --rs-surface-elevated: #1c212b;
   --rs-border: rgba(255, 255, 255, 0.08);
+  --rs-border-strong: rgba(255, 255, 255, 0.14);
 
   --rs-text-primary: #f4f7fb;
   --rs-text-secondary: #a7b0c0;
@@ -27,4 +28,6 @@
     0 0 0 1px rgba(255, 255, 255, 0.03), 0 8px 24px rgba(0, 0, 0, 0.18);
   --rs-shadow-medium:
     0 0 0 1px rgba(255, 255, 255, 0.04), 0 12px 32px rgba(0, 0, 0, 0.24);
+  --rs-shadow-floating:
+    0 0 0 1px rgba(255, 255, 255, 0.05), 0 18px 44px rgba(0, 0, 0, 0.32);
 }
