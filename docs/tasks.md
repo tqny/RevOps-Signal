@@ -265,29 +265,58 @@ Show likely outcome and downside.
 - forecast math reconciles
 - risk totals match filtered subset
 
-## Phase 7 - QA + Polish
+## Phase 7 - Reviewer Orientation
 
-### Task 11: Empty/loading/error state polish
+### Task 11: Add About This Project surface
+
+**Status**
+Completed
+
+**Purpose**
+Add a reviewer-facing explanation layer inside the product shell without changing the four-page analytics scope.
+
+**Dependencies**
+
+- Tasks 3-10
+- spec / architecture / design docs
+
+**Definition of Done**
+
+- a natural in-product placement is chosen and implemented
+- reviewers can understand what the project is, why it exists, how it works, and what is intentionally out of scope
+- routing and navigation stay coherent with the current shell
+- the surface reflects the existing visual language rather than a separate marketing style
+
+**Verification**
+
+- chosen About surface renders correctly
+- navigation active state works if a route/nav item is added
+- layout remains stable with the new surface
+- docs stay consistent with the placement decision
+
+## Phase 8 - QA + Polish
+
+### Task 12: Empty/loading/error state polish
 
 **Status**
 Pending
 
-### Task 12: Responsive tightening
+### Task 13: Responsive tightening
 
 **Status**
 Pending
 
-### Task 13: Visual refinement
+### Task 14: Visual refinement
 
 **Status**
 Pending
 
-### Task 14: Documentation refresh
+### Task 15: Documentation refresh
 
 **Status**
 Pending
 
-### Task 15: Deployment prep
+### Task 16: Deployment prep
 
 **Status**
 Pending

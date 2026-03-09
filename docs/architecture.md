@@ -2,7 +2,7 @@
 
 ## 1. Architecture Summary
 
-RevOps Signal is a React + TypeScript + Vite dashboard app with route-based pages, shared filter state, seeded local data, and centralized metric derivation utilities.
+RevOps Signal is a React + TypeScript + Vite dashboard app with route-based pages, shared filter state, seeded local data, centralized metric derivation utilities, and a reviewer-facing About surface that lives inside the main shell.
 
 The architecture optimizes for:
 
@@ -17,6 +17,7 @@ The architecture optimizes for:
 - `/pipeline` -> Pipeline & Funnel
 - `/performance` -> Sales Performance
 - `/forecast` -> Forecast & Risks
+- `/about` -> About This Project
 
 ## 3. App Shell
 
@@ -24,6 +25,7 @@ Shared layout:
 
 - left navigation rail
 - top utility / filter bar
+- route-level reviewer orientation entry point
 - page header
 - main dashboard content grid
 
@@ -112,6 +114,7 @@ No page should compute core business metrics ad hoc if the same logic belongs in
 - top bar
 - page container
 - page header
+- route-level reviewer framing surface
 
 ### Shared UI
 

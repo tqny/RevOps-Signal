@@ -2,7 +2,7 @@
 
 ## 1. Product Summary
 
-RevOps Signal is a desktop-first multi-page revenue operations dashboard web app that turns seeded mock GTM data into a connected executive-style analytics story.
+RevOps Signal is a desktop-first multi-page revenue operations dashboard web app that turns seeded mock GTM data into a connected executive-style analytics story, with an in-product reviewer surface that explains the project's framing, scope, and implementation judgment.
 
 It is intended as:
 
@@ -27,9 +27,11 @@ Secondary:
 The app should:
 
 - present a coherent four-page dashboard experience
+- provide a reviewer-facing explanation layer inside the product shell
 - use shared mock data across all pages
 - compute meaningful derived metrics from a shared source of truth
 - show how pipeline, funnel quality, rep performance, and forecast confidence connect
+- explain what the project simulates, how it works, and what is intentionally out of scope
 - feel polished, modern, and credible
 
 ## 4. MVP Scope
@@ -40,6 +42,10 @@ The app should:
 2. Pipeline & Funnel
 3. Sales Performance
 4. Forecast & Risks
+
+### Reviewer Orientation Surface
+
+- About This Project
 
 ### Required MVP Capabilities
 
@@ -112,6 +118,7 @@ Not in MVP:
 The MVP is successful if:
 
 - pages feel connected, not random
+- reviewers can orient quickly without leaving the product
 - charts support a coherent metric story
 - filters update views consistently
 - numbers reconcile across pages

@@ -3,8 +3,8 @@
 ## 1. App / Routing
 
 - [ ] app boots without errors
-- [ ] all four routes load
-- [ ] navigation reflects current route
+- [ ] all dashboard routes plus the About route load
+- [ ] navigation reflects current route, including the About surface
 - [ ] layout remains stable during navigation
 
 ## 2. Filters

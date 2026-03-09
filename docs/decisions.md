@@ -71,3 +71,8 @@ The scaffold only needs shells, cards, nav, and filters; a broader component lib
 
 Reason:
 Segment filters are part of the shared model, so target and attainment math needed a coherent way to remain meaningful when the visible opportunity subset narrows by segment.
+
+## D-014: Reviewer orientation lives as a dedicated in-product route
+
+Reason:
+The project needs a portfolio-grade explanation layer, but that content is too substantial for a modal or tab and should not dilute the four analytics pages. A dedicated About route preserves the existing route-based structure while giving reviewers clear framing inside the product.

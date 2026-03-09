@@ -15,8 +15,8 @@ export function SideNav() {
               {APP_NAME}
             </h2>
             <p className="text-sm leading-6 text-text-secondary">
-              Four connected pages, local seeded data only, shared filters, no
-              backend.
+              Four connected analytics pages plus a reviewer guide, local
+              seeded data only, shared filters, no backend.
             </p>
           </div>
         </div>

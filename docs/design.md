@@ -168,6 +168,32 @@ Balanced between cards, comparisons, and ranked/tabular data.
 More interpretive and forward-looking.
 Risk should be visible but not visually chaotic.
 
+### About This Project
+
+Reviewer orientation should live inside the product shell, not as a detached marketing splash.
+
+Use the same card hierarchy, spacing rhythm, and restrained accent language as the analytics pages.
+
+Content should explain:
+
+- what the project simulates
+- why it was built
+- how the data and selector model work
+- what was intentionally scoped out
+- what technical or product judgment the build demonstrates
+
+Preferred patterns:
+
+- editorial-style overview sections
+- concise principle or scope callouts
+- simple system diagrams or process blocks only if they clarify structure
+
+Avoid:
+
+- hero-copy excess
+- marketing claims without substance
+- decorative charts that do not explain the product
+
 ## 10. Data Viz Rules
 
 - every visualization must answer a specific question
