@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Step 6 complete: all four MVP pages are fully composed from shared selectors, and QA/polish is next
+Step 7 complete: the reviewer-facing About surface is now in-product, and QA/polish is next
 
 ## Active Role
 
@@ -14,14 +14,15 @@ Builder
 
 ## Current Branch
 
-`main`
+`codex/task-11-about-project-surface`
 
 Task 10 is merged into `main`.
-Suggested next branch: `codex/task-11-empty-state-polish`
+Task 11 is implemented on the current branch.
+Suggested next branch: `codex/task-12-empty-state-polish`
 
 ## Current MVP Scope
 
-A desktop-first four-page RevOps dashboard using seeded mock data, shared filters, and centralized metric derivation.
+A desktop-first four-page RevOps dashboard using seeded mock data, shared filters, centralized metric derivation, and a dedicated reviewer-facing About surface inside the product shell.
 
 Pages:
 
@@ -29,12 +30,14 @@ Pages:
 2. Pipeline & Funnel
 3. Sales Performance
 4. Forecast & Risks
+5. About This Project
 
 ## Architecture Summary
 
 - React + TypeScript + Vite
 - Tailwind styling
 - route-based pages
+- dedicated `/about` reviewer route in the shared shell
 - shared filter state
 - seeded local data
 - centralized metric selectors/utilities
@@ -47,10 +50,11 @@ Pages:
 - card-based layout
 - dense but controlled information design
 - patterns from Sets 2-4 adapted into Set 1 style
+- reviewer orientation stays editorial and in-shell rather than marketing-like
 
 ## Current Task
 
-Task 11 is next: empty/loading/error state polish.
+Task 12 is next: empty/loading/error state polish.
 
 ## Recently Completed
 
@@ -71,10 +75,13 @@ Task 11 is next: empty/loading/error state polish.
 - verified the sales performance implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and rendered Chromium screenshots of `/performance`
 - implemented the Forecast & Risks page with selector-backed forecast coverage, composition, risk distribution, and stalled pipeline table sections
 - verified the forecast implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and a rendered Chromium check of `/forecast`
+- added a dedicated About This Project route in the shared shell so reviewers can understand project framing, scope, system design, and technical judgment without leaving the product
+- updated spec, architecture, design, task, QA, handoff, and README docs so the reviewer-facing route is tracked as the new Task 11 before QA/polish
+- verified the About route with `npm run test`, `npm run lint`, `npm run build`, and a rendered Firefox check of `/about`, including nav active-state confirmation and a follow-up route transition back to `/`
 
 ## Exact Next Task
 
-Task 11: Empty/loading/error state polish
+Task 12: Empty/loading/error state polish
 
 ## Open Issues / Blockers
 
@@ -86,10 +93,11 @@ Task 11: Empty/loading/error state polish
 
 - no backend/auth in MVP
 - shared selector model is the single metric source of truth
-- four pages are sufficient for MVP
+- four analytics pages remain the core MVP story
+- the About route is reviewer orientation, not a fifth analytics page
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- all four MVP pages are now fully composed from shared selectors; remaining work is QA/polish, responsive tightening, and docs refresh
+- all four analytics pages are now fully composed from shared selectors; remaining work is QA/polish, responsive tightening, and final docs refresh
 
 ## Required Read Order
 

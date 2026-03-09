@@ -27,4 +27,10 @@ export const NAV_ITEMS: NavItem[] = [
     shortLabel: 'FR',
     description: 'Confidence, gaps, and downside',
   },
+  {
+    label: 'About This Project',
+    path: '/about',
+    shortLabel: 'AB',
+    description: 'Framing, scope, and build judgment',
+  },
 ];

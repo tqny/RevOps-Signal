@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { AppShell } from '../components/layout/AppShell';
+import { AboutProjectPage } from '../pages/AboutProjectPage';
 import { ExecutiveOverviewPage } from '../pages/ExecutiveOverviewPage';
 import { ForecastRisksPage } from '../pages/ForecastRisksPage';
 import { PipelineFunnelPage } from '../pages/PipelineFunnelPage';
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
       {
         path: 'forecast',
         element: <ForecastRisksPage />,
+      },
+      {
+        path: 'about',
+        element: <AboutProjectPage />,
       },
     ],
   },

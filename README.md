@@ -1,6 +1,6 @@
 # RevOps Signal
 
-A portfolio-grade RevOps dashboard demo that turns seeded mock GTM data into a connected executive-style revenue story.
+A portfolio-grade RevOps dashboard demo that turns seeded mock GTM data into a connected executive-style revenue story, with an in-product About surface for reviewer orientation.
 
 ## Problem Statement
 
@@ -29,6 +29,8 @@ The app is organized around four connected views:
 4. **Forecast & Risks**  
    Forward-looking interpretation of weighted forecast, target gap, stalled pipeline, and risk concentration.
 
+It also includes **About This Project**, a reviewer-facing route inside the product shell that explains what the app simulates, why it was built, how the shared data model works, and what was intentionally left out of scope.
+
 The goal is not to simulate a full BI platform. The goal is to show a disciplined MVP where shared business logic stays visible across multiple pages.
 
 ## Why This Project Exists
@@ -46,15 +48,14 @@ It is also intended as a portfolio piece that demonstrates product thinking, GTM
 
 ## Current Repo Status
 
-The repo currently includes the approved MVP foundation through the shared data and filter layer:
+The repo currently includes:
 
-- route-based app shell and navigation
-- seeded local mock data
-- shared global filters
-- centralized selector and derivation logic
-- selector-backed page shells for all four routes
-
-The next implementation step is to turn the pages into fully composed dashboard views, starting with the Executive Overview page.
+- a route-based app shell with five routes, including the reviewer-facing About surface
+- seeded local mock data across periods, regions, segments, teams, reps, and opportunities
+- shared global filters across the four analytics pages
+- centralized selector and derivation logic for KPI, funnel, performance, forecast, and risk views
+- fully composed Executive Overview, Pipeline & Funnel, Sales Performance, and Forecast & Risks pages
+- durable planning, architecture, design, and handoff docs for reviewable iteration
 
 ## Architecture Overview
 
@@ -209,11 +210,12 @@ npm run lint
 
 A practical review path for this project is:
 
-1. Start on **Executive Overview**.
-2. Change the global filters and confirm that numbers update across pages.
-3. Move to **Pipeline & Funnel** and inspect whether conversion and leakage explain the overview signal.
-4. Move to **Sales Performance** and compare attainment, win rate, and velocity across reps and teams.
-5. Move to **Forecast & Risks** and confirm that weighted forecast and risk views align with the earlier pages.
+1. Start on **About This Project** if you want product framing, architecture context, and scope boundaries before reviewing the analytics routes.
+2. Move to **Executive Overview** for the top-level health scan.
+3. Change the global filters and confirm that numbers update across pages.
+4. Move to **Pipeline & Funnel** and inspect whether conversion and leakage explain the overview signal.
+5. Move to **Sales Performance** and compare attainment, win rate, and velocity across reps and teams.
+6. Move to **Forecast & Risks** and confirm that weighted forecast and risk views align with the earlier pages.
 
 Things to look for:
 
