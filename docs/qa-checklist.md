@@ -51,6 +51,7 @@
 
 - [ ] build passes
 - [ ] lint passes
+- [ ] repo-native browser QA script runs without ad hoc browser-path fixes
 - [ ] shared selectors used for core metrics
 - [ ] no obvious duplicated business logic
 - [ ] docs updated if scope/architecture changed

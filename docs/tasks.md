@@ -321,6 +321,34 @@ Pending
 **Status**
 Pending
 
+## Phase 9 - Workflow Hardening
+
+### Task 17: Browser QA automation
+
+**Status**
+Completed
+
+**Purpose**
+Make rendered browser checks repeatable inside the repo so fresh threads do not have to rediscover browser setup, launch options, and responsive verification steps.
+
+**Dependencies**
+
+- Tasks 12-13
+- existing route shell and responsive QA expectations
+
+**Definition of Done**
+
+- a repo-native browser QA script exists for responsive smoke checks
+- the script uses a managed browser path instead of assuming a system Chrome install
+- the script captures route screenshots and a concise layout report for the current MVP routes
+- the workflow is documented in repo docs or scripts clearly enough for fresh threads to reuse directly
+
+**Verification**
+
+- browser install step succeeds from repo scripts
+- responsive QA script runs against the local app without manual Playwright CLI recovery steps
+- route loads, nav stability, chart containment, and table degradation checks are reported for the current MVP routes
+
 ## Execution Rules
 
 - implement one approved task at a time

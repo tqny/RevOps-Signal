@@ -206,6 +206,15 @@ npm run test
 npm run lint
 ```
 
+### Responsive browser QA
+
+```bash
+npm run qa:responsive:install
+npm run qa:responsive
+```
+
+The responsive QA command builds the app, starts a strict local preview, runs the current MVP routes through managed Chromium at laptop-width breakpoints, and writes screenshots plus a JSON report to `output/playwright/responsive-smoke/`.
+
 ## Review Guidance
 
 A practical review path for this project is:
