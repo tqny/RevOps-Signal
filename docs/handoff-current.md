@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Step 5 complete: Executive Overview, Pipeline & Funnel, and Sales Performance are fully composed from shared selectors, and Forecast & Risks is next
+Step 6 complete: all four MVP pages are fully composed from shared selectors, and QA/polish is next
 
 ## Active Role
 
@@ -16,8 +16,8 @@ Builder
 
 `main`
 
-Task 9 is merged into `main`.
-Suggested next branch: `codex/task-10-forecast-risks`
+Task 10 is merged into `main`.
+Suggested next branch: `codex/task-11-empty-state-polish`
 
 ## Current MVP Scope
 
@@ -50,7 +50,7 @@ Pages:
 
 ## Current Task
 
-Task 10 is next: implement the Forecast & Risks page on a fresh task branch.
+Task 11 is next: empty/loading/error state polish.
 
 ## Recently Completed
 
@@ -69,16 +69,18 @@ Task 10 is next: implement the Forecast & Risks page on a fresh task branch.
 - verified the pipeline implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and a rendered Chromium screenshot of `/pipeline`
 - implemented the Sales Performance page with selector-backed attainment widgets, rep/team comparison charts, progress ladders, and a richer performance table
 - verified the sales performance implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and rendered Chromium screenshots of `/performance`
+- implemented the Forecast & Risks page with selector-backed forecast coverage, composition, risk distribution, and stalled pipeline table sections
+- verified the forecast implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and a rendered Chromium check of `/forecast`
 
 ## Exact Next Task
 
-Task 10: Implement Forecast & Risks page
+Task 11: Empty/loading/error state polish
 
 ## Open Issues / Blockers
 
 - none currently
-- Forecast & Risks is still on the lighter interim presentation and remains the next page-specific composition pass
-- local Vite browser checks still log a missing `favicon.ico` request plus initial Recharts sizing warnings on `/performance`; visual render was intact, but this should be revisited during QA polish if the warnings persist outside dev
+- `/forecast` rendered correctly in local browser checks and built preview, with no failing network requests observed during the captured pass
+- initial Recharts sizing warnings (`width(-1)` / `height(-1)`) still reproduce on `/forecast` in both local dev and built preview even though the page renders correctly; treat this as a real QA polish item rather than dev-only noise
 
 ## Active Assumptions
 
@@ -87,7 +89,7 @@ Task 10: Implement Forecast & Risks page
 - four pages are sufficient for MVP
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- Executive Overview, Pipeline & Funnel, and Sales Performance are now fully composed from shared selectors; Forecast & Risks still uses the lighter interim presentation
+- all four MVP pages are now fully composed from shared selectors; remaining work is QA/polish, responsive tightening, and docs refresh
 
 ## Required Read Order
 

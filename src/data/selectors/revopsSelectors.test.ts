@@ -101,6 +101,33 @@ describe('revops selectors', () => {
     );
   });
 
+  it('reconciles forecast coverage, composition, and risk rollups', () => {
+    const forecast = getForecastSnapshot(createDefaultFilters());
+
+    expect(forecast.openPipelineAmount).toBe(1292000);
+    expect(forecast.closedWonAmount).toBe(477000);
+    expect(forecast.weightedOpenPipelineAmount).toBe(773810);
+    expect(forecast.weightedForecastAmount).toBe(
+      forecast.closedWonAmount + forecast.weightedOpenPipelineAmount,
+    );
+    expect(forecast.forecastAttainmentRate).toBeCloseTo(
+      forecast.weightedForecastAmount / forecast.targetAmount,
+      5,
+    );
+    expect(
+      forecast.compositionRows.reduce((total, row) => total + row.amount, 0),
+    ).toBe(forecast.openPipelineAmount);
+    expect(
+      forecast.riskLevelRows.reduce((total, row) => total + row.amount, 0),
+    ).toBe(forecast.openPipelineAmount);
+    expect(forecast.atRiskAmount).toBeGreaterThanOrEqual(
+      forecast.stalledPipelineAmount,
+    );
+    expect(forecast.stalledOpportunities[0]?.amount ?? 0).toBeGreaterThanOrEqual(
+      forecast.stalledOpportunities.at(-1)?.amount ?? 0,
+    );
+  });
+
   it('returns empty scoped data for contradictory filters', () => {
     const context = getFilteredRevOpsContext({
       ...createDefaultFilters(),
