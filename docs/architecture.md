@@ -154,6 +154,13 @@ Test the highest-value shared logic:
 - funnel aggregation
 - consistency across rollups
 
+Also keep one repo-native rendered browser smoke path for:
+
+- route loading across the current MVP pages
+- active-nav stability during route transitions
+- responsive layout containment at laptop-width breakpoints
+- screenshot and report capture for quick QA review
+
 ## 12. Extension Path
 
 A later backend can replace seeded data if:

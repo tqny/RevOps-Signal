@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Step 9 complete: responsive tightening is in place, and visual refinement is next
+Step 9 is complete, repo-native browser QA automation is in place, and visual refinement remains the next product task
 
 ## Active Role
 
@@ -14,9 +14,9 @@ Builder
 
 ## Current Branch
 
-`codex/task-13-responsive-tightening`
+`codex/task-17-browser-qa-automation`
 
-Task 13 is implemented on the current branch and committed locally.
+Task 17 is implemented on the current branch and committed locally.
 Suggested next branch after merge: `codex/task-14-visual-refinement`
 
 ## Current MVP Scope
@@ -83,6 +83,8 @@ Task 14 is next: visual refinement.
 - verified Task 12 with `npm run test`, `npm run lint`, `npm run build`, and rendered Firefox checks across `/`, `/pipeline`, `/performance`, `/forecast`, and `/about`, including a forced no-results filter state across the analytics pages
 - tightened laptop-width and narrower desktop behavior across the shared shell, filter bar, KPI grids, split-card sections, charts, and table wrappers without changing routes or selector logic
 - verified Task 13 with `npm run test`, `npm run lint`, `npm run build`, and rendered Playwright checks across `/`, `/pipeline`, `/performance`, `/forecast`, and `/about` at `1280x820` and `1100x820`, confirming no page-level horizontal overflow, no chart container overflow, stable route-active navigation, and intentional internal table scrolling where widths tightened
+- added a repo-native responsive browser QA workflow using managed Playwright Chromium, a scripted local preview flow, and captured screenshot/report output under `output/playwright/responsive-smoke/`
+- verified Task 17 with `npm run qa:responsive:install`, `npm run qa:responsive`, `npm run test`, `npm run lint`, and `npm run build`
 
 ## Exact Next Task
 
@@ -101,7 +103,7 @@ Task 14: Visual refinement
 - the About route is reviewer orientation, not a fifth analytics page
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- all four analytics pages are now fully composed from shared selectors, now with stable sparse-state treatment, render-safe chart containers, and tighter laptop-width behavior; remaining work is visual refinement, final docs refresh, and deployment prep
+- all four analytics pages are now fully composed from shared selectors, now with stable sparse-state treatment, render-safe chart containers, tighter laptop-width behavior, and a reusable repo-native browser QA path; remaining work is visual refinement, final docs refresh, and deployment prep
 
 ## Required Read Order
 
