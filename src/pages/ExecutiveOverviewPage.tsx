@@ -72,7 +72,7 @@ function SummaryStat({
   return (
     <div
       className={cn(
-        'rounded-soft border px-4 py-4',
+        'rs-inset-panel rounded-soft px-4 py-4',
         tone === 'accent' && 'border-accent-primary/18 bg-accent-primary/8',
         tone === 'success' && 'border-success/18 bg-success/8',
         tone === 'warning' && 'border-warning/18 bg-warning/8',
@@ -94,7 +94,7 @@ function SignalCard({ signal }: { signal: OverviewSignal }) {
   return (
     <div
       className={cn(
-        'rounded-soft border px-4 py-4',
+        'rs-inset-panel rounded-soft px-4 py-4',
         getSignalSurfaceClass(signal.tone),
       )}
     >
@@ -352,7 +352,7 @@ export function ExecutiveOverviewPage() {
                 {overview.regionMix.map((region) => (
                   <div
                     key={region.id}
-                    className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-4"
+                    className="rs-inset-panel rounded-soft px-4 py-4"
                   >
                     <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-text-muted">
                       {region.label}
@@ -387,7 +387,7 @@ export function ExecutiveOverviewPage() {
               minHeight={320}
             />
           ) : (
-            <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/45">
+            <div className="rs-table-shell overflow-x-auto rounded-soft">
               <table className="min-w-[860px] text-left text-sm">
                 <thead className="border-b border-white/8 text-text-muted">
                   <tr>

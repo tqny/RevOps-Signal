@@ -101,7 +101,7 @@ function SummaryStat({
   return (
     <div
       className={cn(
-        'rounded-soft border px-4 py-4',
+        'rs-inset-panel rounded-soft px-4 py-4',
         tone === 'accent' && 'border-accent-primary/18 bg-accent-primary/8',
         tone === 'success' && 'border-success/18 bg-success/8',
         tone === 'warning' && 'border-warning/18 bg-warning/8',
@@ -122,7 +122,7 @@ function SummaryStat({
 
 function RiskReasonCard({ row }: { row: RiskRow }) {
   return (
-    <div className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-4">
+    <div className="rs-inset-panel rounded-soft px-4 py-4">
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-medium text-text-primary">{row.label}</p>
         <StatusBadge variant="warning">{formatPercentage(row.share)}</StatusBadge>
@@ -427,7 +427,7 @@ export function ForecastRisksPage() {
               minHeight={320}
             />
           ) : (
-            <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/60">
+            <div className="rs-table-shell overflow-x-auto rounded-soft">
               <table className="min-w-[780px] text-left text-sm">
                 <thead className="border-b border-white/8 text-text-muted">
                   <tr>

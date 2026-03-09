@@ -66,7 +66,7 @@ function ConversionTooltip({ active, payload }: TooltipContentProps) {
   }
 
   return (
-    <div className="min-w-[220px] rounded-soft border border-white/10 bg-surface-elevated/96 p-4 shadow-panel">
+    <div className="rs-floating-panel min-w-[220px] rounded-soft p-4">
       <p className="text-sm font-medium text-text-primary">{row.stage}</p>
       <div className="mt-3 space-y-2 text-sm text-text-secondary">
         <div className="flex items-center justify-between gap-4">
@@ -106,7 +106,7 @@ function LeakageTooltip({ active, payload }: TooltipContentProps) {
   }
 
   return (
-    <div className="min-w-[240px] rounded-soft border border-white/10 bg-surface-elevated/96 p-4 shadow-panel">
+    <div className="rs-floating-panel min-w-[240px] rounded-soft p-4">
       <p className="text-sm font-medium text-text-primary">{row.stage}</p>
       <div className="mt-3 space-y-2 text-sm text-text-secondary">
         <div className="flex items-center justify-between gap-4">
@@ -158,7 +158,7 @@ export function PipelineFunnelChart({ data }: PipelineFunnelChartProps) {
           <div key={row.stage} className="space-y-2">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-pill border border-white/10 bg-surface-alt/75 text-xs font-semibold text-text-secondary">
+                <span className="rs-note-panel flex h-8 w-8 items-center justify-center rounded-pill text-xs font-semibold text-text-secondary">
                   {index + 1}
                 </span>
                 <div>
@@ -180,7 +180,7 @@ export function PipelineFunnelChart({ data }: PipelineFunnelChartProps) {
               </div>
             </div>
 
-            <div className="flex justify-center rounded-soft border border-white/8 bg-surface-alt/35 px-3 py-2">
+            <div className="rs-chart-surface flex justify-center rounded-soft px-3 py-2">
               <div
                 className="flex h-12 items-center justify-between gap-3 rounded-[16px] border px-4 text-sm shadow-panel"
                 style={{
@@ -213,7 +213,7 @@ export function PipelineConversionChart({
   return (
     <div className="space-y-4">
       <ResponsiveChartContainer
-        className="h-[280px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        className="rs-chart-surface h-[280px] rounded-soft p-3"
         minHeight={280}
       >
         <BarChart
@@ -273,7 +273,7 @@ export function PipelineConversionChart({
         </BarChart>
       </ResponsiveChartContainer>
 
-      <div className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-3 text-sm text-text-secondary">
+      <div className="rs-note-panel rounded-soft px-4 py-3 text-sm text-text-secondary">
         Progression is a selector-backed stage proxy: each row shows how many
         deals that reached a stage are already visible in a later stage.
       </div>
@@ -289,7 +289,7 @@ export function PipelineLeakageChart({ data }: PipelineLeakageChartProps) {
   return (
     <div className="space-y-4">
       <ResponsiveChartContainer
-        className="h-[280px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        className="rs-chart-surface h-[280px] rounded-soft p-3"
         minHeight={280}
       >
         <BarChart
@@ -338,11 +338,11 @@ export function PipelineLeakageChart({ data }: PipelineLeakageChartProps) {
       </ResponsiveChartContainer>
 
       <div className="flex flex-wrap gap-3">
-        <div className="flex items-center gap-2 rounded-pill border border-white/8 bg-surface-alt/55 px-3 py-1.5 text-xs text-text-secondary">
+        <div className="rs-note-panel flex items-center gap-2 rounded-pill px-3 py-1.5 text-xs text-text-secondary">
           <span className="h-2.5 w-2.5 rounded-full bg-danger" />
           <span>Lost amount</span>
         </div>
-        <div className="flex items-center gap-2 rounded-pill border border-white/8 bg-surface-alt/55 px-3 py-1.5 text-xs text-text-secondary">
+        <div className="rs-note-panel flex items-center gap-2 rounded-pill px-3 py-1.5 text-xs text-text-secondary">
           <span className="h-2.5 w-2.5 rounded-full bg-warning" />
           <span>Stalled or aging amount</span>
         </div>

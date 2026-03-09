@@ -47,7 +47,7 @@ function StageConversionCard({ row }: { row: StageConversionRow }) {
   const badge = getConversionBadge(row.rate);
 
   return (
-    <div className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-4">
+    <div className="rs-inset-panel rounded-soft px-4 py-4">
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-medium text-text-primary">{row.stage}</p>
         <StatusBadge variant={badge.variant}>{badge.label}</StatusBadge>
@@ -68,7 +68,7 @@ function LeakageStageCard({ row }: { row: StageLeakageRow }) {
   const badge = getLeakageBadge(row);
 
   return (
-    <div className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-4">
+    <div className="rs-inset-panel rounded-soft px-4 py-4">
       <div className="flex items-center justify-between gap-3">
         <p className="text-sm font-medium text-text-primary">{row.stage}</p>
         <StatusBadge variant={badge.variant}>{badge.label}</StatusBadge>
@@ -316,7 +316,7 @@ export function PipelineFunnelPage() {
               minHeight={320}
             />
           ) : (
-            <div className="overflow-x-auto rounded-soft border border-white/8 bg-surface-alt/60">
+            <div className="rs-table-shell overflow-x-auto rounded-soft">
               <table className="min-w-[760px] text-left text-sm">
                 <thead className="border-b border-white/8 text-text-muted">
                   <tr>

@@ -18,7 +18,7 @@ export function SurfaceCard({
   return (
     <section
       className={cn(
-        'min-w-0 rounded-panel border border-white/8 bg-surface/85 p-4 shadow-panel backdrop-blur-sm sm:p-5',
+        'rs-panel rs-panel-hover min-w-0 rounded-panel p-4 sm:p-5',
         className,
       )}
     >
@@ -40,7 +40,7 @@ export function SurfaceCard({
         {children}
       </div>
       {footer ? (
-        <div className="mt-6 border-t border-white/6 pt-4 text-sm text-text-muted">
+        <div className="mt-6 border-t border-white/6 pt-4 text-sm leading-6 text-text-muted">
           {footer}
         </div>
       ) : null}

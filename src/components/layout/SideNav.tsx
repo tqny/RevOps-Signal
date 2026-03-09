@@ -4,20 +4,25 @@ import { cn } from '../../lib/utils';
 
 export function SideNav() {
   return (
-    <aside className="w-full shrink-0 rounded-panel border border-white/8 bg-surface/85 p-4 shadow-panel backdrop-blur-sm lg:sticky lg:top-4 lg:w-[252px] lg:self-start xl:w-[280px]">
+    <aside className="rs-panel w-full shrink-0 rounded-panel p-4 lg:sticky lg:top-4 lg:w-[252px] lg:self-start xl:w-[280px]">
       <div className="space-y-6">
-        <div className="rounded-soft border border-white/6 bg-surface-alt/80 p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-secondary">
-            RevOps MVP
-          </p>
-          <div className="mt-3 space-y-2">
-            <h2 className="text-2xl font-semibold tracking-tight text-text-primary">
-              {APP_NAME}
-            </h2>
-            <p className="text-sm leading-6 text-text-secondary">
-              Four connected analytics pages plus a reviewer guide, local
-              seeded data only, shared filters, no backend.
-            </p>
+        <div className="rs-inset-panel rounded-soft p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent-secondary">
+                RevOps MVP
+              </p>
+              <div className="mt-3 space-y-2">
+                <h2 className="text-2xl font-semibold tracking-tight text-text-primary">
+                  {APP_NAME}
+                </h2>
+                <p className="text-sm leading-6 text-text-secondary">
+                  Four connected analytics pages plus a reviewer guide, local
+                  seeded data only, shared filters, no backend.
+                </p>
+              </div>
+            </div>
+            <div className="h-12 w-12 rounded-soft border border-accent-primary/20 bg-[radial-gradient(circle_at_top,rgba(76,215,255,0.35),rgba(111,107,255,0.12)_55%,transparent_72%)]" />
           </div>
         </div>
 
@@ -34,8 +39,8 @@ export function SideNav() {
                 cn(
                   'group flex min-w-[200px] flex-1 items-center gap-3 rounded-soft border px-3 py-3 transition duration-150 ease-out sm:min-w-[220px] lg:min-w-0',
                   isActive
-                    ? 'border-accent-primary/40 bg-accent-primary/14 text-text-primary shadow-[0_0_0_1px_rgba(111,107,255,0.16)]'
-                    : 'border-white/6 bg-surface-alt/70 text-text-secondary hover:border-white/12 hover:bg-surface-elevated/80 hover:text-text-primary',
+                    ? 'border-accent-primary/36 bg-[linear-gradient(90deg,rgba(111,107,255,0.22),rgba(76,215,255,0.08))] text-text-primary shadow-[0_0_0_1px_rgba(111,107,255,0.14)]'
+                    : 'border-white/6 bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0.01))] text-text-secondary hover:border-white/12 hover:bg-surface-elevated/84 hover:text-text-primary',
                 )
               }
             >
@@ -45,7 +50,7 @@ export function SideNav() {
                     className={cn(
                       'flex h-10 w-10 items-center justify-center rounded-soft border text-xs font-semibold tracking-[0.18em]',
                       isActive
-                        ? 'border-accent-primary/40 bg-accent-primary/18 text-accent-secondary'
+                        ? 'border-accent-primary/34 bg-[linear-gradient(180deg,rgba(111,107,255,0.22),rgba(76,215,255,0.12))] text-accent-secondary'
                         : 'border-white/8 bg-surface text-text-muted',
                     )}
                   >
@@ -65,7 +70,7 @@ export function SideNav() {
           ))}
         </nav>
 
-        <div className="rounded-soft border border-dashed border-white/10 bg-surface-alt/55 p-4 text-sm text-text-secondary">
+        <div className="rs-note-panel rounded-soft border-dashed p-4 text-sm text-text-secondary">
           <p className="font-medium text-text-primary">Build rails</p>
           <ul className="mt-3 space-y-2 leading-6">
             <li>Local mock data only</li>

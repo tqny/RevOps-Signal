@@ -85,7 +85,7 @@ function TrendTooltip({ active, label, payload }: TooltipContentProps) {
   const rows = payload.filter((entry) => getTooltipNumber(entry.value) > 0);
 
   return (
-    <div className="min-w-[220px] rounded-soft border border-white/10 bg-surface-elevated/96 p-4 shadow-panel">
+    <div className="rs-floating-panel min-w-[220px] rounded-soft p-4">
       <p className="text-xs font-semibold uppercase tracking-[0.2em] text-text-muted">
         {label}
       </p>
@@ -122,7 +122,7 @@ function MixTooltip({ active, payload }: TooltipContentProps) {
   }
 
   return (
-    <div className="min-w-[220px] rounded-soft border border-white/10 bg-surface-elevated/96 p-4 shadow-panel">
+    <div className="rs-floating-panel min-w-[220px] rounded-soft p-4">
       <p className="text-sm font-medium text-text-primary">{item.label}</p>
       <div className="mt-3 space-y-2 text-sm text-text-secondary">
         <div className="flex items-center justify-between gap-4">
@@ -156,7 +156,7 @@ export function OverviewTrendChart({ data }: OverviewTrendChartProps) {
   return (
     <div className="space-y-4">
       <ResponsiveChartContainer
-        className="h-[320px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        className="rs-chart-surface h-[320px] rounded-soft p-3"
         minHeight={320}
       >
         <ComposedChart
@@ -246,7 +246,7 @@ export function OverviewTrendChart({ data }: OverviewTrendChartProps) {
         {trendLegend.map((item) => (
           <div
             key={item.id}
-            className="flex items-center gap-2 rounded-pill border border-white/8 bg-surface-alt/55 px-3 py-1.5 text-xs text-text-secondary"
+            className="rs-note-panel flex items-center gap-2 rounded-pill px-3 py-1.5 text-xs text-text-secondary"
           >
             <span className={`h-2.5 w-2.5 rounded-full ${item.dotClassName}`} />
             <span>{item.label}</span>
@@ -268,7 +268,7 @@ export function OverviewMixChart({ items }: OverviewMixChartProps) {
   return (
     <div className="grid gap-6 2xl:grid-cols-[minmax(240px,0.85fr)_minmax(0,1.15fr)] 2xl:items-center">
       <ResponsiveChartContainer
-        className="relative h-[260px] rounded-soft border border-white/8 bg-surface-alt/40 p-3"
+        className="rs-chart-surface relative h-[260px] rounded-soft p-3"
         minHeight={260}
       >
         <PieChart>
@@ -305,7 +305,7 @@ export function OverviewMixChart({ items }: OverviewMixChartProps) {
         {items.map((item, index) => (
           <div
             key={item.id}
-            className="rounded-soft border border-white/8 bg-surface-alt/45 px-4 py-3"
+            className="rs-inset-panel rounded-soft px-4 py-3"
           >
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3">

@@ -12,10 +12,14 @@ type ProgressBarProps = {
 };
 
 const toneClassMap: Record<ProgressBarTone, string> = {
-  accent: 'bg-accent-primary/80',
-  success: 'bg-success/80',
-  warning: 'bg-warning/80',
-  danger: 'bg-danger/80',
+  accent:
+    'bg-[linear-gradient(90deg,rgba(76,215,255,0.9),rgba(111,107,255,0.82))]',
+  success:
+    'bg-[linear-gradient(90deg,rgba(49,196,141,0.94),rgba(76,215,255,0.74))]',
+  warning:
+    'bg-[linear-gradient(90deg,rgba(245,185,76,0.94),rgba(111,107,255,0.7))]',
+  danger:
+    'bg-[linear-gradient(90deg,rgba(240,82,82,0.9),rgba(245,185,76,0.72))]',
 };
 
 export function ProgressBar({
@@ -34,7 +38,7 @@ export function ProgressBar({
         <p className="text-sm font-medium text-text-primary">{label}</p>
         <p className="text-sm text-text-secondary">{valueLabel}</p>
       </div>
-      <div className="h-2.5 overflow-hidden rounded-pill bg-surface-alt">
+      <div className="h-2.5 overflow-hidden rounded-pill border border-white/6 bg-surface-alt/85 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
         <div
           className={cn(
             'h-full rounded-pill transition-all',

@@ -8,7 +8,7 @@ export function TopBar() {
   const isAboutRoute = location.pathname === '/about';
 
   return (
-    <div className="rounded-panel border border-white/8 bg-surface/85 p-4 shadow-panel backdrop-blur-sm sm:p-5">
+    <div className="rs-panel rounded-panel p-4 sm:p-5">
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-3xl">
@@ -26,7 +26,12 @@ export function TopBar() {
                 built, how the shared data model works, and what was
                 intentionally left out of scope.
               </p>
-            ) : null}
+            ) : (
+              <p className="mt-2 max-w-3xl text-sm leading-6 text-text-secondary">
+                Keep the active slice consistent across routes so pipeline,
+                performance, and forecast answers all reconcile.
+              </p>
+            )}
           </div>
           <div className="flex flex-wrap items-center gap-2 lg:max-w-[22rem] lg:justify-end">
             {isAboutRoute ? (

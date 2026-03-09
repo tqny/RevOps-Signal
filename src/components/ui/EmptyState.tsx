@@ -43,7 +43,7 @@ function DataState({
   return (
     <div
       className={cn(
-        'flex flex-col justify-center rounded-soft border border-dashed p-5',
+        'flex flex-col justify-center rounded-soft border border-dashed bg-[linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01))] p-5',
         meta.className,
         className,
       )}
@@ -52,7 +52,7 @@ function DataState({
       <p className="text-[11px] font-semibold uppercase tracking-[0.22em] text-text-muted">
         {meta.eyebrow}
       </p>
-      <p className="text-sm font-medium text-text-primary">{title}</p>
+      <p className="mt-1 text-sm font-medium text-text-primary">{title}</p>
       <p className="mt-2 text-sm leading-6 text-text-secondary">
         {description}
       </p>
