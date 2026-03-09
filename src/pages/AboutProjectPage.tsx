@@ -4,7 +4,7 @@ import { SurfaceCard } from '../components/ui/SurfaceCard';
 const summaryCards = [
   {
     title: 'What this project is',
-    body: 'A desktop-first RevOps dashboard MVP that uses seeded GTM data to simulate how leadership reviews pipeline health, rep execution, and forecast risk across connected routes.',
+    body: 'A desktop-first RevOps dashboard MVP that simulates Eagle-AI, a growth-stage AI compliance and governance SaaS company, across 50 deterministic seeded opportunities, fixed sales teams, and shared filters.',
   },
   {
     title: 'Why it was built',
@@ -12,15 +12,15 @@ const summaryCards = [
   },
   {
     title: 'What problem it addresses',
-    body: 'Many dashboard demos look polished but do not reconcile. RevOps Signal focuses on one shared source of truth so reviewers can trace how pipeline, conversion, performance, and forecast confidence relate.',
+    body: 'Many dashboard demos look polished but generic. RevOps Signal gives reviewers a concrete business context so they can trace how Eagle-AI pipeline, conversion, performance, and forecast confidence relate.',
   },
 ];
 
 const systemSteps = [
   {
     step: '01',
-    title: 'Seed one believable RevOps dataset',
-    body: 'Local mock entities cover periods, regions, segments, teams, reps, quota snapshots, and opportunities so the metric story stays plausible without adding backend scope.',
+    title: 'Seed one believable Eagle-AI dataset',
+    body: 'Local mock entities cover periods, regions, segments, teams, reps, quota snapshots, and 50 deterministic opportunities so the metric story stays plausible without adding backend scope.',
   },
   {
     step: '02',
@@ -30,7 +30,7 @@ const systemSteps = [
   {
     step: '03',
     title: 'Derive metrics through shared selectors',
-    body: 'KPI, funnel, performance, forecast, and risk views come from the same filtered subset instead of page-local math.',
+    body: 'KPI, funnel, performance, forecast, and risk views come from the same filtered subset instead of page-local math, using first-year contract value as the shared deal measure.',
   },
   {
     step: '04',
@@ -92,19 +92,21 @@ function AboutHeader() {
           </p>
           <div className="space-y-2">
             <h1 className="text-3xl font-semibold tracking-tight text-text-primary xl:text-[2.4rem]">
-              RevOps Signal is a portfolio-grade internal analytics simulation.
+              RevOps Signal models Eagle-AI, a growth-stage AI compliance SaaS business.
             </h1>
             <p className="max-w-3xl text-sm leading-6 text-text-secondary">
               It exists to show how a small RevOps product can stay coherent
               across routing, filters, metrics, and design choices without
-              inflating scope. This page is the reviewer-facing orientation
-              layer for the project.
+              inflating scope. Opportunity amounts represent first-year
+              contract value, including subscription plus onboarding and
+              implementation. This page is the reviewer-facing orientation
+              layer for that business simulation.
             </p>
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <StatusBadge variant="accent">Reviewer surface</StatusBadge>
-          <StatusBadge variant="success">Shared metric story</StatusBadge>
+          <StatusBadge variant="success">Eagle-AI story</StatusBadge>
           <StatusBadge variant="neutral">Scoped MVP</StatusBadge>
         </div>
       </div>
@@ -186,7 +188,7 @@ export function AboutProjectPage() {
 
       <SurfaceCard
         title="Short assessment"
-        description="What was missing was not more analytics content. It was reviewer orientation inside the product itself. The dashboard already explained revenue signals, but it did not explain the project framing, simulation model, scope boundaries, or the judgment behind the build."
+        description="What was missing was not more analytics content. It was reviewer orientation inside the product itself. The dashboard already explained revenue signals, but it did not explain the Eagle-AI business context, the first-year contract value model, or the judgment behind the build."
         footer="Best-fit placement: a dedicated About route in the existing shell. It matches the route-based information architecture, keeps substantial reviewer content out of transient UI, and avoids muddying the four analytics pages with meta-explanation."
       >
         <div className="grid gap-4 xl:grid-cols-3">
@@ -198,7 +200,7 @@ export function AboutProjectPage() {
 
       <SurfaceCard
         title="How it works"
-        description="The system is intentionally simple: one local dataset, one shared filter model, one derivation layer, and four narrative analytics routes."
+        description="The system is intentionally simple: one Eagle-AI dataset, one shared filter model, one derivation layer, and four narrative analytics routes."
       >
         <div className="grid gap-4 xl:grid-cols-2">
           {systemSteps.map((item) => (

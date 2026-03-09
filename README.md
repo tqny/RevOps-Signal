@@ -51,7 +51,7 @@ It is also intended as a portfolio piece that demonstrates product thinking, GTM
 The repo currently includes:
 
 - a route-based app shell with five routes, including the reviewer-facing About surface
-- seeded local mock data across periods, regions, segments, teams, reps, and opportunities
+- seeded Eagle-AI mock data across periods, regions, segments, teams, reps, and 50 total opportunities
 - shared global filters across the four analytics pages
 - centralized selector and derivation logic for KPI, funnel, performance, forecast, and risk views
 - fully composed Executive Overview, Pipeline & Funnel, Sales Performance, and Forecast & Risks pages
@@ -85,7 +85,7 @@ That keeps the project lean while still supporting a believable business narrati
 
 The MVP uses a seeded local dataset rather than a real backend.
 
-The current seed simulates Eagle-AI, a growth-stage B2B SaaS company selling an AI compliance and governance platform. Opportunity `amount` is treated as first-year contract value, including subscription plus onboarding / implementation. The durable business framing and seed rules live in [`docs/architecture/revops-business-framing.md`](docs/architecture/revops-business-framing.md) and [`docs/architecture/revops-mock-data-rules.md`](docs/architecture/revops-mock-data-rules.md).
+The current seed simulates Eagle-AI, a growth-stage B2B SaaS company selling an AI compliance and governance platform. Opportunity `amount` is treated as first-year contract value, including subscription plus onboarding / implementation. The dataset now preserves 24 hand-authored opportunities and expands to 50 total records through a deterministic seed helper so the opportunity story stays stable across runs and commits. The durable business framing and seed rules live in [`docs/architecture/revops-business-framing.md`](docs/architecture/revops-business-framing.md) and [`docs/architecture/revops-mock-data-rules.md`](docs/architecture/revops-mock-data-rules.md).
 
 The source model is centered around:
 

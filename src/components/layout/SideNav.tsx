@@ -17,8 +17,9 @@ export function SideNav() {
                   {APP_NAME}
                 </h2>
                 <p className="text-sm leading-6 text-text-secondary">
-                  Four connected analytics pages plus a reviewer guide, local
-                  seeded data only, shared filters, no backend.
+                  Four connected analytics pages plus a reviewer guide for
+                  Eagle-AI, using 50 deterministic seeded deals, shared
+                  filters, and no backend.
                 </p>
               </div>
             </div>
@@ -74,6 +75,7 @@ export function SideNav() {
           <p className="font-medium text-text-primary">Build rails</p>
           <ul className="mt-3 space-y-2 leading-6">
             <li>Local mock data only</li>
+            <li>Amounts represent first-year contract value</li>
             <li>Shared selector-driven metrics</li>
             <li>No auth, backend, or CRM integration</li>
           </ul>
