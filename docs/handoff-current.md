@@ -6,18 +6,18 @@ RevOps Signal
 
 ## Current Phase
 
-Task 15 documentation refresh is complete. Deployment prep is the next planned task.
+Task 15 documentation refresh is complete. Task 15A business framing and seed distribution spec is the next planned Architect step before seeded deal expansion and deployment prep.
 
 ## Active Role
 
-Builder
+Architect
 
 ## Current Branch
 
-`codex/task-15-documentation-refresh`
+`codex/task-15a-business-framing-seed-spec`
 
-Task 15 is implemented on the current branch and committed locally.
-Suggested next branch after merge: `codex/task-16-deployment-prep`
+Task 15 is implemented on `main`. This branch is reserved for the Task 15A planning/spec step.
+Suggested next branch after merge: `codex/task-15b-seeded-deal-expansion`
 
 ## Current MVP Scope
 
@@ -56,13 +56,19 @@ Pages:
 
 ## Current Task
 
-Task 16 is next: deployment prep.
+Task 15A is next: business framing and seed distribution spec.
 
 ## Recently Completed
 
 - Task 14 visual refinement
 - Task 15 documentation refresh across README, task, architecture, QA, decision, and handoff docs
 - Task 17 browser QA automation remains in place with screenshot and report output under `output/playwright/responsive-smoke/`
+
+## Planned Next Steps
+
+- Task 15A: define the pretend business, product/pricing semantics, and seed-distribution rules in durable docs
+- Task 15B: expand seeded deals only and align minimal product/reviewer copy to the approved business framing
+- Task 16: deployment prep
 
 ## Verification Baseline
 
@@ -85,7 +91,8 @@ Task 16 is next: deployment prep.
 - the About route is reviewer orientation, not a fifth analytics page
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- deployment prep is the next planned scope
+- Task 15A/15B should not add new reps, teams, segments, regions, or timeframe presets
+- deployment prep follows the 15A/15B data/business-framing work
 
 ## Required Read Order
 
