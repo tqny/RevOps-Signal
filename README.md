@@ -55,6 +55,7 @@ The repo currently includes:
 - shared global filters across the four analytics pages
 - centralized selector and derivation logic for KPI, funnel, performance, forecast, and risk views
 - fully composed Executive Overview, Pipeline & Funnel, Sales Performance, and Forecast & Risks pages
+- repo-native responsive browser QA with managed Playwright Chromium, screenshot capture, and JSON report output
 - durable planning, architecture, design, and handoff docs for reviewable iteration
 
 ## Architecture Overview
@@ -63,7 +64,7 @@ At a high level, RevOps Signal is a route-based React dashboard application with
 
 - React + TypeScript + Vite
 - Tailwind CSS for layout and styling
-- React Router for the four-page structure
+- React Router for a shared shell with four analytics pages plus the About route
 - Recharts for core visualizations
 - seeded local mock data as the MVP source of truth
 - shared filter state across pages
@@ -208,8 +209,15 @@ npm run lint
 
 ### Responsive browser QA
 
+Install managed Chromium once:
+
 ```bash
 npm run qa:responsive:install
+```
+
+Then run the smoke check:
+
+```bash
 npm run qa:responsive
 ```
 

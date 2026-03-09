@@ -76,3 +76,8 @@ Segment filters are part of the shared model, so target and attainment math need
 
 Reason:
 The project needs a portfolio-grade explanation layer, but that content is too substantial for a modal or tab and should not dilute the four analytics pages. A dedicated About route preserves the existing route-based structure while giving reviewers clear framing inside the product.
+
+## D-015: Repo-native responsive browser QA with managed Chromium
+
+Reason:
+Fresh threads should not have to rediscover browser installation, preview boot, or screenshot/report capture steps. A scripted Playwright workflow keeps responsive QA repeatable inside the repo and aligned with the current MVP routes.

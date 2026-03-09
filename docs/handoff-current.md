@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Task 14 visual refinement is complete, repo-native browser QA automation remains in place, and documentation refresh is the next product task
+Task 15 documentation refresh is complete. Deployment prep is the next planned task.
 
 ## Active Role
 
@@ -14,10 +14,10 @@ Builder
 
 ## Current Branch
 
-`codex/task-14-visual-refinement`
+`codex/task-15-documentation-refresh`
 
-Task 14 is implemented on the current branch and committed locally.
-Suggested next branch after merge: `codex/task-15-documentation-refresh`
+Task 15 is implemented on the current branch and committed locally.
+Suggested next branch after merge: `codex/task-16-deployment-prep`
 
 ## Current MVP Scope
 
@@ -35,11 +35,13 @@ Pages:
 
 - React + TypeScript + Vite
 - Tailwind styling
-- route-based pages
+- route-based shared shell
 - dedicated `/about` reviewer route in the shared shell
 - shared filter state
 - seeded local data
 - centralized metric selectors/utilities
+- shell-contained route content boundary
+- repo-native responsive QA via managed Playwright Chromium
 
 ## Design Summary
 
@@ -50,52 +52,30 @@ Pages:
 - dense but controlled information design
 - patterns from Sets 2-4 adapted into Set 1 style
 - reviewer orientation stays editorial and in-shell rather than marketing-like
+- responsive laptop-width containment is part of the current quality bar
 
 ## Current Task
 
-Task 15 is next: documentation refresh.
+Task 16 is next: deployment prep.
 
 ## Recently Completed
 
-- reviewed and normalized the Step 1 planning package
-- created the durable doc set and design criteria files
-- scaffolded the React + TypeScript + Vite + Tailwind app foundation
-- added the desktop-first app shell, route placeholders, and shared filter-state foundation
-- added the seeded mock data model with segment-aware quota snapshots
-- built centralized selectors for overview, funnel, performance, and forecast logic
-- connected all four routes to shared selector-backed outputs and empty states
-- added selector tests and verified `npm run lint`, `npm run test`, `npm run build`, and local Vite boot
-- added a root README that frames the project for reviewers and explains the current MVP foundation
-- implemented the Executive Overview page with selector-backed KPI cards, a trend chart, a mix chart, an executive signals panel, and a rep coverage summary table
-- verified the overview implementation with lint, tests, build, local Vite boot, and browser screenshots of the rendered route
-- implemented the Pipeline & Funnel page with selector-backed funnel, conversion, leakage, and stalled-watchlist sections
-- verified the pipeline implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and a rendered Chromium screenshot of `/pipeline`
-- implemented the Sales Performance page with selector-backed attainment widgets, rep/team comparison charts, progress ladders, and a richer performance table
-- verified the sales performance implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and rendered Chromium screenshots of `/performance`
-- implemented the Forecast & Risks page with selector-backed forecast coverage, composition, risk distribution, and stalled pipeline table sections
-- verified the forecast implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and a rendered Chromium check of `/forecast`
-- added a dedicated About This Project route in the shared shell so reviewers can understand project framing, scope, system design, and technical judgment without leaving the product
-- updated spec, architecture, design, task, QA, handoff, and README docs so the reviewer-facing route is tracked as the new Task 11 before QA/polish
-- verified the About route with `npm run test`, `npm run lint`, `npm run build`, and a rendered Firefox check of `/about`, including nav active-state confirmation and a follow-up route transition back to `/`
-- standardized calm empty/loading/error treatment across the analytics routes so no-results filters preserve card structure instead of collapsing whole pages into a single card
-- replaced raw Recharts container usage with a measured shared chart wrapper and confirmed the prior `width(-1)` / `height(-1)` console warnings no longer reproduce in local rendered checks
-- added a shell-contained route error boundary so rendering failures fall back to an in-product error card instead of taking down the full shell
-- verified Task 12 with `npm run test`, `npm run lint`, `npm run build`, and rendered Firefox checks across `/`, `/pipeline`, `/performance`, `/forecast`, and `/about`, including a forced no-results filter state across the analytics pages
-- tightened laptop-width and narrower desktop behavior across the shared shell, filter bar, KPI grids, split-card sections, charts, and table wrappers without changing routes or selector logic
-- verified Task 13 with `npm run test`, `npm run lint`, `npm run build`, and rendered Playwright checks across `/`, `/pipeline`, `/performance`, `/forecast`, and `/about` at `1280x820` and `1100x820`, confirming no page-level horizontal overflow, no chart container overflow, stable route-active navigation, and intentional internal table scrolling where widths tightened
-- added a repo-native responsive browser QA workflow using managed Playwright Chromium, a scripted local preview flow, and captured screenshot/report output under `output/playwright/responsive-smoke/`
-- verified Task 17 with `npm run qa:responsive:install`, `npm run qa:responsive`, `npm run test`, `npm run lint`, and `npm run build`
-- refined the shared shell, cards, badges, filter controls, chart wrappers, table shells, and About-route supporting panels to improve hierarchy and polish without changing routes or selector-backed metric logic
-- verified Task 14 with `npm run test`, `npm run lint`, `npm run build`, and `npm run qa:responsive`, including refreshed responsive screenshots and report output under `output/playwright/responsive-smoke/`
+- Task 14 visual refinement
+- Task 15 documentation refresh across README, task, architecture, QA, decision, and handoff docs
+- Task 17 browser QA automation remains in place with screenshot and report output under `output/playwright/responsive-smoke/`
 
-## Exact Next Task
+## Verification Baseline
 
-Task 15: Documentation refresh
+- `npm run test`
+- `npm run lint`
+- `npm run build`
+- `npm run qa:responsive`
+- install managed Chromium once per machine with `npm run qa:responsive:install`
 
 ## Open Issues / Blockers
 
 - no functional blockers currently
-- `npm run build` still emits the existing Vite chunk-size warning for the main client bundle; this is non-blocking and was not in Task 12 scope
+- `npm run build` still emits the existing Vite chunk-size warning for the main client bundle; this remains non-blocking
 
 ## Active Assumptions
 
@@ -105,7 +85,7 @@ Task 15: Documentation refresh
 - the About route is reviewer orientation, not a fifth analytics page
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- all four analytics pages remain composed from shared selectors, now with stable sparse-state treatment, render-safe chart containers, tighter laptop-width behavior, a more cohesive surface hierarchy, and a reusable repo-native browser QA path; remaining work is documentation refresh and deployment prep
+- deployment prep is the next planned scope
 
 ## Required Read Order
 
