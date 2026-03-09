@@ -299,7 +299,7 @@ Add a reviewer-facing explanation layer inside the product shell without changin
 ### Task 12: Empty/loading/error state polish
 
 **Status**
-Pending
+Completed
 
 ### Task 13: Responsive tightening
 

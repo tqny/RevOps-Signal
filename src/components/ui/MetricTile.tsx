@@ -9,6 +9,8 @@ type MetricTileProps = {
   value: string;
   detail: string;
   tone?: MetricTileTone;
+  statusLabel?: string;
+  isPlaceholder?: boolean;
 };
 
 const toneLabel: Record<MetricTileTone, string> = {
@@ -23,6 +25,8 @@ export function MetricTile({
   value,
   detail,
   tone = 'neutral',
+  statusLabel,
+  isPlaceholder = false,
 }: MetricTileProps) {
   return (
     <SurfaceCard className="h-full">
@@ -36,6 +40,7 @@ export function MetricTile({
               className={cn(
                 'text-3xl font-semibold tracking-tight text-text-primary',
                 tone === 'accent' && 'text-accent-secondary',
+                isPlaceholder && 'text-2xl text-text-secondary',
               )}
             >
               {value}
@@ -45,7 +50,9 @@ export function MetricTile({
             {detail}
           </p>
         </div>
-        <StatusBadge variant={tone}>{toneLabel[tone]}</StatusBadge>
+        <StatusBadge variant={tone}>
+          {statusLabel ?? toneLabel[tone]}
+        </StatusBadge>
       </div>
     </SurfaceCard>
   );

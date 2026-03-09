@@ -5,12 +5,12 @@ import {
   Cell,
   LabelList,
   ReferenceLine,
-  ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from 'recharts';
 import type { TooltipContentProps } from 'recharts';
+import { ResponsiveChartContainer } from '../../components/charts/ResponsiveChartContainer';
 import type { PerformanceRow } from '../../types/revops';
 import {
   formatCount,
@@ -155,81 +155,75 @@ export function RepAttainmentChart({ data }: RepAttainmentChartProps) {
   const height = Math.max(220, data.length * 52);
 
   return (
-    <div
+    <ResponsiveChartContainer
       className="min-w-0 rounded-soft border border-white/8 bg-surface-alt/40 p-3"
       style={{ height }}
+      minHeight={height}
     >
-      <ResponsiveContainer
-        width="100%"
-        height="100%"
-        minWidth={0}
-        minHeight={height - 24}
+      <BarChart
+        data={data}
+        layout="vertical"
+        margin={{ top: 8, right: 28, left: 8, bottom: 0 }}
       >
-        <BarChart
-          data={data}
-          layout="vertical"
-          margin={{ top: 8, right: 28, left: 8, bottom: 0 }}
+        <CartesianGrid
+          horizontal={false}
+          stroke="rgba(255,255,255,0.08)"
+          strokeDasharray="4 4"
+        />
+        <XAxis
+          type="number"
+          domain={[0, getChartMaxRate(data, (row) => row.attainmentRate)]}
+          axisLine={false}
+          tickLine={false}
+          tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+          tickFormatter={formatRateAxis}
+        />
+        <YAxis
+          dataKey="ownerName"
+          type="category"
+          width={108}
+          axisLine={false}
+          tickLine={false}
+          tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+          interval={0}
+        />
+        <ReferenceLine
+          x={1}
+          stroke="rgba(245,185,76,0.72)"
+          strokeDasharray="6 6"
+        />
+        <Tooltip
+          cursor={{ fill: 'rgba(255,255,255,0.03)' }}
+          content={RepAttainmentTooltip}
+        />
+        <Bar
+          dataKey="attainmentRate"
+          name="Attainment"
+          radius={[999, 999, 999, 999]}
+          barSize={18}
         >
-          <CartesianGrid
-            horizontal={false}
-            stroke="rgba(255,255,255,0.08)"
-            strokeDasharray="4 4"
-          />
-          <XAxis
-            type="number"
-            domain={[0, getChartMaxRate(data, (row) => row.attainmentRate)]}
-            axisLine={false}
-            tickLine={false}
-            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-            tickFormatter={formatRateAxis}
-          />
-          <YAxis
-            dataKey="ownerName"
-            type="category"
-            width={108}
-            axisLine={false}
-            tickLine={false}
-            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-            interval={0}
-          />
-          <ReferenceLine
-            x={1}
-            stroke="rgba(245,185,76,0.72)"
-            strokeDasharray="6 6"
-          />
-          <Tooltip
-            cursor={{ fill: 'rgba(255,255,255,0.03)' }}
-            content={RepAttainmentTooltip}
-          />
-          <Bar
-            dataKey="attainmentRate"
-            name="Attainment"
-            radius={[999, 999, 999, 999]}
-            barSize={18}
-          >
-            {data.map((row) => {
-              const tone = getPaceTone(row.attainmentRate);
+          {data.map((row) => {
+            const tone = getPaceTone(row.attainmentRate);
 
-              return (
-                <Cell
-                  key={row.ownerId}
-                  fill={pacePalette[tone].fill}
-                  stroke={pacePalette[tone].stroke}
-                />
-              );
-            })}
-            <LabelList
-              dataKey="attainmentRate"
-              position="right"
-              offset={10}
-              fill="var(--rs-text-primary)"
-              fontSize={12}
-              formatter={(value) => formatPercentage(Number(value ?? 0))}
-            />
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+            return (
+              <Cell
+                key={row.ownerId}
+                fill={pacePalette[tone].fill}
+                stroke={pacePalette[tone].stroke}
+              />
+            );
+          })}
+          <LabelList
+            dataKey="attainmentRate"
+            position="right"
+            offset={10}
+            fill="var(--rs-text-primary)"
+            fontSize={12}
+            formatter={(value) => formatPercentage(Number(value ?? 0))}
+          />
+        </Bar>
+      </BarChart>
+    </ResponsiveChartContainer>
   );
 }
 
@@ -247,83 +241,77 @@ export function TeamForecastCoverageChart({
   const height = Math.max(200, data.length * 60);
 
   return (
-    <div
+    <ResponsiveChartContainer
       className="min-w-0 rounded-soft border border-white/8 bg-surface-alt/40 p-3"
       style={{ height }}
+      minHeight={height}
     >
-      <ResponsiveContainer
-        width="100%"
-        height="100%"
-        minWidth={0}
-        minHeight={height - 24}
+      <BarChart
+        data={data}
+        layout="vertical"
+        margin={{ top: 8, right: 28, left: 8, bottom: 0 }}
       >
-        <BarChart
-          data={data}
-          layout="vertical"
-          margin={{ top: 8, right: 28, left: 8, bottom: 0 }}
+        <CartesianGrid
+          horizontal={false}
+          stroke="rgba(255,255,255,0.08)"
+          strokeDasharray="4 4"
+        />
+        <XAxis
+          type="number"
+          domain={[
+            0,
+            getChartMaxRate(data, (row) => row.forecastAttainmentRate),
+          ]}
+          axisLine={false}
+          tickLine={false}
+          tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+          tickFormatter={formatRateAxis}
+        />
+        <YAxis
+          dataKey="ownerName"
+          type="category"
+          width={116}
+          axisLine={false}
+          tickLine={false}
+          tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
+          interval={0}
+        />
+        <ReferenceLine
+          x={1}
+          stroke="rgba(245,185,76,0.72)"
+          strokeDasharray="6 6"
+        />
+        <Tooltip
+          cursor={{ fill: 'rgba(255,255,255,0.03)' }}
+          content={TeamCoverageTooltip}
+        />
+        <Bar
+          dataKey="forecastAttainmentRate"
+          name="Forecast coverage"
+          radius={[999, 999, 999, 999]}
+          barSize={18}
         >
-          <CartesianGrid
-            horizontal={false}
-            stroke="rgba(255,255,255,0.08)"
-            strokeDasharray="4 4"
-          />
-          <XAxis
-            type="number"
-            domain={[
-              0,
-              getChartMaxRate(data, (row) => row.forecastAttainmentRate),
-            ]}
-            axisLine={false}
-            tickLine={false}
-            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-            tickFormatter={formatRateAxis}
-          />
-          <YAxis
-            dataKey="ownerName"
-            type="category"
-            width={116}
-            axisLine={false}
-            tickLine={false}
-            tick={{ fill: 'var(--rs-text-muted)', fontSize: 12 }}
-            interval={0}
-          />
-          <ReferenceLine
-            x={1}
-            stroke="rgba(245,185,76,0.72)"
-            strokeDasharray="6 6"
-          />
-          <Tooltip
-            cursor={{ fill: 'rgba(255,255,255,0.03)' }}
-            content={TeamCoverageTooltip}
-          />
-          <Bar
-            dataKey="forecastAttainmentRate"
-            name="Forecast coverage"
-            radius={[999, 999, 999, 999]}
-            barSize={18}
-          >
-            {data.map((row) => {
-              const tone = getPaceTone(row.forecastAttainmentRate);
+          {data.map((row) => {
+            const tone = getPaceTone(row.forecastAttainmentRate);
 
-              return (
-                <Cell
-                  key={row.ownerId}
-                  fill={pacePalette[tone].fill}
-                  stroke={pacePalette[tone].stroke}
-                />
-              );
-            })}
-            <LabelList
-              dataKey="forecastAttainmentRate"
-              position="right"
-              offset={10}
-              fill="var(--rs-text-primary)"
-              fontSize={12}
-              formatter={(value) => formatPercentage(Number(value ?? 0))}
-            />
-          </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-    </div>
+            return (
+              <Cell
+                key={row.ownerId}
+                fill={pacePalette[tone].fill}
+                stroke={pacePalette[tone].stroke}
+              />
+            );
+          })}
+          <LabelList
+            dataKey="forecastAttainmentRate"
+            position="right"
+            offset={10}
+            fill="var(--rs-text-primary)"
+            fontSize={12}
+            formatter={(value) => formatPercentage(Number(value ?? 0))}
+          />
+        </Bar>
+      </BarChart>
+    </ResponsiveChartContainer>
   );
 }
