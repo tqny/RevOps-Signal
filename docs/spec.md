@@ -4,6 +4,8 @@
 
 RevOps Signal is a desktop-first multi-page revenue operations dashboard web app that turns seeded mock GTM data into a connected executive-style analytics story, with an in-product reviewer surface that explains the project's framing, scope, and implementation judgment.
 
+The current mock business simulates Eagle-AI, a growth-stage B2B SaaS company selling an AI compliance and governance platform to regulated or process-sensitive buyers.
+
 It is intended as:
 
 - a disciplined AI-assisted build practice project
@@ -128,10 +130,12 @@ The MVP is successful if:
 ## 8. Assumptions
 
 - mock data is the MVP source of truth
+- mock business framing is anchored to Eagle-AI and documented in `docs/architecture/revops-business-framing.md`
 - timeframe filtering uses predefined mock periods and presets, not a freeform date picker
 - filter combinations may create empty subsets; the app should handle that gracefully
 - forecast is deterministic mock logic, not predictive modeling
 - all pages should rely on shared derivation logic
+- opportunity `amount` represents first-year contract value, including subscription plus onboarding / implementation
 
 ## 9. Risks
 

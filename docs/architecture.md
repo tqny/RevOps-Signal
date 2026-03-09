@@ -54,6 +54,11 @@ Primary source of truth:
 
 - seeded local mock data
 
+Supporting business/data rules:
+
+- Eagle-AI business framing lives in [`architecture/revops-business-framing.md`](architecture/revops-business-framing.md)
+- seed-expansion rules live in [`architecture/revops-mock-data-rules.md`](architecture/revops-mock-data-rules.md)
+
 Core entities:
 
 - reps
@@ -64,6 +69,12 @@ Core entities:
 - time periods
 
 Derived values should be computed through shared utilities/selectors rather than stored redundantly.
+
+Current mock-business assumptions:
+
+- the dataset simulates Eagle-AI, a growth-stage AI compliance and governance SaaS company
+- opportunity `amount` represents first-year contract value, including subscription plus onboarding / implementation
+- Task 15B should expand deals within the current entity surface rather than adding new regions, teams, reps, segments, or timeframe presets
 
 Quota handling rule:
 
@@ -83,6 +94,10 @@ Create a central derivation layer for:
 
 Rule:
 No page should compute core business metrics ad hoc if the same logic belongs in shared selectors.
+
+Lifecycle-model rule:
+
+- keep `stage`, `forecastCategory`, and `isClosed` / `outcome` as distinct concepts during future seed expansion
 
 ## 7. Suggested Source Structure
 

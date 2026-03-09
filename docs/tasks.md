@@ -340,7 +340,7 @@ Refresh the durable docs and repo README so they match the current implemented M
 ### Task 15A: Business framing and seed distribution spec
 
 **Status**
-Pending
+Completed
 
 **Purpose**
 Define the pretend business, product/pricing semantics, and seeded deal-distribution rules for a richer opportunity set without changing the current filter/entity architecture.
@@ -380,6 +380,7 @@ Add more seeded deals only and align app/reviewer copy to the approved pretend b
 - no new reps, teams, segments, regions, or timeframe presets are introduced
 - shared selectors remain the single source of truth for cross-page metrics
 - copy updates are limited to the minimum needed to make the dashboard represent the approved pretend business coherently
+- implementation follows `docs/architecture/revops-business-framing.md` and `docs/architecture/revops-mock-data-rules.md`
 
 **Verification**
 
