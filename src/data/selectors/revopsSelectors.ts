@@ -551,6 +551,19 @@ export function getOverviewSnapshot(filters: RevOpsFilters) {
 
 export function getPipelineSnapshot(filters: RevOpsFilters) {
   const context = getFilteredRevOpsContext(filters);
+  const totalPipelineAmount = sumAmount(context.openOpportunities);
+  const lateStageOpportunities = context.openOpportunities.filter(
+    (opportunity) =>
+      opportunity.stage === 'Proposal' || opportunity.stage === 'Negotiation',
+  );
+  const lateStagePipelineAmount = sumAmount(lateStageOpportunities);
+  const stalledOpportunities = context.openOpportunities
+    .filter(isStalledOpportunity)
+    .sort(
+      (left, right) =>
+        right.daysOpen - left.daysOpen || right.amount - left.amount,
+    );
+  const stalledPipelineAmount = sumAmount(stalledOpportunities);
   const stageFunnel: StageFunnelRow[] = stageOrder.map((stage) => {
     const stageOpportunities = context.openOpportunities.filter(
       (opportunity) => opportunity.stage === stage,
@@ -560,6 +573,7 @@ export function getPipelineSnapshot(filters: RevOpsFilters) {
       stage,
       count: stageOpportunities.length,
       amount: sumAmount(stageOpportunities),
+      share: safeRate(sumAmount(stageOpportunities), totalPipelineAmount),
     };
   });
   const stageConversion: StageConversionRow[] = stageOrder.map(
@@ -587,6 +601,7 @@ export function getPipelineSnapshot(filters: RevOpsFilters) {
         stage,
         reachedCount,
         progressedCount,
+        dropOffCount: Math.max(reachedCount - progressedCount, 0),
         rate: safeRate(progressedCount, reachedCount),
       };
     },
@@ -606,11 +621,13 @@ export function getPipelineSnapshot(filters: RevOpsFilters) {
       lostAmount: sumAmount(lostAtStage),
       stalledCount: stalledAtStage.length,
       stalledAmount: sumAmount(stalledAtStage),
+      totalExposedCount: lostAtStage.length + stalledAtStage.length,
+      totalExposedAmount: sumAmount(lostAtStage) + sumAmount(stalledAtStage),
     };
   });
 
   return {
-    totalPipelineAmount: sumAmount(context.openOpportunities),
+    totalPipelineAmount,
     openOpportunityCount: context.openOpportunities.length,
     averageDealSize: averageValue(
       context.openOpportunities.map((opportunity) => opportunity.amount),
@@ -618,14 +635,16 @@ export function getPipelineSnapshot(filters: RevOpsFilters) {
     averageCycleDays: averageValue(
       context.wonOpportunities.map((opportunity) => opportunity.salesCycleDays),
     ),
-    stalledOpportunityCount:
-      context.openOpportunities.filter(isStalledOpportunity).length,
-    stalledPipelineAmount: sumAmount(
-      context.openOpportunities.filter(isStalledOpportunity),
-    ),
+    lateStagePipelineAmount,
+    lateStageOpportunityCount: lateStageOpportunities.length,
+    lateStageShare: safeRate(lateStagePipelineAmount, totalPipelineAmount),
+    stalledOpportunityCount: stalledOpportunities.length,
+    stalledPipelineAmount,
+    stalledShare: safeRate(stalledPipelineAmount, totalPipelineAmount),
     stageFunnel,
     stageConversion,
     stageLeakage,
+    stalledOpportunities: getOpportunityRows(stalledOpportunities),
     opportunities: getOpportunityRows(context.openOpportunities).sort(
       (left, right) => right.amount - left.amount,
     ),

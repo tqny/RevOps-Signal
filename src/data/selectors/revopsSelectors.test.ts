@@ -50,7 +50,23 @@ describe('revops selectors', () => {
 
     expect(funnelCount).toBe(pipeline.openOpportunityCount);
     expect(funnelAmount).toBe(pipeline.totalPipelineAmount);
+    expect(
+      pipeline.stageFunnel.reduce((total, row) => total + row.share, 0),
+    ).toBeCloseTo(1, 5);
+    expect(
+      pipeline.stageLeakage.every(
+        (row) =>
+          row.totalExposedCount === row.lostCount + row.stalledCount &&
+          row.totalExposedAmount === row.lostAmount + row.stalledAmount,
+      ),
+    ).toBe(true);
+    expect(pipeline.lateStagePipelineAmount).toBeGreaterThan(0);
+    expect(pipeline.lateStageShare).toBeGreaterThan(0);
     expect(pipeline.stalledOpportunityCount).toBeGreaterThan(0);
+    expect(pipeline.stalledShare).toBeGreaterThan(0);
+    expect(pipeline.stalledOpportunities[0]?.daysOpen ?? 0).toBeGreaterThan(
+      pipeline.stalledOpportunities.at(-1)?.daysOpen ?? 0,
+    );
   });
 
   it('rolls performance metrics correctly for a regional slice', () => {
