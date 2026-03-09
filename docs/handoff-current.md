@@ -14,9 +14,9 @@ Builder
 
 ## Current Branch
 
-`codex/task-9-sales-performance`
+`main`
 
-Merge this branch into the latest `main`, then create a fresh task branch for the next page pass.
+Task 9 is merged into `main`.
 Suggested next branch: `codex/task-10-forecast-risks`
 
 ## Current MVP Scope
@@ -50,7 +50,7 @@ Pages:
 
 ## Current Task
 
-Task 9 is complete. Continue with the next page implementation task after merging this branch.
+Task 10 is next: implement the Forecast & Risks page on a fresh task branch.
 
 ## Recently Completed
 
