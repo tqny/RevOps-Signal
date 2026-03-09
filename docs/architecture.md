@@ -26,6 +26,7 @@ Shared layout:
 - left navigation rail
 - top utility / filter bar
 - route-level reviewer orientation entry point
+- shell-contained route content boundary for render failures
 - page header
 - main dashboard content grid
 
@@ -103,6 +104,7 @@ No page should compute core business metrics ad hoc if the same logic belongs in
 - `src/lib`
 - `src/pages`
 - `src/styles`
+- `scripts`
 - `src/types`
 
 ## 8. Component Boundaries
@@ -156,10 +158,12 @@ Test the highest-value shared logic:
 
 Also keep one repo-native rendered browser smoke path for:
 
+- `npm run qa:responsive` via `scripts/qa-responsive.mjs`
+- `npm run qa:responsive:install` once per machine for managed Chromium
 - route loading across the current MVP pages
 - active-nav stability during route transitions
 - responsive layout containment at laptop-width breakpoints
-- screenshot and report capture for quick QA review
+- screenshot and JSON report capture under `output/playwright/responsive-smoke/`
 
 ## 12. Extension Path
 

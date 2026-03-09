@@ -1,5 +1,14 @@
 # RevOps Signal - QA Checklist
 
+## 0. Standard Verification Flow
+
+- [ ] `npm run test`
+- [ ] `npm run lint`
+- [ ] `npm run build`
+- [ ] `npm run qa:responsive`
+- [ ] managed Chromium installed once with `npm run qa:responsive:install`
+- [ ] screenshots and `report.json` reviewed under `output/playwright/responsive-smoke/`
+
 ## 1. App / Routing
 
 - [ ] app boots without errors
@@ -49,8 +58,6 @@
 
 ## 7. Engineering Quality
 
-- [ ] build passes
-- [ ] lint passes
 - [ ] repo-native browser QA script runs without ad hoc browser-path fixes
 - [ ] shared selectors used for core metrics
 - [ ] no obvious duplicated business logic

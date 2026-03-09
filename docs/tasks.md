@@ -314,7 +314,28 @@ Completed
 ### Task 15: Documentation refresh
 
 **Status**
-Pending
+Completed
+
+**Purpose**
+Refresh the durable docs and repo README so they match the current implemented MVP, the dedicated About route placement, and the repo-native responsive QA workflow.
+
+**Dependencies**
+
+- Tasks 11-14
+- Task 17
+
+**Definition of Done**
+
+- durable docs reflect the current routes, shared selector discipline, and reviewer-facing About surface
+- README matches the implemented product framing and verification path
+- current handoff state no longer carries stale branch or next-task references
+
+**Verification**
+
+- `npm run test`
+- `npm run lint`
+- `npm run build`
+- `npm run qa:responsive`
 
 ### Task 16: Deployment prep
 
