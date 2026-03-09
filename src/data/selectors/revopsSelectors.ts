@@ -115,6 +115,22 @@ function safeRate(numerator: number, denominator: number) {
   return numerator / denominator;
 }
 
+function averageRate(
+  rows: PerformanceRow[],
+  getValue: (row: PerformanceRow) => number,
+) {
+  const rowsWithQuota = rows.filter((row) => row.quotaAmount > 0);
+
+  if (rowsWithQuota.length === 0) {
+    return 0;
+  }
+
+  return (
+    rowsWithQuota.reduce((total, row) => total + getValue(row), 0) /
+    rowsWithQuota.length
+  );
+}
+
 function getTimeframePreset(timeframeId: string) {
   return timeframeById.get(timeframeId) ?? fallbackTimeframe;
 }
@@ -660,18 +676,54 @@ export function getPerformanceSnapshot(filters: RevOpsFilters) {
   const totalClosedWonAmount = sumAmount(context.wonOpportunities);
   const totalWeightedForecastAmount =
     totalClosedWonAmount + sumWeightedAmount(context.openOpportunities);
+  const repRowsByAttainment = [...repRows].sort(
+    (left, right) =>
+      right.attainmentRate - left.attainmentRate ||
+      right.closedWonAmount - left.closedWonAmount,
+  );
+  const teamRowsByForecastAttainment = [...teamRows].sort(
+    (left, right) =>
+      right.forecastAttainmentRate - left.forecastAttainmentRate ||
+      right.weightedForecastAmount - left.weightedForecastAmount,
+  );
+  const repsAtOrAboveTargetCount = repRows.filter(
+    (row) => row.attainmentRate >= 1,
+  ).length;
+  const repsNearTargetCount = repRows.filter(
+    (row) => row.attainmentRate < 1 && row.attainmentRate >= 0.8,
+  ).length;
+  const repsOffPaceCount = repRows.filter((row) => row.attainmentRate < 0.8)
+    .length;
+  const teamsAtOrAboveForecastCount = teamRows.filter(
+    (row) => row.forecastAttainmentRate >= 1,
+  ).length;
 
   return {
     totalQuotaAmount,
     totalClosedWonAmount,
     totalWeightedForecastAmount,
+    totalPipelineAmount: sumAmount(context.openOpportunities),
+    totalOpenDealCount: context.openOpportunities.length,
+    attainmentGapAmount: totalQuotaAmount - totalClosedWonAmount,
+    forecastGapAmount: totalQuotaAmount - totalWeightedForecastAmount,
     attainmentRate: safeRate(totalClosedWonAmount, totalQuotaAmount),
     forecastAttainmentRate: safeRate(
       totalWeightedForecastAmount,
       totalQuotaAmount,
     ),
+    averageRepAttainmentRate: averageRate(
+      repRows,
+      (row) => row.attainmentRate,
+    ),
+    averageRepWinRate: averageRate(repRows, (row) => row.winRate),
+    repsAtOrAboveTargetCount,
+    repsNearTargetCount,
+    repsOffPaceCount,
+    teamsAtOrAboveForecastCount,
     repRows,
     teamRows,
+    repRowsByAttainment,
+    teamRowsByForecastAttainment,
     closedTrend: context.periods.map((period) => {
       const wonAtPeriod = context.wonOpportunities.filter(
         (opportunity) => opportunity.closedPeriodId === period.id,

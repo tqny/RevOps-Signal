@@ -79,6 +79,26 @@ describe('revops selectors', () => {
     expect(performance.repRows).toHaveLength(2);
     expect(performance.teamRows).toHaveLength(1);
     expect(performance.teamRows[0]?.ownerName).toBe('EMEA Growth');
+    expect(performance.totalPipelineAmount).toBe(
+      performance.repRows.reduce((total, row) => total + row.pipelineAmount, 0),
+    );
+    expect(
+      performance.repsAtOrAboveTargetCount +
+        performance.repsNearTargetCount +
+        performance.repsOffPaceCount,
+    ).toBe(performance.repRows.length);
+    expect(performance.averageRepAttainmentRate).toBeGreaterThan(0);
+    expect(
+      performance.repRowsByAttainment[0]?.attainmentRate ?? 0,
+    ).toBeGreaterThanOrEqual(
+      performance.repRowsByAttainment.at(-1)?.attainmentRate ?? 0,
+    );
+    expect(
+      performance.teamRowsByForecastAttainment[0]?.forecastAttainmentRate ?? 0,
+    ).toBeGreaterThanOrEqual(
+      performance.teamRowsByForecastAttainment.at(-1)?.forecastAttainmentRate ??
+        0,
+    );
   });
 
   it('returns empty scoped data for contradictory filters', () => {

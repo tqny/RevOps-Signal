@@ -6,7 +6,7 @@ RevOps Signal
 
 ## Current Phase
 
-Step 4 complete: Executive Overview and Pipeline & Funnel are fully composed, shared data/filter foundations remain stable, and Sales Performance is next
+Step 5 complete: Executive Overview, Pipeline & Funnel, and Sales Performance are fully composed from shared selectors, and Forecast & Risks is next
 
 ## Active Role
 
@@ -14,10 +14,10 @@ Builder
 
 ## Current Branch
 
-`codex/task-8-pipeline-funnel`
+`main`
 
-Merge this branch into the latest `main`, then create a fresh task branch for the next page pass.
-Suggested next branch: `codex/task-9-sales-performance`
+Task 9 is merged into `main`.
+Suggested next branch: `codex/task-10-forecast-risks`
 
 ## Current MVP Scope
 
@@ -50,7 +50,7 @@ Pages:
 
 ## Current Task
 
-Task 8 is complete. Continue with the next page implementation task after merging this branch.
+Task 10 is next: implement the Forecast & Risks page on a fresh task branch.
 
 ## Recently Completed
 
@@ -67,15 +67,18 @@ Task 8 is complete. Continue with the next page implementation task after mergin
 - verified the overview implementation with lint, tests, build, local Vite boot, and browser screenshots of the rendered route
 - implemented the Pipeline & Funnel page with selector-backed funnel, conversion, leakage, and stalled-watchlist sections
 - verified the pipeline implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and a rendered Chromium screenshot of `/pipeline`
+- implemented the Sales Performance page with selector-backed attainment widgets, rep/team comparison charts, progress ladders, and a richer performance table
+- verified the sales performance implementation with `npm run test`, `npm run lint`, `npm run build`, local Vite boot, and rendered Chromium screenshots of `/performance`
 
 ## Exact Next Task
 
-Task 9: Implement Sales Performance page
+Task 10: Implement Forecast & Risks page
 
 ## Open Issues / Blockers
 
 - none currently
-- remaining page-specific chart treatment and final visual composition are still pending for Tasks 9-10
+- Forecast & Risks is still on the lighter interim presentation and remains the next page-specific composition pass
+- local Vite browser checks still log a missing `favicon.ico` request plus initial Recharts sizing warnings on `/performance`; visual render was intact, but this should be revisited during QA polish if the warnings persist outside dev
 
 ## Active Assumptions
 
@@ -84,7 +87,7 @@ Task 9: Implement Sales Performance page
 - four pages are sufficient for MVP
 - tables remain lightweight in MVP
 - timeframe filtering remains preset-based
-- Executive Overview and Pipeline & Funnel are now fully composed from shared selectors; Sales Performance and Forecast & Risks still use the lighter interim presentation
+- Executive Overview, Pipeline & Funnel, and Sales Performance are now fully composed from shared selectors; Forecast & Risks still uses the lighter interim presentation
 
 ## Required Read Order
 
